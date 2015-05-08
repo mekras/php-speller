@@ -11,7 +11,7 @@ namespace Mekras\Speller\Helper;
 /**
  * Map given list of language tags to supported ones
  *
- * @since x.xx
+ * @since 1.00
  */
 class LanguageMapper
 {
@@ -24,7 +24,7 @@ class LanguageMapper
      * @return string[]
      *
      * @link  http://tools.ietf.org/html/bcp47
-     * @since x.xx
+     * @since 1.00
      */
     public static function map(array $requested, array $supported)
     {
