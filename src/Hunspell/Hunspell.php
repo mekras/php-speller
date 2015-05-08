@@ -221,7 +221,7 @@ class Hunspell implements Speller
      *
      * @param LanguageMapper $mapper
      *
-     * @since x.xx
+     * @since 1.01
      */
     public function setLanguageMapper(LanguageMapper $mapper)
     {
