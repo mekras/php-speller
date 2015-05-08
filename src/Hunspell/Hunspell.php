@@ -18,7 +18,7 @@ use Symfony\Component\Process\Process;
 /**
  * Hunspell adapter
  *
- * @since x.xx
+ * @since 1.00
  */
 class Hunspell implements Speller
 {
@@ -62,7 +62,7 @@ class Hunspell implements Speller
      *
      * @param string $hunspellBinary command to run hunspell (default "hunspell")
      *
-     * @since x.xx
+     * @since 1.00
      */
     public function __construct($hunspellBinary = 'hunspell')
     {
@@ -82,7 +82,7 @@ class Hunspell implements Speller
      * @return Issue[]
      *
      * @link  http://tools.ietf.org/html/bcp47
-     * @since x.xx
+     * @since 1.00
      */
     public function checkText(Source $source, array $languages)
     {
@@ -141,7 +141,7 @@ class Hunspell implements Speller
      *
      * @throws RuntimeException if hunspell returns non zero exit code
      *
-     * @since x.xx
+     * @since 1.00
      */
     public function getSupportedLanguages()
     {
@@ -188,7 +188,7 @@ class Hunspell implements Speller
      * @param string $path path to dictionaries folder (e. g. "/some/path")
      *
      * @link  setCustomDictionaries()
-     * @since x.xx
+     * @since 1.00
      */
     public function setDictionaryPath($path)
     {
@@ -202,7 +202,7 @@ class Hunspell implements Speller
      * @param string[] $customDictionaries list of file names without extensions
      *
      * @link  setDictionaryPath()
-     * @since x.xx
+     * @since 1.00
      */
     public function setCustomDictionaries(array $customDictionaries)
     {
@@ -215,7 +215,7 @@ class Hunspell implements Speller
      * @param int|float|null $seconds timeout in seconds
      *
      * @see   Symfony\Component\Process\Process::setTimeout()
-     * @since x.xx
+     * @since 1.00
      */
     public function setTimeout($seconds)
     {

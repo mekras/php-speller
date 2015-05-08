@@ -11,7 +11,7 @@ namespace Mekras\Speller\Source;
 /**
  * String as a text source
  *
- * @since x.xx
+ * @since 1.00
  */
 class StringSource implements Source
 {
@@ -27,7 +27,7 @@ class StringSource implements Source
      *
      * @param string $text
      *
-     * @since x.xx
+     * @since 1.00
      */
     public function __construct($text)
     {
@@ -39,7 +39,7 @@ class StringSource implements Source
      *
      * @return string
      *
-     * @since x.xx
+     * @since 1.00
      */
     public function getAsString()
     {

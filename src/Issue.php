@@ -11,14 +11,14 @@ namespace Mekras\Speller;
 /**
  * Spelling issue
  *
- * @since x.xx
+ * @since 1.00
  */
 final class Issue
 {
     /**
      * Error code for: word not found in any dictionary
      *
-     * @since x.xx
+     * @since 1.00
      */
     const UNKNOWN_WORD = 'Unknown word';
 
@@ -27,7 +27,7 @@ final class Issue
      *
      * @var string
      *
-     * @since x.xx
+     * @since 1.00
      */
     public $word;
 
@@ -36,7 +36,7 @@ final class Issue
      *
      * @var string
      *
-     * @since x.xx
+     * @since 1.00
      */
     public $code;
 
@@ -45,7 +45,7 @@ final class Issue
      *
      * @var string[]
      *
-     * @since x.xx
+     * @since 1.00
      */
     public $suggestions = [];
 
@@ -53,7 +53,7 @@ final class Issue
      * Text line containing problem word
      *
      * @var int|null line number or null if not known
-     * @since x.xx
+     * @since 1.00
      */
     public $line = null;
 
@@ -61,7 +61,7 @@ final class Issue
      * Problem word offset in the {@link $line}
      *
      * @var int|null offset in characters or null if not known
-     * @since x.xx
+     * @since 1.00
      */
     public $offset = null;
 
@@ -71,7 +71,7 @@ final class Issue
      * @param string $word problem word
      * @param string $code error code (see class constants)
      *
-     * @since x.xx
+     * @since 1.00
      */
     public function __construct($word, $code = self::UNKNOWN_WORD)
     {
