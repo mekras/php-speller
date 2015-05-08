@@ -85,7 +85,7 @@ class LanguageMapper
      *
      * @param array $mappings
      *
-     * @since x.xx
+     * @since 1.01
      */
     public function setPreferredMappings(array $mappings)
     {
