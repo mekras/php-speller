@@ -1,0 +1,30 @@
+{
+    "name": "mekras/php-speller",
+    "description": "%Описание%",
+    "type": "library",
+    "keywords": ["spelling", "hunspell"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Михаил Красильников",
+            "email": "m.krasilnikov@yandex.ru"
+        }
+    ],
+    "autoload":
+    {
+        "psr-4":
+        {
+            "Mekras\\Speller\\": "src/"
+        }
+    },
+    "require":
+    {
+        "php": "~5.4",
+        "symfony/process": "~2.5"
+    },
+    "require-dev":
+    {
+        "ext-xdebug": "*",
+        "phpunit/phpunit": "~4.0,<4.6"
+    }
+}

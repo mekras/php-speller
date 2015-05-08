@@ -1,0 +1,59 @@
+<?php
+/**
+ * PHP Speller
+ *
+ * @copyright 2015, Михаил Красильников <m.krasilnikov@yandex.ru>
+ * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
+ * @license   http://opensource.org/licenses/MIT MIT
+ */
+namespace Mekras\Speller\Tests\Hunspell;
+
+use Mekras\Speller\Hunspell\Hunspell;
+use Mekras\Speller\Source\StringSource;
+use PHPUnit_Framework_TestCase as TestCase;
+
+/**
+ * Tests for Mekras\Speller\Hunspell\Hunspell
+ *
+ * @covers Mekras\Speller\Hunspell\Hunspell
+ */
+class HunspellTest extends TestCase
+{
+    /**
+     * Test retrieving list of supported languages
+     */
+    public function testGetSupportedLanguages()
+    {
+        $hunspell = new Hunspell('php ' . __DIR__ . '/fixtures/hunspell.php');
+        static::assertEquals(
+            ['de_BE', 'de_DE', 'de_LU', 'en-GB', 'en_AU', 'en_GB', 'en_US', 'en_ZA', 'ru_RU'],
+            $hunspell->getSupportedLanguages()
+        );
+    }
+
+    /**
+     * Test spell checking
+     */
+    public function testCheckText()
+    {
+        $hunspell = new Hunspell('php ' . __DIR__ . '/fixtures/hunspell.php');
+        $source = new StringSource('<will be ignored and loaded from fixtures/check.txt>');
+        $issues = $hunspell->checkText($source, ['en']);
+        static::assertCount(6, $issues);
+        static::assertEquals('Tigr', $issues[0]->word);
+        static::assertEquals(1, $issues[0]->line);
+        static::assertEquals(0, $issues[0]->offset);
+        static::assertEquals(
+            ['Tiger', 'Trig', 'Tier', 'Tigris', 'Tigress'],
+            $issues[0]->suggestions
+        );
+
+        static::assertEquals('страх', $issues[1]->word);
+        static::assertEquals(1, $issues[1]->line);
+        static::assertEquals(21, $issues[1]->offset);
+        static::assertCount(0, $issues[1]->suggestions);
+
+        static::assertEquals('CCould', $issues[5]->word);
+        static::assertEquals(4, $issues[5]->line);
+    }
+}
