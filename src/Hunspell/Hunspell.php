@@ -232,6 +232,22 @@ class Hunspell implements Speller
      */
     private function createProcess($args = null, array $env = [])
     {
+        $command = $this->composeCommand($args, $env);
+        $process = new Process($command);
+        $process->setTimeout($this->timeout);
+        return $process;
+    }
+
+    /**
+     * Compose shell command line
+     *
+     * @param string|string[]|null $args hunspell arguments
+     * @param array                $env  environment variables
+     *
+     * @return string
+     */
+    private function composeCommand($args, array $env = [])
+    {
         $command = $this->binary;
         if ($this->customDictPath) {
             $env['DICPATH'] = $this->customDictPath;
@@ -242,14 +258,9 @@ class Hunspell implements Speller
             }
         }
         if (is_array($args)) {
-            $args = array_map('escapeshellarg', $args);
             $args = implode(' ', $args);
-        } else {
-            $args = escapeshellarg($args);
         }
         $command .= ' ' . $args;
-        $process = new Process($command);
-        $process->setTimeout($this->timeout);
-        return $process;
+        return $command;
     }
 }

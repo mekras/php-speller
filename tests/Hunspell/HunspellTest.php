@@ -11,6 +11,7 @@ namespace Mekras\Speller\Tests\Hunspell;
 use Mekras\Speller\Hunspell\Hunspell;
 use Mekras\Speller\Source\StringSource;
 use PHPUnit_Framework_TestCase as TestCase;
+use ReflectionMethod;
 
 /**
  * Tests for Mekras\Speller\Hunspell\Hunspell
@@ -19,6 +20,17 @@ use PHPUnit_Framework_TestCase as TestCase;
  */
 class HunspellTest extends TestCase
 {
+    /**
+     * Test hunspell argument escaping
+     */
+    public function testArgumentEscaping()
+    {
+        $hunspell = new Hunspell();
+        $method = new ReflectionMethod(get_class($hunspell), 'composeCommand');
+        $method->setAccessible(true);
+        static::assertEquals('hunspell -d foo,bar', $method->invoke($hunspell, ['-d foo,bar']));
+    }
+
     /**
      * Test retrieving list of supported languages
      */
