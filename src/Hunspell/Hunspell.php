@@ -98,7 +98,8 @@ class Hunspell implements Speller
 
         $process = $this->createProcess(
             [
-                '-a',
+                '-i UTF-8', // Input encoding
+                '-a', // Machine readable output
                 '-d ' . implode(',', $dictionaries)
             ]
         );
