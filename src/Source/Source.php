@@ -11,7 +11,7 @@ namespace Mekras\Speller\Source;
 /**
  * Text source interface
  *
- * @since x.xx
+ * @since 1.00
  */
 interface Source
 {
@@ -20,7 +20,7 @@ interface Source
      *
      * @return string
      *
-     * @since x.xx
+     * @since 1.00
      */
     public function getAsString();
 }
