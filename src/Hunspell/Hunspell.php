@@ -58,6 +58,13 @@ class Hunspell implements Speller
     private $supportedLanguages = null;
 
     /**
+     * Language mapper
+     *
+     * @var LanguageMapper|null
+     */
+    private $lanuageMapper = null;
+
+    /**
      * Create new hunspell adapter
      *
      * @param string $hunspellBinary command to run hunspell (default "hunspell")
@@ -86,7 +93,7 @@ class Hunspell implements Speller
      */
     public function checkText(Source $source, array $languages)
     {
-        $dictionaries = LanguageMapper::map($languages, $this->getSupportedLanguages());
+        $dictionaries = $this->getLanguageMapper()->map($languages, $this->getSupportedLanguages());
         $dictionaries = array_merge($dictionaries, $this->customDictionaries);
 
         $process = $this->createProcess(
@@ -210,6 +217,18 @@ class Hunspell implements Speller
     }
 
     /**
+     * Set language mapper
+     *
+     * @param LanguageMapper $mapper
+     *
+     * @since 1.01
+     */
+    public function setLanguageMapper(LanguageMapper $mapper)
+    {
+        $this->lanuageMapper = $mapper;
+    }
+
+    /**
      * Set hunspell execution timeout
      *
      * @param int|float|null $seconds timeout in seconds
@@ -232,6 +251,22 @@ class Hunspell implements Speller
      */
     private function createProcess($args = null, array $env = [])
     {
+        $command = $this->composeCommand($args, $env);
+        $process = new Process($command);
+        $process->setTimeout($this->timeout);
+        return $process;
+    }
+
+    /**
+     * Compose shell command line
+     *
+     * @param string|string[]|null $args hunspell arguments
+     * @param array                $env  environment variables
+     *
+     * @return string
+     */
+    private function composeCommand($args, array $env = [])
+    {
         $command = $this->binary;
         if ($this->customDictPath) {
             $env['DICPATH'] = $this->customDictPath;
@@ -242,14 +277,22 @@ class Hunspell implements Speller
             }
         }
         if (is_array($args)) {
-            $args = array_map('escapeshellarg', $args);
             $args = implode(' ', $args);
-        } else {
-            $args = escapeshellarg($args);
         }
         $command .= ' ' . $args;
-        $process = new Process($command);
-        $process->setTimeout($this->timeout);
-        return $process;
+        return $command;
+    }
+
+    /**
+     * Return language mapper
+     *
+     * @return LanguageMapper
+     */
+    private function getLanguageMapper()
+    {
+        if (null === $this->lanuageMapper) {
+            $this->lanuageMapper = new LanguageMapper();
+        }
+        return $this->lanuageMapper;
     }
 }

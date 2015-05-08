@@ -18,12 +18,30 @@ use PHPUnit_Framework_TestCase as TestCase;
  */
 class LanguageMapperTest extends TestCase
 {
+    /**
+     * Test basic mapping
+     */
     public function testBasics()
     {
-        $result = LanguageMapper::map(
+        $mapper = new LanguageMapper();
+        $result = $mapper->map(
             ['de', 'en', 'ru'],
             ['de_DE', 'en_GB.UTF-8', 'en_US', 'ru_RU', 'ru']
         );
         static::assertEquals(['de_DE', 'en_GB.UTF-8', 'ru'], $result);
+    }
+
+    /**
+     * Test preferred mapping
+     */
+    public function testPreferred()
+    {
+        $mapper = new LanguageMapper();
+        $mapper->setPreferredMappings(['en' => ['en_US', 'en_GB']]);
+        $result = $mapper->map(
+            ['de', 'en', 'ru'],
+            ['de_DE', 'en_GB.UTF-8', 'en_US', 'ru_RU', 'ru']
+        );
+        static::assertEquals(['de_DE', 'en_US', 'ru'], $result);
     }
 }
