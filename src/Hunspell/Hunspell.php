@@ -58,6 +58,13 @@ class Hunspell implements Speller
     private $supportedLanguages = null;
 
     /**
+     * Language mapper
+     *
+     * @var LanguageMapper|null
+     */
+    private $lanuageMapper = null;
+
+    /**
      * Create new hunspell adapter
      *
      * @param string $hunspellBinary command to run hunspell (default "hunspell")
@@ -86,7 +93,7 @@ class Hunspell implements Speller
      */
     public function checkText(Source $source, array $languages)
     {
-        $dictionaries = LanguageMapper::map($languages, $this->getSupportedLanguages());
+        $dictionaries = $this->getLanguageMapper()->map($languages, $this->getSupportedLanguages());
         $dictionaries = array_merge($dictionaries, $this->customDictionaries);
 
         $process = $this->createProcess(
@@ -210,6 +217,18 @@ class Hunspell implements Speller
     }
 
     /**
+     * Set language mapper
+     *
+     * @param LanguageMapper $mapper
+     *
+     * @since x.xx
+     */
+    public function setLanguageMapper(LanguageMapper $mapper)
+    {
+        $this->lanuageMapper = $mapper;
+    }
+
+    /**
      * Set hunspell execution timeout
      *
      * @param int|float|null $seconds timeout in seconds
@@ -262,5 +281,18 @@ class Hunspell implements Speller
         }
         $command .= ' ' . $args;
         return $command;
+    }
+
+    /**
+     * Return language mapper
+     *
+     * @return LanguageMapper
+     */
+    private function getLanguageMapper()
+    {
+        if (null === $this->lanuageMapper) {
+            $this->lanuageMapper = new LanguageMapper();
+        }
+        return $this->lanuageMapper;
     }
 }

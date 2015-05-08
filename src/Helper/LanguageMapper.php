@@ -11,10 +11,21 @@ namespace Mekras\Speller\Helper;
 /**
  * Map given list of language tags to supported ones
  *
+ * For example some speller supports de_DE, en_US and ru_RU languages. But your application uses
+ * short versions of language tags: de, en, ru. LanguageMapper maps your list of language tags
+ * to supported by speller.
+ *
  * @since 1.00
  */
 class LanguageMapper
 {
+    /**
+     * Preferred mappings
+     *
+     * @var array
+     */
+    private $preferred = [];
+
     /**
      * Map given list of language tags to supported ones
      *
@@ -26,7 +37,7 @@ class LanguageMapper
      * @link  http://tools.ietf.org/html/bcp47
      * @since 1.00
      */
-    public static function map(array $requested, array $supported)
+    public function map(array $requested, array $supported)
     {
         $index = [];
         foreach ($supported as $tag) {
@@ -36,6 +47,17 @@ class LanguageMapper
 
         $result = [];
         foreach ($requested as $source) {
+
+            if (array_key_exists($source, $this->preferred)) {
+                $preferred = $this->preferred[$source];
+                foreach ($preferred as $tag) {
+                    if (in_array($tag, $supported, true)) {
+                        $result []= $tag;
+                        continue 2;
+                    }
+                }
+            }
+
             if (in_array($source, $supported, true)) {
                 $result []= $source;
                 continue;
@@ -50,5 +72,28 @@ class LanguageMapper
             }
         }
         return $result;
+    }
+
+    /**
+     * Set preferred mappings
+     *
+     * Examples:
+     *
+     * ```
+     * $mapper->setPreferredMappings(['en' => ['en_US', 'en_GB']]);
+     * ```
+     *
+     * @param array $mappings
+     *
+     * @since x.xx
+     */
+    public function setPreferredMappings(array $mappings)
+    {
+        foreach ($mappings as $language => $map) {
+            if (!is_array($map)) {
+                $map = [$map];
+            }
+            $this->preferred[$language] = $map;
+        }
     }
 }
