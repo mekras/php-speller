@@ -1,6 +1,6 @@
 {
     "name": "mekras/php-speller",
-    "description": "%Описание%",
+    "description": "PHP spell check library",
     "type": "library",
     "keywords": ["spelling", "hunspell"],
     "license": "MIT",
