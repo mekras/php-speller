@@ -7,7 +7,7 @@ if ($argc > 1 && '-D' === $argv[1]) {
     exit(0);
 }
 
-if ($argc > 1 && '-a' === $argv[1]) {
+if (in_array('-a', $argv, true)) {
     fwrite(STDOUT, file_get_contents(__DIR__ . '/check.txt'));
     exit(0);
 }
