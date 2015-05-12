@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="">
+        <body>
+
+            <trans-unit id="foo"><source
+                >foo</source><target
+                >Foo</target></trans-unit>
+
+            <trans-unit id="bar">
+                <source>bar</source>
+                <target>
+                    Bar
+                    Bar
+                    {{ var }}
+                </target>
+            </trans-unit>
+
+            <!--
+             Bla bla bla
+             -->
+
+            <trans-unit id="baz">
+                <source>baz</source>
+                <target>
+                    <![CDATA[
+                        <a
+                            href="%link%">Baz</a>
+                    ]]>
+                </target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>
