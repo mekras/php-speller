@@ -11,7 +11,7 @@ namespace Mekras\Speller\Source;
 /**
  * File as text source
  *
- * @since x.xx
+ * @since 1.02
  */
 class FileSource implements Source
 {
@@ -19,7 +19,7 @@ class FileSource implements Source
      * File name
      *
      * @var string
-     * @since x.xx
+     * @since 1.02
      */
     protected $filename;
 
@@ -28,7 +28,7 @@ class FileSource implements Source
      *
      * @param string $filename
      *
-     * @since x.xx
+     * @since 1.02
      */
     public function __construct($filename)
     {
@@ -40,7 +40,7 @@ class FileSource implements Source
      *
      * @return string
      *
-     * @since x.xx
+     * @since 1.02
      */
     public function getAsString()
     {
@@ -54,7 +54,7 @@ class FileSource implements Source
      *
      * @return string
      *
-     * @since x.xx
+     * @since 1.02
      */
     public function getFilename()
     {

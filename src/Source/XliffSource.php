@@ -15,7 +15,7 @@ use Mekras\Speller\Source\Filter\StripAllFilter;
  * XLIFF translations as text source
  *
  * @link http://docs.oasis-open.org/xliff/xliff-core/v2.0/xliff-core-v2.0.html
- * @since x.xx
+ * @since 1.02
  */
 class XliffSource extends FileSource
 {
@@ -38,7 +38,7 @@ class XliffSource extends FileSource
      * @param string $pattern PCRE pattern. It is recommended to use "ums" PCRE modifiers.
      * @param Filter $filter filter to be applied
      *
-     * @since x.xx
+     * @since 1.02
      */
     public function addFilter($pattern, Filter $filter = null)
     {
@@ -50,7 +50,7 @@ class XliffSource extends FileSource
      *
      * @return string
      *
-     * @since x.xx
+     * @since 1.02
      */
     public function getAsString()
     {
