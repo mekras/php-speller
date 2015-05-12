@@ -13,7 +13,7 @@ namespace Mekras\Speller\Source\Filter;
  *
  * Filters are used to filter out text, which does not require checking
  *
- * @since x.xx
+ * @since 1.02
  */
 interface Filter
 {
@@ -24,7 +24,7 @@ interface Filter
      *
      * @return string filtered string
      *
-     * @since x.xx
+     * @since 1.02
      */
     public function filter($string);
 }

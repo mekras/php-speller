@@ -13,7 +13,7 @@ namespace Mekras\Speller\Source\Filter;
  *
  * All characters except new lines (\n), tabs (\t) and spaces will be replaces with spaces.
  *
- * @since x.xx
+ * @since 1.02
  */
 class StripAllFilter implements Filter
 {
@@ -24,7 +24,7 @@ class StripAllFilter implements Filter
      *
      * @return string filtered string
      *
-     * @since x.xx
+     * @since 1.02
      */
     public function filter($string)
     {
