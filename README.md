@@ -15,7 +15,7 @@ Currently supported backends:
 
 With [Composer](http://getcomposer.org/):
 
-    $ composer require mekras/php-speller:dev-master
+    $ composer require mekras/php-speller:~1.00
 
 ## Usage
 
