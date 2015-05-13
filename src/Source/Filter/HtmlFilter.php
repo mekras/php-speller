@@ -35,6 +35,8 @@ class HtmlFilter implements Filter
     {
         $result = '';
 
+        $string = $this->filterEntities($string);
+
         // Current/last tag name
         $tagName = null;
         // Current/last attribute name
@@ -116,7 +118,7 @@ class HtmlFilter implements Filter
                         case 'tag_attrs':
                             $context = 'attr_name';
                             $attrName = null;
-                            // no break needed
+                        // no break needed
                         case 'attr_name':
                             $attrName .= $ch;
                             $ch = ' ';
@@ -131,5 +133,23 @@ class HtmlFilter implements Filter
         }
 
         return $result;
+    }
+
+    /**
+     * Replace HTML entities
+     *
+     * @param string $string
+     *
+     * @return string
+     */
+    private function filterEntities($string)
+    {
+        return preg_replace_callback(
+            '/&\w+;/',
+            function ($match) {
+                return str_repeat(' ', strlen($match[0]));
+            },
+            $string
+        );
     }
 }
