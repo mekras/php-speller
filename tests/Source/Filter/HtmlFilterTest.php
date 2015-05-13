@@ -24,8 +24,8 @@ class HtmlFilterTest extends TestCase
     public function testBasics()
     {
         $filter = new HtmlFilter();
-        $html = "<br>foo <a\nhref = '#' title='bar'>\nbaz</a>";
-        $text = "    foo   \n                  bar  \nbaz    ";
+        $html = "<br>foo&reg; <a\nhref = '#' title='bar'>\nbaz</a>";
+        $text = "    foo        \n                  bar  \nbaz    ";
         static::assertEquals($text, $filter->filter($html));
     }
 }
