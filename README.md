@@ -64,3 +64,25 @@ $speller = new Hunspell();
 $speller->setDictionaryPath('/my_app/spelling');
 $speller->setCustomDictionaries(['tech', 'titles']);
 ```
+
+## Sources
+
+Sources — is an abstraction layer allowing spellers receive text from different sources like strings
+or files.
+
+Supported sources:
+
+* [StringSource](src/Source/StringSource.php) — simple PHP string;
+* [FileSource](src/Source/FileSource.php) — generic file source;
+* [XliffSource](src/Source/XliffSource.php) —
+  [XLIFF](http://docs.oasis-open.org/xliff/xliff-core/v2.0/xliff-core-v2.0.html) files.
+
+## Filters
+
+Filters used internally to filter out all non text contents received from source. In order to save
+original word location (line and column numbers) all filters replaces non text content with spaces.
+
+Available filters:
+
+* [StripAllFilter](src/Source/Filter/StripAllFilter.php) — strips all input text;
+* [HtmlFilter](src/Source/Filter/HtmlFilter.php) — strips HTML tags.
