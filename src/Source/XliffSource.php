@@ -9,6 +9,7 @@
 namespace Mekras\Speller\Source;
 
 use Mekras\Speller\Source\Filter\Filter;
+use Mekras\Speller\Source\Filter\HtmlFilter;
 use Mekras\Speller\Source\Filter\StripAllFilter;
 
 /**
@@ -57,20 +58,14 @@ class XliffSource extends FileSource
         $text = parent::getAsString();
 
         $stripAll = new StripAllFilter();
+        $htmlFilter = new HtmlFilter();
 
         /* Removing CDATA tags */
         $text = preg_replace_callback(
             '#<!\[CDATA\[(.*?)\]\]>#ums',
-            function ($match) use ($stripAll) {
-                $string = $match[1];
-                $string = preg_replace_callback(
-                    '#(<[^>]+>)([^<]*)(</[^>]+>)#',
-                    function ($match) use ($stripAll) {
-                        return $stripAll->filter($match[1]) . $match[2]
-                        . $stripAll->filter($match[3]);
-                    },
-                    $string
-                );
+            function ($match) use ($htmlFilter) {
+                $string = $htmlFilter->filter($match[1]);
+                //      <![CDATA[               ]]
                 return '         ' . $string . '  ';
             },
             $text
