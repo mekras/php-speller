@@ -3,15 +3,15 @@
  * PHP Speller
  *
  * @copyright 2015, Михаил Красильников <m.krasilnikov@yandex.ru>
- * @author Михаил Красильников <m.krasilnikov@yandex.ru>
- * @license http://opensource.org/licenses/MIT MIT
+ * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
+ * @license   http://opensource.org/licenses/MIT MIT
  */
 namespace Mekras\Speller\Source;
 
 /**
  * File as text source
  *
- * @since 1.02
+ * @since 1.2
  */
 class FileSource implements Source
 {
@@ -19,7 +19,7 @@ class FileSource implements Source
      * File name
      *
      * @var string
-     * @since 1.02
+     * @since 1.2
      */
     protected $filename;
 
@@ -28,7 +28,7 @@ class FileSource implements Source
      *
      * @param string $filename
      *
-     * @since 1.02
+     * @since 1.2
      */
     public function __construct($filename)
     {
@@ -40,7 +40,7 @@ class FileSource implements Source
      *
      * @return string
      *
-     * @since 1.02
+     * @since 1.2
      */
     public function getAsString()
     {
@@ -54,7 +54,7 @@ class FileSource implements Source
      *
      * @return string
      *
-     * @since 1.02
+     * @since 1.2
      */
     public function getFilename()
     {

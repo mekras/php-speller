@@ -3,8 +3,8 @@
  * PHP Speller
  *
  * @copyright 2015, Михаил Красильников <m.krasilnikov@yandex.ru>
- * @author Михаил Красильников <m.krasilnikov@yandex.ru>
- * @license http://opensource.org/licenses/MIT MIT
+ * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
+ * @license   http://opensource.org/licenses/MIT MIT
  */
 namespace Mekras\Speller\Source;
 
@@ -15,8 +15,8 @@ use Mekras\Speller\Source\Filter\StripAllFilter;
 /**
  * XLIFF translations as text source
  *
- * @link http://docs.oasis-open.org/xliff/xliff-core/v2.0/xliff-core-v2.0.html
- * @since 1.02
+ * @link  http://docs.oasis-open.org/xliff/xliff-core/v2.0/xliff-core-v2.0.html
+ * @since 1.2
  */
 class XliffSource extends FileSource
 {
@@ -37,9 +37,9 @@ class XliffSource extends FileSource
      * {@link Mekras\Speller\Source\Filter\StripAllFilter} if $filter is null.
      *
      * @param string $pattern PCRE pattern. It is recommended to use "ums" PCRE modifiers.
-     * @param Filter $filter filter to be applied
+     * @param Filter $filter  filter to be applied
      *
-     * @since 1.02
+     * @since 1.2
      */
     public function addFilter($pattern, Filter $filter = null)
     {
@@ -51,7 +51,7 @@ class XliffSource extends FileSource
      *
      * @return string
      *
-     * @since 1.02
+     * @since 1.2
      */
     public function getAsString()
     {
@@ -65,6 +65,7 @@ class XliffSource extends FileSource
             '#<!\[CDATA\[(.*?)\]\]>#ums',
             function ($match) use ($htmlFilter) {
                 $string = $htmlFilter->filter($match[1]);
+
                 //      <![CDATA[               ]]
                 return '         ' . $string . '  ';
             },
@@ -81,6 +82,7 @@ class XliffSource extends FileSource
                 } else {
                     $replace = $stripAll->filter($match[0]);
                 }
+
                 return $replace;
             },
             $text

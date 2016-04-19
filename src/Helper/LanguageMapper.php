@@ -15,7 +15,7 @@ namespace Mekras\Speller\Helper;
  * short versions of language tags: de, en, ru. LanguageMapper maps your list of language tags
  * to supported by speller.
  *
- * @since 1.00
+ * @since 1.0
  */
 class LanguageMapper
 {
@@ -35,7 +35,7 @@ class LanguageMapper
      * @return string[]
      *
      * @link  http://tools.ietf.org/html/bcp47
-     * @since 1.00
+     * @since 1.0
      */
     public function map(array $requested, array $supported)
     {
@@ -52,25 +52,26 @@ class LanguageMapper
                 $preferred = $this->preferred[$source];
                 foreach ($preferred as $tag) {
                     if (in_array($tag, $supported, true)) {
-                        $result []= $tag;
+                        $result [] = $tag;
                         continue 2;
                     }
                 }
             }
 
             if (in_array($source, $supported, true)) {
-                $result []= $source;
+                $result [] = $source;
                 continue;
             }
 
             $tag = strtolower(preg_replace('/_-\./', '', $source));
             foreach ($index as $key => $target) {
                 if (substr($key, 0, strlen($tag)) == $tag) {
-                    $result []= $target;
+                    $result [] = $target;
                     break;
                 }
             }
         }
+
         return $result;
     }
 
@@ -85,7 +86,7 @@ class LanguageMapper
      *
      * @param array $mappings
      *
-     * @since 1.01
+     * @since 1.1
      */
     public function setPreferredMappings(array $mappings)
     {

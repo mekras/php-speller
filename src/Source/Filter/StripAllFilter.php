@@ -3,8 +3,8 @@
  * PHP Speller
  *
  * @copyright 2015, Михаил Красильников <m.krasilnikov@yandex.ru>
- * @author Михаил Красильников <m.krasilnikov@yandex.ru>
- * @license http://opensource.org/licenses/MIT MIT
+ * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
+ * @license   http://opensource.org/licenses/MIT MIT
  */
 namespace Mekras\Speller\Source\Filter;
 
@@ -13,7 +13,7 @@ namespace Mekras\Speller\Source\Filter;
  *
  * All characters except new lines (\n), tabs (\t) and spaces will be replaces with spaces.
  *
- * @since 1.02
+ * @since 1.2
  */
 class StripAllFilter implements Filter
 {
@@ -24,7 +24,7 @@ class StripAllFilter implements Filter
      *
      * @return string filtered string
      *
-     * @since 1.02
+     * @since 1.2
      */
     public function filter($string)
     {

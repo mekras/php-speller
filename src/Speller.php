@@ -13,7 +13,7 @@ use Mekras\Speller\Source\Source;
 /**
  * Speller interface
  *
- * @since 1.00
+ * @since 1.0
  */
 interface Speller
 {
@@ -28,7 +28,7 @@ interface Speller
      * @return Issue[]
      *
      * @link  http://tools.ietf.org/html/bcp47
-     * @since 1.00
+     * @since 1.0
      */
     public function checkText(Source $source, array $languages);
 
@@ -37,7 +37,7 @@ interface Speller
      *
      * @return string[]
      *
-     * @since 1.00
+     * @since 1.0
      */
     public function getSupportedLanguages();
 }

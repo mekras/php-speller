@@ -3,15 +3,15 @@
  * PHP Speller
  *
  * @copyright 2015, Михаил Красильников <m.krasilnikov@yandex.ru>
- * @author Михаил Красильников <m.krasilnikov@yandex.ru>
- * @license http://opensource.org/licenses/MIT MIT
+ * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
+ * @license   http://opensource.org/licenses/MIT MIT
  */
 namespace Mekras\Speller\Source;
 
 /**
  * String as a text source
  *
- * @since 1.00
+ * @since 1.0
  */
 class StringSource implements Source
 {
@@ -27,7 +27,7 @@ class StringSource implements Source
      *
      * @param string $text
      *
-     * @since 1.00
+     * @since 1.0
      */
     public function __construct($text)
     {
@@ -39,7 +39,7 @@ class StringSource implements Source
      *
      * @return string
      *
-     * @since 1.00
+     * @since 1.0
      */
     public function getAsString()
     {

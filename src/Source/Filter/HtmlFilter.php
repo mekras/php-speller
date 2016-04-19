@@ -11,7 +11,7 @@ namespace Mekras\Speller\Source\Filter;
 /**
  * Filter replaces HTML tags with spaces
  *
- * @since 1.03
+ * @since 1.3
  */
 class HtmlFilter implements Filter
 {
@@ -29,7 +29,7 @@ class HtmlFilter implements Filter
      *
      * @return string filtered string
      *
-     * @since 1.03
+     * @since 1.3
      */
     public function filter($string)
     {

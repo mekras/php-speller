@@ -3,22 +3,22 @@
  * PHP Speller
  *
  * @copyright 2015, Михаил Красильников <m.krasilnikov@yandex.ru>
- * @author Михаил Красильников <m.krasilnikov@yandex.ru>
- * @license http://opensource.org/licenses/MIT MIT
+ * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
+ * @license   http://opensource.org/licenses/MIT MIT
  */
 namespace Mekras\Speller;
 
 /**
  * Spelling issue
  *
- * @since 1.00
+ * @since 1.0
  */
 final class Issue
 {
     /**
      * Error code for: word not found in any dictionary
      *
-     * @since 1.00
+     * @since 1.0
      */
     const UNKNOWN_WORD = 'Unknown word';
 
@@ -27,7 +27,7 @@ final class Issue
      *
      * @var string
      *
-     * @since 1.00
+     * @since 1.0
      */
     public $word;
 
@@ -36,7 +36,7 @@ final class Issue
      *
      * @var string
      *
-     * @since 1.00
+     * @since 1.0
      */
     public $code;
 
@@ -45,7 +45,7 @@ final class Issue
      *
      * @var string[]
      *
-     * @since 1.00
+     * @since 1.0
      */
     public $suggestions = [];
 
@@ -53,7 +53,7 @@ final class Issue
      * Text line containing problem word
      *
      * @var int|null line number or null if not known
-     * @since 1.00
+     * @since 1.0
      */
     public $line = null;
 
@@ -61,7 +61,7 @@ final class Issue
      * Problem word offset in the {@link $line}
      *
      * @var int|null offset in characters or null if not known
-     * @since 1.00
+     * @since 1.0
      */
     public $offset = null;
 
@@ -71,7 +71,7 @@ final class Issue
      * @param string $word problem word
      * @param string $code error code (see class constants)
      *
-     * @since 1.00
+     * @since 1.0
      */
     public function __construct($word, $code = self::UNKNOWN_WORD)
     {

@@ -18,7 +18,7 @@ use Symfony\Component\Process\Process;
 /**
  * Hunspell adapter
  *
- * @since 1.00
+ * @since 1.0
  */
 class Hunspell implements Speller
 {
@@ -69,7 +69,7 @@ class Hunspell implements Speller
      *
      * @param string $hunspellBinary command to run hunspell (default "hunspell")
      *
-     * @since 1.00
+     * @since 1.0
      */
     public function __construct($hunspellBinary = 'hunspell')
     {
@@ -89,7 +89,7 @@ class Hunspell implements Speller
      * @return Issue[]
      *
      * @link  http://tools.ietf.org/html/bcp47
-     * @since 1.00
+     * @since 1.0
      */
     public function checkText(Source $source, array $languages)
     {
@@ -139,6 +139,7 @@ class Hunspell implements Speller
                 }
             }
         }
+
         return $issues;
     }
 
@@ -149,7 +150,7 @@ class Hunspell implements Speller
      *
      * @throws RuntimeException if hunspell returns non zero exit code
      *
-     * @since 1.00
+     * @since 1.0
      */
     public function getSupportedLanguages()
     {
@@ -185,6 +186,7 @@ class Hunspell implements Speller
             sort($languages);
             $this->supportedLanguages = $languages;
         }
+
         return $this->supportedLanguages;
     }
 
@@ -196,7 +198,7 @@ class Hunspell implements Speller
      * @param string $path path to dictionaries folder (e. g. "/some/path")
      *
      * @link  setCustomDictionaries()
-     * @since 1.00
+     * @since 1.0
      */
     public function setDictionaryPath($path)
     {
@@ -210,7 +212,7 @@ class Hunspell implements Speller
      * @param string[] $customDictionaries list of file names without extensions
      *
      * @link  setDictionaryPath()
-     * @since 1.00
+     * @since 1.0
      */
     public function setCustomDictionaries(array $customDictionaries)
     {
@@ -222,7 +224,7 @@ class Hunspell implements Speller
      *
      * @param LanguageMapper $mapper
      *
-     * @since 1.01
+     * @since 1.1
      */
     public function setLanguageMapper(LanguageMapper $mapper)
     {
@@ -235,7 +237,7 @@ class Hunspell implements Speller
      * @param int|float|null $seconds timeout in seconds
      *
      * @see   Symfony\Component\Process\Process::setTimeout()
-     * @since 1.00
+     * @since 1.0
      */
     public function setTimeout($seconds)
     {
@@ -255,6 +257,7 @@ class Hunspell implements Speller
         $command = $this->composeCommand($args, $env);
         $process = new Process($command);
         $process->setTimeout($this->timeout);
+
         return $process;
     }
 
@@ -281,6 +284,7 @@ class Hunspell implements Speller
             $args = implode(' ', $args);
         }
         $command .= ' ' . $args;
+
         return $command;
     }
 
@@ -294,6 +298,7 @@ class Hunspell implements Speller
         if (null === $this->lanuageMapper) {
             $this->lanuageMapper = new LanguageMapper();
         }
+
         return $this->lanuageMapper;
     }
 }

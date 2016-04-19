@@ -3,8 +3,8 @@
  * PHP Speller
  *
  * @copyright 2015, Михаил Красильников <m.krasilnikov@yandex.ru>
- * @author Михаил Красильников <m.krasilnikov@yandex.ru>
- * @license http://opensource.org/licenses/MIT MIT
+ * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
+ * @license   http://opensource.org/licenses/MIT MIT
  */
 namespace Mekras\Speller\Source\Filter;
 
@@ -13,7 +13,7 @@ namespace Mekras\Speller\Source\Filter;
  *
  * Filters are used to filter out text, which does not require checking
  *
- * @since 1.02
+ * @since 1.2
  */
 interface Filter
 {
@@ -24,7 +24,7 @@ interface Filter
      *
      * @return string filtered string
      *
-     * @since 1.02
+     * @since 1.2
      */
     public function filter($string);
 }
