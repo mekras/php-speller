@@ -74,7 +74,7 @@ class XliffSource extends FileSource
 
         /* Processing bottom level tags */
         $text = preg_replace_callback(
-            '#(<(\w+)(\s[^>]*?)?>)([^<>]*)(</\w+\s*>)#ums',
+            '#(<(\w+)(\s[^>]*?)?>)([^<>]*)(</\w+\s*>)#um',
             function ($match) use ($stripAll) {
                 if (strtolower($match[2]) === 'target') {
                     $replace = $stripAll->filter($match[1]) . $match[4]
