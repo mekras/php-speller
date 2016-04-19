@@ -62,7 +62,7 @@ class Hunspell implements Speller
      *
      * @var LanguageMapper|null
      */
-    private $lanuageMapper = null;
+    private $languageMapper = null;
 
     /**
      * Create new hunspell adapter
@@ -228,7 +228,7 @@ class Hunspell implements Speller
      */
     public function setLanguageMapper(LanguageMapper $mapper)
     {
-        $this->lanuageMapper = $mapper;
+        $this->languageMapper = $mapper;
     }
 
     /**
@@ -295,10 +295,10 @@ class Hunspell implements Speller
      */
     private function getLanguageMapper()
     {
-        if (null === $this->lanuageMapper) {
-            $this->lanuageMapper = new LanguageMapper();
+        if (null === $this->languageMapper) {
+            $this->languageMapper = new LanguageMapper();
         }
 
-        return $this->lanuageMapper;
+        return $this->languageMapper;
     }
 }
