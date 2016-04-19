@@ -2,7 +2,10 @@
     "name": "mekras/php-speller",
     "description": "PHP spell check library",
     "type": "library",
-    "keywords": ["spelling", "hunspell"],
+    "keywords": [
+        "spelling",
+        "hunspell"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -10,22 +13,17 @@
             "email": "m.krasilnikov@yandex.ru"
         }
     ],
-    "autoload":
-    {
-        "psr-4":
-        {
-            "Mekras\\Speller\\": "src/"
-        }
-    },
-    "require":
-    {
+    "require": {
         "php": "~5.4",
         "symfony/process": "~2.5"
     },
-    "require-dev":
-    {
-        "ext-xdebug": "*",
-        "phpunit/phpunit": "~4.0,<4.6",
-        "satooshi/php-coveralls": "dev-master"
+    "require-dev": {
+        "phpunit/phpunit": "4.5",
+        "satooshi/php-coveralls": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mekras\\Speller\\": "src/"
+        }
     }
 }
