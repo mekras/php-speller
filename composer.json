@@ -18,12 +18,17 @@
         "symfony/process": "~2.5"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.5",
+        "phpunit/phpunit": "^4.8.24",
         "satooshi/php-coveralls": "^1.0"
     },
     "autoload": {
         "psr-4": {
-            "Mekras\\Speller\\": "src/"
+            "Mekras\\Speller\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mekras\\Speller\\Tests\\": "tests"
         }
     }
 }
