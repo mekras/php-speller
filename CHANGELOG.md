@@ -9,6 +9,7 @@
 ### Added
 
 - PHP 7 support.
+- Symfony 3.x support.
 
 
 ## 1.3.1
