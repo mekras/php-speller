@@ -12,7 +12,9 @@ use Mekras\Speller\Helper\LanguageMapper;
 use Mekras\Speller\Issue;
 use Mekras\Speller\Source\Source;
 use Mekras\Speller\Speller;
-use RuntimeException;
+use Symfony\Component\Process\Exception\InvalidArgumentException;
+use Symfony\Component\Process\Exception\LogicException;
+use Symfony\Component\Process\Exception\RuntimeException;
 use Symfony\Component\Process\Process;
 
 /**
@@ -84,7 +86,10 @@ class Hunspell implements Speller
      * @param Source $source    text source to check
      * @param array  $languages list of languages used in text (IETF language tag)
      *
-     * @throws RuntimeException if hunspell returns non zero exit code
+     * @throws \RuntimeException if hunspell returns non zero exit code
+     * @throws InvalidArgumentException
+     * @throws LogicException
+     * @throws RuntimeException
      *
      * @return Issue[]
      *
@@ -107,7 +112,7 @@ class Hunspell implements Speller
         $process->setInput($source->getAsString());
         $process->run();
         if (!$process->isSuccessful()) {
-            throw new RuntimeException(sprintf('hunspell: %s', $process->getErrorOutput()));
+            throw new \RuntimeException(sprintf('hunspell: %s', $process->getErrorOutput()));
         }
         $result = $process->getOutput();
         $result = explode(PHP_EOL, $result);
@@ -148,7 +153,10 @@ class Hunspell implements Speller
      *
      * @return string[]
      *
-     * @throws RuntimeException if hunspell returns non zero exit code
+     * @throws \RuntimeException if hunspell returns non zero exit code
+     * @throws InvalidArgumentException
+     * @throws LogicException
+     * @throws RuntimeException
      *
      * @since 1.0
      */
@@ -158,7 +166,7 @@ class Hunspell implements Speller
             $process = $this->createProcess('-D');
             $process->run();
             if (!$process->isSuccessful()) {
-                throw new RuntimeException(sprintf('hunspell: %s', $process->getErrorOutput()));
+                throw new \RuntimeException(sprintf('hunspell: %s', $process->getErrorOutput()));
             }
 
             $languages = [];
@@ -166,15 +174,14 @@ class Hunspell implements Speller
             $output = explode(PHP_EOL, $process->getErrorOutput());
             foreach ($output as $line) {
                 $line = trim($line);
-                if (
-                    '' === $line // Skip empty lines
-                    || substr($line, -1) == ':' // Skip headers
+                if ('' === $line // Skip empty lines
+                    || substr($line, -1) === ':' // Skip headers
                     || strpos($line, ':') !== false // Skip search path
                 ) {
                     continue;
                 }
                 $name = basename($line);
-                if (substr($name, 0, 5) == 'hyph_') {
+                if (strpos($name, 'hyph_') === 0) {
                     // Skip MySpell hyphen files
                     continue;
                 }
@@ -251,6 +258,9 @@ class Hunspell implements Speller
      * @param array                $env  environment variables
      *
      * @return Process
+     *
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     private function createProcess($args = null, array $env = [])
     {
