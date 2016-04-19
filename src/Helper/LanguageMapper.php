@@ -65,7 +65,7 @@ class LanguageMapper
 
             $tag = strtolower(preg_replace('/_-\./', '', $source));
             foreach ($index as $key => $target) {
-                if (substr($key, 0, strlen($tag)) == $tag) {
+                if (strpos($key, $tag) === 0) {
                     $result [] = $target;
                     break;
                 }
