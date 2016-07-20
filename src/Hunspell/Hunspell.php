@@ -125,21 +125,39 @@ class Hunspell implements Speller
                 $lineNo++;
                 continue;
             }
-            $parts = explode(' ', $line);
-            $code = array_shift($parts);
+            $code  = $line[0];
+
             if ('#' === $code || '&' === $code) {
-                $word = array_shift($parts);
+                $colonPosition = strpos($line, ':');
+                $wordInfoArray = array();
+                if($colonPosition === false){ // Colon not found
+                    $wordInfoArray = explode(' ', $line);
+                }else{
+                    $wordString = substr($line, 0, $colonPosition);
+                    $wordInfoArray = explode(' ', $wordString);
+                }
+
+                array_shift($wordInfoArray); // popping code value
+                $word = array_shift($wordInfoArray); // popping word value
                 $issue = new Issue($word);
                 $issue->line = $lineNo;
-                $issue->offset = trim(array_shift($parts));
+                $issue->offset = array_shift($wordInfoArray);
+
                 $issues [] = $issue;
-                if ('&' === $code) {
-                    $issue->offset = trim(array_shift($parts), ':');
+
+                
+
+                if ('&' === $code) { // if code is & then defenitely there will be a colon
+                    $issue->offset = array_shift($wordInfoArray);
+
+                    $suggestionWordString = substr($line, $colonPosition+1);
+                    $suggestionWords = explode(',' , $suggestionWordString);
+
                     $issue->suggestions = array_map(
                         function ($word) {
                             return trim($word, ', ');
                         },
-                        $parts
+                        $suggestionWords
                     );
                 }
             }
