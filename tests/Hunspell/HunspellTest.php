@@ -51,10 +51,10 @@ class HunspellTest extends TestCase
         $hunspell = new Hunspell('php ' . __DIR__ . '/fixtures/hunspell.php');
         $source = new StringSource('<will be ignored and loaded from fixtures/check.txt>');
         $issues = $hunspell->checkText($source, ['en']);
-        static::assertCount(7, $issues);
+        static::assertCount(6, $issues);
         static::assertEquals('Tigr', $issues[0]->word);
         static::assertEquals(1, $issues[0]->line);
-       // static::assertEquals(0, $issues[0]->offset);
+        static::assertEquals(0, $issues[0]->offset);
         static::assertEquals(
             ['Tiger', 'Trig', 'Tier', 'Tigris', 'Tigress'],
             $issues[0]->suggestions
@@ -67,15 +67,5 @@ class HunspellTest extends TestCase
 
         static::assertEquals('CCould', $issues[5]->word);
         static::assertEquals(4, $issues[5]->line);
-
-        static::assertEquals('shoote', $issues[6]->word);
-        static::assertEquals(5, $issues[6]->line);
-        static::assertEquals(0, $issues[6]->offset);
-        static::assertEquals(
-            ['shoot', 'shooter', 'soothe', 'shoots', 'shoot e', 'shotted', 'hooter', 'shorten', 'shoo', 'shoetree', 'shotgun'],
-            $issues[6]->suggestions
-        );
-
     }
-
 }
