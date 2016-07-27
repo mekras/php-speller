@@ -101,7 +101,14 @@ class Hunspell implements Speller
         $dictionaries = $this->getLanguageMapper()->map($languages, $this->getSupportedLanguages());
         $dictionaries = array_merge($dictionaries, $this->customDictionaries);
 
+        $inputStr = ' echo "'.$source->getAsString().'" | ';
+
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $inputStr = str_replace('"', "", $inputStr);
+        }
+
         $process = $this->createProcess(
+            $inputStr,
             [
                 '-i UTF-8', // Input encoding
                 '-a', // Machine readable output
@@ -109,12 +116,13 @@ class Hunspell implements Speller
             ]
         );
 
-        $process->setInput($source->getAsString());
+        //$process->setInput($source->getAsString());
         $process->run();
         if (!$process->isSuccessful()) {
             throw new \RuntimeException(sprintf('hunspell: %s', $process->getErrorOutput()));
         }
         $result = $process->getOutput();
+
         $result = explode(PHP_EOL, $result);
         $issues = [];
         $lineNo = 1;
@@ -181,7 +189,7 @@ class Hunspell implements Speller
     public function getSupportedLanguages()
     {
         if (null === $this->supportedLanguages) {
-            $process = $this->createProcess('-D');
+            $process = $this->createProcess('','-D');
             $process->run();
             if (!$process->isSuccessful()) {
                 throw new \RuntimeException(sprintf('hunspell: %s', $process->getErrorOutput()));
@@ -280,9 +288,9 @@ class Hunspell implements Speller
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
-    private function createProcess($args = null, array $env = [])
+    private function createProcess($prefix = '', $args = null, array $env = [])
     {
-        $command = $this->composeCommand($args, $env);
+        $command = $this->composeCommand($args, $env, $prefix);
         $process = new Process($command);
         $process->setTimeout($this->timeout);
 
@@ -297,9 +305,11 @@ class Hunspell implements Speller
      *
      * @return string
      */
-    private function composeCommand($args, array $env = [])
+    private function composeCommand($args, array $env = [], $prefix = "")
     {
-        $command = $this->binary;
+        $command = $prefix;
+        $command .= $this->binary;
+
         if ($this->customDictPath) {
             $env['DICPATH'] = $this->customDictPath;
         }
@@ -312,6 +322,7 @@ class Hunspell implements Speller
             $args = implode(' ', $args);
         }
         $command .= ' ' . $args;
+
 
         return $command;
     }
