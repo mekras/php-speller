@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- #2: Word suggestions with space splits up
+
+
 ## 1.4 - 2016-04-19
 
 ### Deleted
