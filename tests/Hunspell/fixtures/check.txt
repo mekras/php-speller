@@ -1,22 +1,22 @@
-@(#) International Ispell Version 3.2.06 (but really Hunspell 1.3.3)
-& Tigr 5 0: Tiger, Trig, Tier, Tigris, Tigress
+@(#) International Ispell Version 3.2.06 (but really Hunspell 1.3.2)
+& Tigr 9 0: Ti gr, Ti-gr, Tiger, Trig, Tier, Tigris, Grit, Tigress, Tagore
 *
 *
 # страх 21
 
 *
-& theforests 8 3: the forests, the-forests, reforests, deforests, reforest, therefore, reafforest, deforester
+& theforests 8 3: the forests, the-forests, reforests, deforests, reforest, therefore, disafforest, forestland
 *
 *
 *
 
 *
-& imortal 8 5: mortal, immortal, immoral, important, immemorial, mortar, imitable, immutable
+& imortal 9 5: mortal, immortal, i mortal, immoral, important, immemorial, mortar, imitable, immutable
 *
 *
-& eey 8 21: eye, eel, fey, hey, key, Eyre, Ely, emery
+& eey 10 21: ea, eye, eery, eel, hey, bey, fey, eek, key, Key
 
-& CCould 5 0: C Could, Could, Cold, Collude, Cuckoldry
+& CCould 5 0: C Could, Could, Cold, Cuckold, Cloudy
 *
 *
 *

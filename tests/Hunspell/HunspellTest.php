@@ -36,7 +36,7 @@ class HunspellTest extends TestCase
      */
     public function testGetSupportedLanguages()
     {
-        $hunspell = new Hunspell('php ' . __DIR__ . '/fixtures/hunspell.php');
+        $hunspell = new Hunspell(__DIR__ . '/fixtures/hunspell.sh');
         static::assertEquals(
             ['de_BE', 'de_DE', 'de_LU', 'en-GB', 'en_AU', 'en_GB', 'en_US', 'en_ZA', 'ru_RU'],
             $hunspell->getSupportedLanguages()
@@ -45,10 +45,12 @@ class HunspellTest extends TestCase
 
     /**
      * Test spell checking
+     *
+     * See fixtures/input.txt for the source text.
      */
     public function testCheckText()
     {
-        $hunspell = new Hunspell('php ' . __DIR__ . '/fixtures/hunspell.php');
+        $hunspell = new Hunspell(__DIR__ . '/fixtures/hunspell.sh');
         $source = new StringSource('<will be ignored and loaded from fixtures/check.txt>');
         $issues = $hunspell->checkText($source, ['en']);
         static::assertCount(6, $issues);
@@ -56,7 +58,7 @@ class HunspellTest extends TestCase
         static::assertEquals(1, $issues[0]->line);
         static::assertEquals(0, $issues[0]->offset);
         static::assertEquals(
-            ['Tiger', 'Trig', 'Tier', 'Tigris', 'Tigress'],
+            ['Ti gr', 'Ti-gr', 'Tiger', 'Trig', 'Tier', 'Tigris', 'Grit', 'Tigress', 'Tagore'],
             $issues[0]->suggestions
         );
 

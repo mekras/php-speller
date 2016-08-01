@@ -114,8 +114,7 @@ class Hunspell implements Speller
         if (!$process->isSuccessful()) {
             throw new \RuntimeException(sprintf('hunspell: %s', $process->getErrorOutput()));
         }
-        $result = $process->getOutput();
-        $result = explode(PHP_EOL, $result);
+        $result = explode(PHP_EOL, $process->getOutput());
         $issues = [];
         $lineNo = 1;
         foreach ($result as $line) {
@@ -125,23 +124,26 @@ class Hunspell implements Speller
                 $lineNo++;
                 continue;
             }
-            $parts = explode(' ', $line);
-            $code = array_shift($parts);
-            if ('#' === $code || '&' === $code) {
-                $word = array_shift($parts);
-                $issue = new Issue($word);
-                $issue->line = $lineNo;
-                $issue->offset = trim(array_shift($parts));
-                $issues [] = $issue;
-                if ('&' === $code) {
-                    $issue->offset = trim(array_shift($parts), ':');
-                    $issue->suggestions = array_map(
-                        function ($word) {
-                            return trim($word, ', ');
-                        },
-                        $parts
-                    );
-                }
+            switch ($line[0]) {
+                case '#':
+                    $parts = explode(' ', $line);
+                    $word = $parts[1];
+                    $issue = new Issue($word);
+                    $issue->line = $lineNo;
+                    $issue->offset = trim($parts[2]);
+                    $issues [] = $issue;
+                    break;
+                case '&':
+                    $parts = explode(':', $line);
+                    $parts[0] = explode(' ', $parts[0]);
+                    $parts[1] = explode(', ', trim($parts[1]));
+                    $word = $parts[0][1];
+                    $issue = new Issue($word);
+                    $issue->line = $lineNo;
+                    $issue->offset = trim($parts[0][3]);
+                    $issue->suggestions = $parts[1];
+                    $issues [] = $issue;
+                    break;
             }
         }
 
