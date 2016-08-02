@@ -30,7 +30,7 @@ $issues = $speller->checkText($source, ['en_GB', 'en']);
 echo $issues[0]->word; // -> "tigr"
 echo $issues[0]->line; // -> 1
 echo $issues[0]->offset; // -> 7
-echo implode(',', $issues[0]->suggestinons); // -> tiger, trig, tier, tigris, tigress
+echo implode(',', $issues[0]->suggestions); // -> tiger, trig, tier, tigris, tigress
 ```
 
 Get list of languages supported by backend:
