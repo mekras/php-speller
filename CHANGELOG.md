@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5 - 2017-03-11
+
+### Added
+
+- HtmlSource.
+
 ## 1.4.1 - 2016-08-02
 
 ### Fixed
