@@ -1,43 +1,30 @@
 <?php
 /**
- * PHP Speller
+ * PHP Speller.
  *
  * @copyright 2015, Михаил Красильников <m.krasilnikov@yandex.ru>
  * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
  * @license   http://opensource.org/licenses/MIT MIT
  */
+
 namespace Mekras\Speller\Hunspell;
 
+use Mekras\Speller\ExternalSpeller;
 use Mekras\Speller\Helper\LanguageMapper;
 use Mekras\Speller\Issue;
 use Mekras\Speller\Source\Source;
-use Mekras\Speller\Speller;
 use Symfony\Component\Process\Exception\InvalidArgumentException;
 use Symfony\Component\Process\Exception\LogicException;
 use Symfony\Component\Process\Exception\RuntimeException;
-use Symfony\Component\Process\Process;
 
 /**
- * Hunspell adapter
+ * Hunspell adapter.
  *
+ * @since x.x Inherited from {@see ExternalSpeller}.
  * @since 1.0
  */
-class Hunspell implements Speller
+class Hunspell extends ExternalSpeller
 {
-    /**
-     * Command to run hunspell
-     *
-     * @var string
-     */
-    private $binary;
-
-    /**
-     * Execution timeout in seconds
-     *
-     * @var int
-     */
-    private $timeout = 600;
-
     /**
      * Путь к собственным словарям
      *
@@ -67,26 +54,26 @@ class Hunspell implements Speller
     private $languageMapper = null;
 
     /**
-     * Create new hunspell adapter
+     * Create new hunspell adapter.
      *
-     * @param string $hunspellBinary command to run hunspell (default "hunspell")
+     * @param string $hunspellBinary Command to run hunspell (default "hunspell").
      *
      * @since 1.0
      */
     public function __construct($hunspellBinary = 'hunspell')
     {
-        $this->binary = (string) $hunspellBinary;
+        parent::__construct($hunspellBinary);
     }
 
     /**
-     * Check text
+     * Check text.
      *
      * Check given text and return an array of spelling issues.
      *
-     * @param Source $source    text source to check
-     * @param array  $languages list of languages used in text (IETF language tag)
+     * @param Source $source    Text source to check.
+     * @param array  $languages List of languages used in text (IETF language tag).
      *
-     * @throws \RuntimeException if hunspell returns non zero exit code
+     * @throws \RuntimeException If hunspell returns non zero exit code.
      * @throws InvalidArgumentException
      * @throws LogicException
      * @throws RuntimeException
@@ -109,6 +96,7 @@ class Hunspell implements Speller
             ]
         );
 
+        /** @noinspection PhpParamsInspection */
         $process->setInput($source->getAsString());
         $process->run();
         if (!$process->isSuccessful()) {
@@ -241,39 +229,6 @@ class Hunspell implements Speller
     }
 
     /**
-     * Set hunspell execution timeout
-     *
-     * @param int|float|null $seconds timeout in seconds
-     *
-     * @see   Symfony\Component\Process\Process::setTimeout()
-     * @since 1.0
-     */
-    public function setTimeout($seconds)
-    {
-        $this->timeout = $seconds;
-    }
-
-    /**
-     * Create new instance of hunspell process
-     *
-     * @param string|string[]|null $args hunspell arguments
-     * @param array                $env  environment variables
-     *
-     * @return Process
-     *
-     * @throws InvalidArgumentException
-     * @throws RuntimeException
-     */
-    private function createProcess($args = null, array $env = [])
-    {
-        $command = $this->composeCommand($args, $env);
-        $process = new Process($command);
-        $process->setTimeout($this->timeout);
-
-        return $process;
-    }
-
-    /**
      * Compose shell command line
      *
      * @param string|string[]|null $args hunspell arguments
@@ -281,9 +236,9 @@ class Hunspell implements Speller
      *
      * @return string
      */
-    private function composeCommand($args, array $env = [])
+    protected function composeCommand($args, array $env = [])
     {
-        $command = $this->binary;
+        $command = $this->getBinary();
         if ($this->customDictPath) {
             $env['DICPATH'] = $this->customDictPath;
         }

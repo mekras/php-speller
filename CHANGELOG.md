@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- ExternalSpeller — base class for external program adapters.
+
+
 ## 1.5.1 - 2017-03-11
 
 ### Fixed
@@ -7,11 +14,13 @@
 - HtmlSource: only for "keywords" and "description" meta tags "content" attr should be treated as
   user visible text.
 
+
 ## 1.5 - 2017-03-11
 
 ### Added
 
 - HtmlSource.
+
 
 ## 1.4.1 - 2016-08-02
 
