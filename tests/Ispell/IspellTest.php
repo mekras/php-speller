@@ -12,11 +12,11 @@ namespace Mekras\Speller\Tests\Ispell;
 use Mekras\Speller\Ispell\Ispell;
 use Mekras\Speller\Source\StringSource;
 use PHPUnit_Framework_TestCase as TestCase;
-use ReflectionMethod;
 
 /**
  * Tests for Mekras\Speller\Ispell\Ispell.
  *
+ * @covers \Mekras\Speller\ExternalSpeller
  * @covers \Mekras\Speller\Ispell\Ispell
  */
 class IspellTest extends TestCase

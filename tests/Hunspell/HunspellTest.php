@@ -6,6 +6,7 @@
  * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
  * @license   http://opensource.org/licenses/MIT MIT
  */
+
 namespace Mekras\Speller\Tests\Hunspell;
 
 use Mekras\Speller\Hunspell\Hunspell;
@@ -16,7 +17,8 @@ use ReflectionMethod;
 /**
  * Tests for Mekras\Speller\Hunspell\Hunspell
  *
- * @covers Mekras\Speller\Hunspell\Hunspell
+ * @covers \Mekras\Speller\ExternalSpeller
+ * @covers \Mekras\Speller\Hunspell\Hunspell
  */
 class HunspellTest extends TestCase
 {
