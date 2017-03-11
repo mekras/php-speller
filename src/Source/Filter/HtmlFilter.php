@@ -21,7 +21,13 @@ class HtmlFilter implements Filter
      *
      * @var string[]
      */
-    private $textAttrs = ['title'];
+    static private $textAttrs = [
+        'abbr',
+        'alt',
+        'label',
+        'placeholder',
+        'title'
+    ];
 
     /**
      * Filter string.
@@ -89,7 +95,7 @@ class HtmlFilter implements Filter
                     switch (true) {
                         case 'attr_value' === $expecting:
                             $context = 'attr_value';
-                            if (in_array(strtolower($attrName), $this->textAttrs, true)) {
+                            if (in_array(strtolower($attrName), self::$textAttrs, true)) {
                                 $context = 'attr_text';
                             }
                             $expecting = null;
