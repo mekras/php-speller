@@ -24,6 +24,7 @@ class HtmlFilter implements Filter
     static private $textAttrs = [
         'abbr',
         'alt',
+        'content',
         'label',
         'placeholder',
         'title'
@@ -56,22 +57,22 @@ class HtmlFilter implements Filter
         $length = mb_strlen($string);
         for ($i = 0; $i < $length; $i++) {
             $char = mb_substr($string, $i, 1);
-            switch ($char) {
-                case '<':
+            switch (true) {
+                case '<' === $char:
                     $context = 'tag_name';
                     $tagName = null;
                     $char = ' ';
                     break;
 
-                case '>':
+                case '>' === $char:
                     $context = null;
                     $expecting = null;
                     $char = ' ';
                     break;
 
-                case ' ':
-                case "\n":
-                case "\t":
+                case ' ' === $char:
+                case "\n" === $char:
+                case "\t" === $char:
                     switch ($context) {
                         case 'tag_name':
                             $context = 'tag_attrs';
@@ -83,15 +84,13 @@ class HtmlFilter implements Filter
                     }
                     break;
 
-                case '=':
-                    if ('attr_name' === $context || 'tag_attrs' === $context) {
-                        $expecting = 'attr_value';
-                        $char = ' ';
-                    }
+                case '=' === $char && ('attr_name' === $context || 'tag_attrs' === $context):
+                    $expecting = 'attr_value';
+                    $char = ' ';
                     break;
 
-                case '"':
-                case "'":
+                case '"' === $char:
+                case "'" === $char:
                     switch (true) {
                         case 'attr_value' === $expecting:
                             $context = 'attr_value';
