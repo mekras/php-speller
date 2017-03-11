@@ -157,15 +157,22 @@ class Hunspell extends Ispell
      */
     protected function createArguments(Source $source, array $languages)
     {
-        $dictionaries = $this->getLanguageMapper()->map($languages, $this->getSupportedLanguages());
-        $dictionaries = array_merge($dictionaries, $this->customDictionaries);
-
-        return [
+        $args = [
             // Input encoding
             '-i ' . ($source instanceof EncodingAwareSource ? $source->getEncoding() : 'UTF-8'),
-            '-a', // Machine readable output
-            '-d ' . implode(',', $dictionaries)
+            '-a' // Machine readable output
         ];
+
+        if (count($languages)) {
+            $dictionaries = $this->getLanguageMapper()
+                ->map($languages, $this->getSupportedLanguages());
+            $dictionaries = array_merge($dictionaries, $this->customDictionaries);
+            if (count($dictionaries)) {
+                $args[] = '-d ' . implode(',', $dictionaries);
+            }
+        }
+
+        return $args;
     }
 
     /**
