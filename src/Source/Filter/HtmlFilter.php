@@ -6,28 +6,29 @@
  * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
  * @license   http://opensource.org/licenses/MIT MIT
  */
+
 namespace Mekras\Speller\Source\Filter;
 
 /**
- * Filter replaces HTML tags with spaces
+ * Filter replaces HTML tags with spaces.
  *
  * @since 1.3
  */
 class HtmlFilter implements Filter
 {
     /**
-     * Attrs with text contents
+     * Attrs with text contents.
      *
      * @var string[]
      */
     private $textAttrs = ['title'];
 
     /**
-     * Filter string
+     * Filter string.
      *
-     * @param string $string string to be filtered
+     * @param string $string String to be filtered.
      *
-     * @return string filtered string
+     * @return string Filtered string.
      *
      * @since 1.3
      */
@@ -48,26 +49,24 @@ class HtmlFilter implements Filter
 
         $length = mb_strlen($string);
         for ($i = 0; $i < $length; $i++) {
-            $ch = mb_substr($string, $i, 1);
-            switch ($ch) {
-
+            $char = mb_substr($string, $i, 1);
+            switch ($char) {
                 case '<':
                     $context = 'tag_name';
                     $tagName = null;
-                    $ch = ' ';
+                    $char = ' ';
                     break;
 
                 case '>':
                     $context = null;
                     $expecting = null;
-                    $ch = ' ';
+                    $char = ' ';
                     break;
 
                 case ' ':
                 case "\n":
                 case "\t":
                     switch ($context) {
-
                         case 'tag_name':
                             $context = 'tag_attrs';
                             break;
@@ -81,37 +80,35 @@ class HtmlFilter implements Filter
                 case '=':
                     if ('attr_name' === $context || 'tag_attrs' === $context) {
                         $expecting = 'attr_value';
-                        $ch = ' ';
+                        $char = ' ';
                     }
                     break;
 
                 case '"':
                 case "'":
                     switch (true) {
-
                         case 'attr_value' === $expecting:
                             $context = 'attr_value';
                             if (in_array(strtolower($attrName), $this->textAttrs, true)) {
                                 $context = 'attr_text';
                             }
                             $expecting = null;
-                            $ch = ' ';
+                            $char = ' ';
                             break;
 
                         case 'attr_value' === $context:
                         case 'attr_text' === $context:
                             $context = 'tag_attrs';
-                            $ch = ' ';
+                            $char = ' ';
                             break;
                     }
                     break;
 
                 default:
                     switch ($context) {
-
                         case 'tag_name':
-                            $tagName .= $ch;
-                            $ch = ' ';
+                            $tagName .= $char;
+                            $char = ' ';
                             break;
 
                         /** @noinspection PhpMissingBreakStatementInspection */
@@ -120,23 +117,23 @@ class HtmlFilter implements Filter
                             $attrName = null;
                         // no break needed
                         case 'attr_name':
-                            $attrName .= $ch;
-                            $ch = ' ';
+                            $attrName .= $char;
+                            $char = ' ';
                             break;
 
                         case 'attr_value':
-                            $ch = ' ';
+                            $char = ' ';
                             break;
                     }
             }
-            $result .= $ch;
+            $result .= $char;
         }
 
         return $result;
     }
 
     /**
-     * Replace HTML entities
+     * Replace HTML entities.
      *
      * @param string $string
      *

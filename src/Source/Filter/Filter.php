@@ -6,23 +6,24 @@
  * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
  * @license   http://opensource.org/licenses/MIT MIT
  */
+
 namespace Mekras\Speller\Source\Filter;
 
 /**
- * Filter interface
+ * Filter interface.
  *
- * Filters are used to filter out text, which does not require checking
+ * Filters are used to filter out text, which does not require checking.
  *
  * @since 1.2
  */
 interface Filter
 {
     /**
-     * Filter string
+     * Filter string.
      *
-     * @param string $string string to be filtered
+     * @param string $string String to be filtered.
      *
-     * @return string filtered string
+     * @return string Filtered string.
      *
      * @since 1.2
      */
