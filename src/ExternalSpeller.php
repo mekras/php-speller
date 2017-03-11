@@ -70,10 +70,8 @@ abstract class ExternalSpeller implements Speller
      */
     public function checkText(Source $source, array $languages)
     {
-        $process = $this->createProcess(
-            $this->createArguments($source, $languages),
-            $this->createEnvVars($source, $languages)
-        );
+        $process = $this->createProcess($this->createArguments($source, $languages));
+        $process->setEnv($this->createEnvVars($source, $languages));
 
         /** @noinspection PhpParamsInspection */
         $process->setInput($source->getAsString());
@@ -105,7 +103,8 @@ abstract class ExternalSpeller implements Speller
         $output = $process->getOutput();
 
         if ($source instanceof EncodingAwareSource
-            && strcasecmp($source->getEncoding(), 'UTF-8') !== 0) {
+            && strcasecmp($source->getEncoding(), 'UTF-8') !== 0
+        ) {
             $output = iconv($source->getEncoding(), 'UTF-8', $output);
         }
 
@@ -125,17 +124,26 @@ abstract class ExternalSpeller implements Speller
         $this->timeout = $seconds;
     }
 
+
     /**
-     * Compose shell command line.
+     * Compose shell command line
      *
-     * @param string|string[]|null $args Command arguments.
-     * @param array                $env  Environment variables.
+     * @param string|string[]|null $args Ispell arguments.
      *
      * @return string
      *
      * @since x.x
      */
-    abstract protected function composeCommand($args, array $env = []);
+    protected function composeCommand($args)
+    {
+        $command = $this->getBinary();
+        if (is_array($args)) {
+            $args = implode(' ', $args);
+        }
+        $command .= ' ' . $args;
+
+        return $command;
+    }
 
     /**
      * Return binary path.
@@ -198,16 +206,18 @@ abstract class ExternalSpeller implements Speller
      * Create new instance of external program.
      *
      * @param string|string[]|null $args Command arguments.
-     * @param array                $env  Environment variables
      *
      * @return Process
      *
      * @throws ExternalProgramFailedException
      * @throws InvalidArgumentException
+     *
+     * @since x.x
      */
-    protected function createProcess($args = null, array $env = [])
+    protected function createProcess($args = null)
     {
-        $command = $this->composeCommand($args, $env);
+        $command = $this->composeCommand($args);
+
         try {
             $process = new Process($command);
         } catch (RuntimeException $e) {

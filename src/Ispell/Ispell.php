@@ -105,32 +105,6 @@ class Ispell extends ExternalSpeller
     }
 
     /**
-     * Compose shell command line
-     *
-     * @param string|string[]|null $args Ispell arguments.
-     * @param array                $env  Environment variables.
-     *
-     * @return string
-     *
-     * @since x.x
-     */
-    protected function composeCommand($args, array $env = [])
-    {
-        $command = $this->getBinary();
-        if (count($env) > 0) {
-            foreach ($env as $name => $value) {
-                $command = $name . '=' . escapeshellarg($value) . ' ' . $command;
-            }
-        }
-        if (is_array($args)) {
-            $args = implode(' ', $args);
-        }
-        $command .= ' ' . $args;
-
-        return $command;
-    }
-
-    /**
      * Return language mapper.
      *
      * @return LanguageMapper
