@@ -4,7 +4,8 @@
     "type": "library",
     "keywords": [
         "spelling",
-        "hunspell"
+        "hunspell",
+        "ispell"
     ],
     "license": "MIT",
     "authors": [

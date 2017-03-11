@@ -4,8 +4,9 @@
 
 ### Added
 
-- EncodingAwareSource — text source with specified encoding.
+- Ispell — ispell backend.
 - IconvSource — converts text encoding using iconv.
+- EncodingAwareSource — text source with specified encoding.
 - ExternalSpeller — base class for external program adapters.
 
 ### Changed

@@ -9,22 +9,29 @@ PHP spell check library.
 
 Currently supported backends:
 
-* [hunspell](http://hunspell.sourceforge.net/).
+* [hunspell](http://hunspell.sourceforge.net/);
+* [ispell](https://www.cs.hmc.edu/~geoff/ispell.html).
 
 ## Installation
 
 With [Composer](http://getcomposer.org/):
 
-    $ composer require mekras/php-speller:^1.0
+    $ composer require mekras/php-speller
 
 ## Usage
+
+1. Create a text source object from string, file or something else using one of the
+   `Mekras\Speller\Source\Source` implementations (see [Sources](#Sources) below).
+2. Create some speller instance (Hunspell, Ispell or any other implementation of the
+   `Mekras\Speller\Speller`).
+3. Execute `Speller::checkText()` method.
 
 ```php
 use Mekras\Speller\Hunspell\Hunspell;
 use Mekras\Speller\Source\StringSource;
 
-$speller = new Hunspell();
 $source = new StringSource('Tiger, tigr, burning bright');
+$speller = new Hunspell();
 $issues = $speller->checkText($source, ['en_GB', 'en']);
 
 echo $issues[0]->word; // -> "tigr"
@@ -33,26 +40,41 @@ echo $issues[0]->offset; // -> 7
 echo implode(',', $issues[0]->suggestions); // -> tiger, trig, tier, tigris, tigress
 ```
 
-Get list of languages supported by backend:
+You can list languages supported by backend:
 
 ```php
 /** @var Mekras\Speller\Speller $speller */
 print_r($speller->getSupportedLanguages());
 ```
 
+### Source encoding
+
+For hunspell and ispell source text encoding should be equal to dictionary encoding. You can use
+[IconvSource](#IconvSource) to convert source.
+
 ## Hunspell
 
 This backend uses hunspell program, so it should be installed in the system.
 
+```php
+use Mekras\Speller\Hunspell\Hunspell;
+
+$speller = new Hunspell();
+```
+
 Path to binary can be set in constructor:
 
 ```php
+use Mekras\Speller\Hunspell\Hunspell;
+
 $speller = new Hunspell('/usr/local/bin/hunspell');
 ```
 
 You can set additional dictionary path:
 
 ```php
+use Mekras\Speller\Hunspell\Hunspell;
+
 $speller = new Hunspell();
 $speller->setDictionaryPath('/var/spelling/custom');
 ```
@@ -60,24 +82,111 @@ $speller->setDictionaryPath('/var/spelling/custom');
 You can specify custom dictionaries to use:
 
 ```php
+use Mekras\Speller\Hunspell\Hunspell;
+
 $speller = new Hunspell();
 $speller->setDictionaryPath('/my_app/spelling');
 $speller->setCustomDictionaries(['tech', 'titles']);
 ```
+
+## Ispell
+
+This backend uses ispell program, so it should be installed in the system.
+
+```php
+use Mekras\Speller\Ispell\Ispell;
+
+$speller = new Ispell();
+```
+
+Path to binary can be set in constructor:
+
+```php
+use Mekras\Speller\Ispell\Ispell;
+
+$speller = new Ispell('/usr/local/bin/ispell');
+```
+
+### Important
+
+- Ispell allow to use only one dictionary at once, so only first item taken from
+$languages argument in ``Ispell::checkText()``.
+
 
 ## Sources
 
 Sources — is an abstraction layer allowing spellers receive text from different sources like strings
 or files.
 
-Supported sources:
+### FileSource
 
-* [StringSource](src/Source/StringSource.php) — simple PHP string;
-* [FileSource](src/Source/FileSource.php) — generic file source;
-* [XliffSource](src/Source/XliffSource.php) —
-  [XLIFF](http://docs.oasis-open.org/xliff/xliff-core/v2.0/xliff-core-v2.0.html) files.
+Reads text from file.
 
-## Filters
+```php
+use Mekras\Speller\Source\FileSource;
+
+$source = new FileSource('/path/to/file.txt');
+```
+
+You can specify file encoding:
+
+```php
+use Mekras\Speller\Source\FileSource;
+
+$source = new FileSource('/path/to/file.txt', 'windows-1251');
+```
+
+### HtmlSource
+
+Return user visible text from HTML.
+
+```php
+use Mekras\Speller\Source\HtmlSource;
+
+$source = new HtmlSource('<a href="#" title="Foo">Bar</a> Baz');
+echo $source->getAsString(); // Foo Bar Baz
+```
+
+Encoding detected via
+[DOMDocument::$encoding](http://php.net/manual/en/class.domdocument.php#domdocument.props.encoding).
+
+### IconvSource
+
+This is a meta-source which converts encoding of other given source:
+
+```php
+use Mekras\Speller\Source\IconvSource;
+use Mekras\Speller\Source\StringSource;
+
+// Convert file contents from windows-1251 to koi8-r.
+$source = new IconvSource(
+    new FileSource('/path/to/file.txt', 'windows-1251'),
+    'koi8-r'
+);
+```
+
+### StringSource
+
+Use string as text source.
+
+```php
+use Mekras\Speller\Source\StringSource;
+
+$source = new StringSource('foo', 'koi8-r');
+```
+
+### XliffSource
+  
+Loads text from [XLIFF](http://docs.oasis-open.org/xliff/xliff-core/v2.0/xliff-core-v2.0.html)
+files.
+
+```php
+use Mekras\Speller\Source\XliffSource;
+
+$source = new XliffSource(__DIR__ . '/fixtures/test.xliff');
+```
+
+## Source filters
 
 Filters used internally to filter out all non text contents received from source. In order to save
 original word location (line and column numbers) all filters replaces non text content with spaces.
