@@ -4,6 +4,7 @@
 
 ### Added
 
+- Aspell — aspell backend.
 - Ispell — ispell backend.
 - IconvSource — converts text encoding using iconv.
 - EncodingAwareSource — text source with specified encoding.

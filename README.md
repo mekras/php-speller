@@ -9,6 +9,7 @@ PHP spell check library.
 
 Currently supported backends:
 
+* [aspell](http://aspell.net/);
 * [hunspell](http://hunspell.sourceforge.net/);
 * [ispell](https://www.cs.hmc.edu/~geoff/ispell.html).
 
@@ -49,8 +50,32 @@ print_r($speller->getSupportedLanguages());
 
 ### Source encoding
 
-For hunspell and ispell source text encoding should be equal to dictionary encoding. You can use
-[IconvSource](#IconvSource) to convert source.
+For aspell, hunspell and ispell source text encoding should be equal to dictionary encoding. You can
+use [IconvSource](#IconvSource) to convert source.
+
+## Aspell
+
+This backend uses aspell program, so it should be installed in the system.
+
+```php
+use Mekras\Speller\Aspell\Aspell;
+
+$speller = new Aspell();
+```
+
+Path to binary can be set in constructor:
+
+```php
+use Mekras\Speller\Aspell\Aspell;
+
+$speller = new Aspell('/usr/local/bin/aspell');
+```
+
+### Important
+
+- aspell allow to use only one dictionary at once, so only first item taken from
+$languages argument in ``Ispell::checkText()``.
+
 
 ## Hunspell
 
@@ -109,7 +134,7 @@ $speller = new Ispell('/usr/local/bin/ispell');
 
 ### Important
 
-- Ispell allow to use only one dictionary at once, so only first item taken from
+- ispell allow to use only one dictionary at once, so only first item taken from
 $languages argument in ``Ispell::checkText()``.
 
 
