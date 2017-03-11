@@ -2,7 +2,7 @@
 /**
  * PHP Speller.
  *
- * @copyright 2015, Михаил Красильников <m.krasilnikov@yandex.ru>
+ * @copyright 2017, Михаил Красильников <m.krasilnikov@yandex.ru>
  * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
  * @license   http://opensource.org/licenses/MIT MIT
  */
