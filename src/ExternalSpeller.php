@@ -95,7 +95,7 @@ abstract class ExternalSpeller implements Speller
         if (0 !== $exitCode) {
             throw new ExternalProgramFailedException(
                 $process->getCommandLine(),
-                $process->getErrorOutput(),
+                $process->getErrorOutput() ?: $process->getOutput(),
                 $exitCode
             );
         }
