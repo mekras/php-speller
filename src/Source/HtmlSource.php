@@ -24,7 +24,6 @@ class HtmlSource implements Source
     static private $textAttributes = [
         'abbr',
         'alt',
-        'content',
         'label',
         'placeholder',
         'title'
@@ -61,7 +60,7 @@ class HtmlSource implements Source
         $document = new \DOMDocument('1.0');
         $document->loadHTML($this->html);
 
-        return $this->extractText($document->documentElement);
+        return $this->extractFromNode($document->documentElement);
     }
 
     /**
@@ -71,26 +70,51 @@ class HtmlSource implements Source
      *
      * @return string
      */
-    private function extractText(\DOMNode $node)
+    private function extractFromNode(\DOMNode $node)
     {
         if ($node instanceof \DOMText) {
             return trim($node->textContent);
         }
 
-        $text = '';
+        $text = [];
 
         if ($node instanceof \DOMElement) {
             foreach ($node->attributes as $attr) {
                 /** @var \DOMAttr $attr */
                 if (in_array($attr->name, self::$textAttributes, true)) {
-                    $text .= ' ' . trim($attr->textContent);
+                    $text[] = trim($attr->textContent);
                 }
             }
+            $text[] = $this->extractFromMeta($node);
             foreach ($node->childNodes as $child) {
-                $text .= ' ' . $this->extractText($child);
+                $text[] = $this->extractFromNode($child);
             }
         }
 
-        return trim($text);
+        return trim(implode(' ', $text));
+    }
+
+    /**
+     * Extract text from meta tag.
+     *
+     * @param \DOMElement $node
+     *
+     * @return string
+     */
+    private function extractFromMeta(\DOMElement $node)
+    {
+        if (strtolower($node->nodeName) !== 'meta') {
+            return '';
+        }
+
+        if (!($node->hasAttribute('name') && $node->hasAttribute('content'))) {
+            return '';
+        }
+
+        if (!in_array(strtolower($node->getAttribute('name')), ['description', 'keywords'], true)) {
+            return '';
+        }
+
+        return trim($node->getAttribute('content'));
     }
 }
