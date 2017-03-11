@@ -5,6 +5,7 @@
 ### Added
 
 - EncodingAwareSource — text source with specified encoding.
+- IconvSource — converts text encoding using iconv.
 - ExternalSpeller — base class for external program adapters.
 
 ### Changed
