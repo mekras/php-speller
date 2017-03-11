@@ -3,27 +3,29 @@
  * PHP Speller
  *
  * @copyright 2015, Михаил Красильников <m.krasilnikov@yandex.ru>
- * @author Михаил Красильников <m.krasilnikov@yandex.ru>
- * @license http://opensource.org/licenses/MIT MIT
+ * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
+ * @license   http://opensource.org/licenses/MIT MIT
  */
+
 namespace Mekras\Speller\Tests\Source;
 
 use Mekras\Speller\Source\XliffSource;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
- * Tests for Mekras\Speller\Source\XliffSource
+ * Tests for Mekras\Speller\Source\XliffSource.
  *
- * @covers Mekras\Speller\Source\XliffSource
+ * @covers \Mekras\Speller\Source\XliffSource
  */
 class XliffSourceTest extends TestCase
 {
     /**
-     * Test basic functional
+     * Test basics.
      */
     public function testBasics()
     {
         $source = new XliffSource(__DIR__ . '/fixtures/test.xliff');
+        static::assertEquals('UTF-8', $source->getEncoding());
         $source->addFilter('#\{\{[^}]+\}\}#ums');
         $lines = explode("\n", $source->getAsString());
         static::assertCount(36, $lines);

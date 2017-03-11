@@ -1,37 +1,49 @@
 <?php
 /**
- * PHP Speller
+ * PHP Speller.
  *
  * @copyright 2015, Михаил Красильников <m.krasilnikov@yandex.ru>
  * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
  * @license   http://opensource.org/licenses/MIT MIT
  */
+
 namespace Mekras\Speller\Source;
 
 /**
- * String as a text source
+ * String as a text source.
  *
+ * @since x.x Implements EncodingAwareSource.
  * @since 1.0
  */
-class StringSource implements Source
+class StringSource implements EncodingAwareSource
 {
     /**
-     * Source text
+     * Source text.
      *
      * @var string
      */
     private $text;
 
     /**
-     * Create text source from string
+     * Text encoding.
      *
-     * @param string $text
+     * @var string
+     */
+    private $encoding;
+
+    /**
+     * Create text source from string.
      *
+     * @param string $text     Source text.
+     * @param string $encoding Text encoding (default to "UTF-8").
+     *
+     * @since x.x New argument — $encoding.
      * @since 1.0
      */
-    public function __construct($text)
+    public function __construct($text, $encoding = 'UTF-8')
     {
         $this->text = $text;
+        $this->encoding = (string) $encoding;
     }
 
     /**
@@ -44,5 +56,17 @@ class StringSource implements Source
     public function getAsString()
     {
         return (string) $this->text;
+    }
+
+    /**
+     * Return source text encoding.
+     *
+     * @return string
+     *
+     * @since x.x
+     */
+    public function getEncoding()
+    {
+        return $this->encoding;
     }
 }

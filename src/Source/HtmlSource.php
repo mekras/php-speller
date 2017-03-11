@@ -12,9 +12,10 @@ namespace Mekras\Speller\Source;
 /**
  * HTML document as a text source.
  *
+ * @since 1.6 derived from StringSource.
  * @since 1.5
  */
-class HtmlSource implements Source
+class HtmlSource extends StringSource
 {
     /**
      * Attributes with user visible text contents.
@@ -30,13 +31,6 @@ class HtmlSource implements Source
     ];
 
     /**
-     * Source HTML.
-     *
-     * @var string
-     */
-    private $html;
-
-    /**
      * Create text source from HTML.
      *
      * @param string $html
@@ -45,22 +39,12 @@ class HtmlSource implements Source
      */
     public function __construct($html)
     {
-        $this->html = $html;
-    }
-
-    /**
-     * Return text as one string.
-     *
-     * @return string
-     *
-     * @since 1.5
-     */
-    public function getAsString()
-    {
         $document = new \DOMDocument('1.0');
-        $document->loadHTML($this->html);
+        $document->loadHTML($html);
 
-        return $this->extractFromNode($document->documentElement);
+        $text = $this->extractFromNode($document->documentElement);
+
+        parent::__construct($text, $document->encoding);
     }
 
     /**

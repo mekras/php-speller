@@ -40,4 +40,15 @@ class HtmlSourceTest extends TestCase
         );
         static::assertEquals('Foo Bar', $source->getAsString());
     }
+
+    /**
+     * Encoding should be detected from meta tags.
+     */
+    public function testEncoding()
+    {
+        $source = new HtmlSource(
+            '<html><meta http-equiv="Content-Type" content="text/html; charset=koi8-r"></html>'
+        );
+        static::assertEquals('koi8-r', $source->getEncoding());
+    }
 }

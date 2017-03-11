@@ -4,8 +4,12 @@
 
 ### Added
 
+- EncodingAwareSource — text source with specified encoding.
 - ExternalSpeller — base class for external program adapters.
 
+### Changed
+
+- StringSource, FileSource, HtmlSource and XliffSource now implements EncodingAwareSource.
 
 ## 1.5.1 - 2017-03-11
 

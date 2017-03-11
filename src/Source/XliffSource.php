@@ -1,11 +1,12 @@
 <?php
 /**
- * PHP Speller
+ * PHP Speller.
  *
  * @copyright 2015, Михаил Красильников <m.krasilnikov@yandex.ru>
  * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
  * @license   http://opensource.org/licenses/MIT MIT
  */
+
 namespace Mekras\Speller\Source;
 
 use Mekras\Speller\Source\Filter\Filter;
@@ -13,7 +14,7 @@ use Mekras\Speller\Source\Filter\HtmlFilter;
 use Mekras\Speller\Source\Filter\StripAllFilter;
 
 /**
- * XLIFF translations as text source
+ * XLIFF translations as text source.
  *
  * @link  http://docs.oasis-open.org/xliff/xliff-core/v2.0/xliff-core-v2.0.html
  * @since 1.2
