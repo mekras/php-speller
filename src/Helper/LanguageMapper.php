@@ -6,6 +6,7 @@
  * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
  * @license   http://opensource.org/licenses/MIT MIT
  */
+
 namespace Mekras\Speller\Helper;
 
 /**
@@ -22,7 +23,7 @@ class LanguageMapper
     /**
      * Preferred mappings
      *
-     * @var array
+     * @var array[]
      */
     private $preferred = [];
 
@@ -47,26 +48,25 @@ class LanguageMapper
 
         $result = [];
         foreach ($requested as $source) {
-
             if (array_key_exists($source, $this->preferred)) {
                 $preferred = $this->preferred[$source];
                 foreach ($preferred as $tag) {
                     if (in_array($tag, $supported, true)) {
-                        $result [] = $tag;
+                        $result[] = $tag;
                         continue 2;
                     }
                 }
             }
 
             if (in_array($source, $supported, true)) {
-                $result [] = $source;
+                $result[] = $source;
                 continue;
             }
 
             $tag = strtolower(preg_replace('/_-\./', '', $source));
             foreach ($index as $key => $target) {
                 if (strpos($key, $tag) === 0) {
-                    $result [] = $target;
+                    $result[] = $target;
                     break;
                 }
             }
@@ -91,10 +91,7 @@ class LanguageMapper
     public function setPreferredMappings(array $mappings)
     {
         foreach ($mappings as $language => $map) {
-            if (!is_array($map)) {
-                $map = [$map];
-            }
-            $this->preferred[$language] = $map;
+            $this->preferred[$language] = (array) $map;
         }
     }
 }
