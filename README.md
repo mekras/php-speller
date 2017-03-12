@@ -73,7 +73,7 @@ $speller = new Aspell('/usr/local/bin/aspell');
 
 ### Important
 
-- aspell allow to use only one dictionary at once, so only first item taken from
+- aspell allow to specify only one language at once, so only first item taken from
 $languages argument in ``Ispell::checkText()``.
 
 
