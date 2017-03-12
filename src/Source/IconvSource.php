@@ -16,15 +16,8 @@ use Mekras\Speller\Exception\SourceException;
  *
  * @since x.x
  */
-class IconvSource implements EncodingAwareSource
+class IconvSource extends MetaSource
 {
-    /**
-     * Original source.
-     *
-     * @var EncodingAwareSource
-     */
-    private $source;
-
     /**
      * Output encoding.
      *
@@ -42,7 +35,7 @@ class IconvSource implements EncodingAwareSource
      */
     public function __construct(EncodingAwareSource $source, $encoding = 'UTF-8')
     {
-        $this->source = $source;
+        parent::__construct($source);
         $this->encoding = (string) $encoding;
     }
 
