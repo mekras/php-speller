@@ -24,8 +24,10 @@ class FileSourceTest extends TestCase
      */
     public function testBasics()
     {
-        $source = new FileSource(__DIR__ . '/fixtures/test.txt');
+        $filename = __DIR__ . '/fixtures/test.txt';
+        $source = new FileSource($filename);
         static::assertEquals('Tiger, tiger, burning bright', $source->getAsString());
+        static::assertEquals($filename, $source->getFilename());
     }
 
     /**
@@ -38,5 +40,16 @@ class FileSourceTest extends TestCase
 
         $source = new FileSource(__DIR__ . '/fixtures/test.txt', 'koi8-r');
         static::assertEquals('koi8-r', $source->getEncoding());
+    }
+
+    /**
+     * getAsString should throw SourceException if file not exists.
+     *
+     * @expectedException \Mekras\Speller\Exception\SourceException
+     */
+    public function testFileNotExists()
+    {
+        $source = new FileSource('non-existent.file');
+        $source->getAsString();
     }
 }

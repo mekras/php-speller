@@ -9,6 +9,8 @@
 
 namespace Mekras\Speller\Source;
 
+use Mekras\Speller\Exception\SourceException;
+
 /**
  * File as text source.
  *
@@ -52,10 +54,21 @@ class FileSource implements EncodingAwareSource
      *
      * @return string
      *
+     * @throws SourceException Fail to read from text source.
+     *
+     * @since x.x Throws {@see SourceException}.
      * @since 1.2
      */
     public function getAsString()
     {
+        if (!file_exists($this->filename)) {
+            throw new SourceException(sprintf('File "%s" not exists', $this->filename));
+        }
+
+        if (!is_readable($this->filename)) {
+            throw new SourceException(sprintf('File "%s" is not readable', $this->filename));
+        }
+
         return file_get_contents($this->filename);
     }
 
@@ -74,7 +87,7 @@ class FileSource implements EncodingAwareSource
     /**
      * Return file name with text to check.
      *
-     * This can be used for backends with file checking support.
+     * This can be used by backends with file checking support.
      *
      * @return string
      *

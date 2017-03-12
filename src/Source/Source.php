@@ -9,6 +9,8 @@
 
 namespace Mekras\Speller\Source;
 
+use Mekras\Speller\Exception\SourceException;
+
 /**
  * Text source interface.
  *
@@ -23,6 +25,9 @@ interface Source
      *
      * @return string
      *
+     * @throws SourceException Fail to read from text source.
+     *
+     * @since x.x Throws {@see SourceException}.
      * @since 1.0
      */
     public function getAsString();

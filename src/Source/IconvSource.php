@@ -9,6 +9,8 @@
 
 namespace Mekras\Speller\Source;
 
+use Mekras\Speller\Exception\SourceException;
+
 /**
  * Convert text encoding using iconv.
  *
@@ -49,15 +51,22 @@ class IconvSource implements EncodingAwareSource
      *
      * @return string
      *
-     * @since 1.0
+     * @throws SourceException
+     *
+     * @since x.x
      */
     public function getAsString()
     {
-        return iconv(
+        $text = iconv(
             $this->source->getEncoding(),
             $this->getEncoding(),
             $this->source->getAsString()
         );
+        if (false === $text) {
+            throw new SourceException('iconv failed to convert source text');
+        }
+
+        return $text;
     }
 
     /**
