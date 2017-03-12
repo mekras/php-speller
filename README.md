@@ -161,6 +161,20 @@ use Mekras\Speller\Source\FileSource;
 $source = new FileSource('/path/to/file.txt', 'windows-1251');
 ```
 
+### StringSource
+
+Use string as text source.
+
+```php
+use Mekras\Speller\Source\StringSource;
+
+$source = new StringSource('foo', 'koi8-r');
+```
+
+## Meta sources 
+
+Additionally there is as set of meta sources, which wraps other sources to perform extra tasks.
+
 ### HtmlSource
 
 Return user visible text from HTML.
@@ -188,16 +202,6 @@ $source = new IconvSource(
     new FileSource('/path/to/file.txt', 'windows-1251'),
     'koi8-r'
 );
-```
-
-### StringSource
-
-Use string as text source.
-
-```php
-use Mekras\Speller\Source\StringSource;
-
-$source = new StringSource('foo', 'koi8-r');
 ```
 
 ### XliffSource
