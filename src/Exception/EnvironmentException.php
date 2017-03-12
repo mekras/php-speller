@@ -12,7 +12,7 @@ namespace Mekras\Speller\Exception;
 /**
  * Environment misconfiguration.
  *
- * @since x.x
+ * @since 1.6
  */
 class EnvironmentException extends RuntimeException
 {

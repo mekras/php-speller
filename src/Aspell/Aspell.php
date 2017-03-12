@@ -20,7 +20,7 @@ use Symfony\Component\Process\Exception\RuntimeException;
 /**
  * Aspell adapter.
  *
- * @since x.x
+ * @since 1.6
  */
 class Aspell extends Ispell
 {
@@ -36,7 +36,7 @@ class Aspell extends Ispell
      *
      * @param string $binaryPath Path to aspell binary (default "aspell").
      *
-     * @since x.x
+     * @since 1.6
      */
     public function __construct($binaryPath = 'aspell')
     {
@@ -53,7 +53,7 @@ class Aspell extends Ispell
      * @throws LogicException
      * @throws RuntimeException
      *
-     * @since x.x
+     * @since 1.6
      */
     public function getSupportedLanguages()
     {
@@ -101,7 +101,7 @@ class Aspell extends Ispell
      * @throws LogicException
      * @throws RuntimeException
      *
-     * @since x.x
+     * @since 1.6
      */
     protected function createArguments(Source $source, array $languages)
     {

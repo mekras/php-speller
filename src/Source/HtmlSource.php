@@ -14,8 +14,7 @@ use Mekras\Speller\Source\Filter\HtmlFilter;
 /**
  * HTML document as a text source.
  *
- * @since x.x derived from MetaSource.
- * @since 1.6 derived from StringSource.
+ * @since 1.6 derived from MetaSource.
  * @since 1.5
  */
 class HtmlSource extends MetaSource
@@ -41,7 +40,7 @@ class HtmlSource extends MetaSource
      *
      * @throws \Mekras\Speller\Exception\SourceException
      *
-     * @since x.x Accepts EncodingAwareSource
+     * @since 1.6 Accepts EncodingAwareSource
      * @since 1.5
      *
      * @todo  deprecate string $source in version 2.0
@@ -77,7 +76,7 @@ class HtmlSource extends MetaSource
      *
      * @return string
      *
-     * @since x.x
+     * @since 1.6
      */
     public function getEncoding()
     {

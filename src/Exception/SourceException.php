@@ -12,7 +12,7 @@ namespace Mekras\Speller\Exception;
 /**
  * Fail to read from text source.
  *
- * @since x.x
+ * @since 1.6
  */
 class SourceException extends RuntimeException
 {

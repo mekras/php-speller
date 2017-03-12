@@ -20,7 +20,7 @@ use Symfony\Component\Process\Process;
 /**
  * Base class for external program adapters.
  *
- * @since x.x
+ * @since 1.6
  */
 abstract class ExternalSpeller implements Speller
 {
@@ -43,7 +43,7 @@ abstract class ExternalSpeller implements Speller
      *
      * @param string $binaryPath Command to run external speller.
      *
-     * @since x.x
+     * @since 1.6
      */
     public function __construct($binaryPath)
     {
@@ -66,7 +66,7 @@ abstract class ExternalSpeller implements Speller
      * @throws \Symfony\Component\Process\Exception\LogicException
      *
      * @see   http://tools.ietf.org/html/bcp47
-     * @since x.x
+     * @since 1.6
      */
     public function checkText(Source $source, array $languages)
     {
@@ -117,7 +117,7 @@ abstract class ExternalSpeller implements Speller
      * @param int|float|null $seconds Timeout in seconds.
      *
      * @see   \Symfony\Component\Process\Process::setTimeout()
-     * @since x.x
+     * @since 1.6
      */
     public function setTimeout($seconds)
     {
@@ -132,7 +132,7 @@ abstract class ExternalSpeller implements Speller
      *
      * @return string
      *
-     * @since x.x
+     * @since 1.6
      */
     protected function composeCommand($args)
     {
@@ -150,7 +150,7 @@ abstract class ExternalSpeller implements Speller
      *
      * @return string
      *
-     * @since x.x
+     * @since 1.6
      */
     protected function getBinary()
     {
@@ -165,7 +165,7 @@ abstract class ExternalSpeller implements Speller
      *
      * @return string[]
      *
-     * @since x.x
+     * @since 1.6
      *
      * @SuppressWarnings(PMD.UnusedFormalParameter)
      */
@@ -182,7 +182,7 @@ abstract class ExternalSpeller implements Speller
      *
      * @return string[]
      *
-     * @since x.x
+     * @since 1.6
      *
      * @SuppressWarnings(PMD.UnusedFormalParameter)
      */
@@ -198,7 +198,7 @@ abstract class ExternalSpeller implements Speller
      *
      * @return Issue[]
      *
-     * @since x.x
+     * @since 1.6
      */
     abstract protected function parseOutput($output);
 
@@ -212,7 +212,7 @@ abstract class ExternalSpeller implements Speller
      * @throws ExternalProgramFailedException
      * @throws InvalidArgumentException
      *
-     * @since x.x
+     * @since 1.6
      */
     protected function createProcess($args = null)
     {

@@ -14,7 +14,7 @@ use Mekras\Speller\Exception\SourceException;
 /**
  * Convert text encoding using iconv.
  *
- * @since x.x
+ * @since 1.6
  */
 class IconvSource extends MetaSource
 {
@@ -31,7 +31,7 @@ class IconvSource extends MetaSource
      * @param EncodingAwareSource $source   Original source.
      * @param string              $encoding Output encoding (default to "UTF-8").
      *
-     * @since x.x
+     * @since 1.6
      */
     public function __construct(EncodingAwareSource $source, $encoding = 'UTF-8')
     {
@@ -46,7 +46,7 @@ class IconvSource extends MetaSource
      *
      * @throws SourceException
      *
-     * @since x.x
+     * @since 1.6
      */
     public function getAsString()
     {
@@ -67,7 +67,7 @@ class IconvSource extends MetaSource
      *
      * @return string
      *
-     * @since x.x
+     * @since 1.6
      */
     public function getEncoding()
     {

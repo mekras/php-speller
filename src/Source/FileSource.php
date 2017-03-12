@@ -14,7 +14,7 @@ use Mekras\Speller\Exception\SourceException;
 /**
  * File as text source.
  *
- * @since x.x Implements EncodingAwareSource.
+ * @since 1.6 Implements EncodingAwareSource.
  * @since 1.2
  */
 class FileSource implements EncodingAwareSource
@@ -40,7 +40,7 @@ class FileSource implements EncodingAwareSource
      * @param string $filename
      * @param string $encoding File encoding (default to "UTF-8").
      *
-     * @since x.x New argument — $encoding.
+     * @since 1.6 New argument — $encoding.
      * @since 1.2
      */
     public function __construct($filename, $encoding = 'UTF-8')
@@ -56,7 +56,7 @@ class FileSource implements EncodingAwareSource
      *
      * @throws SourceException Fail to read from text source.
      *
-     * @since x.x Throws {@see SourceException}.
+     * @since 1.6 Throws {@see SourceException}.
      * @since 1.2
      */
     public function getAsString()
@@ -77,7 +77,7 @@ class FileSource implements EncodingAwareSource
      *
      * @return string
      *
-     * @since x.x
+     * @since 1.6
      */
     public function getEncoding()
     {

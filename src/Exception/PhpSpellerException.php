@@ -12,7 +12,7 @@ namespace Mekras\Speller\Exception;
 /**
  * Common interface for all Speller exceptions.
  *
- * @since x.x
+ * @since 1.6
  */
 interface PhpSpellerException
 {

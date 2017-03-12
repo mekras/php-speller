@@ -14,7 +14,7 @@ use Mekras\Speller\Exception\SourceException;
 /**
  * Text source interface.
  *
- * @deprecated since x.x: use EncodingAwareSource for your own sources.
+ * @deprecated since 1.6: use EncodingAwareSource for your own sources.
  *
  * @since      1.0
  */
@@ -27,7 +27,7 @@ interface Source
      *
      * @throws SourceException Fail to read from text source.
      *
-     * @since x.x Throws {@see SourceException}.
+     * @since 1.6 Throws {@see SourceException}.
      * @since 1.0
      */
     public function getAsString();

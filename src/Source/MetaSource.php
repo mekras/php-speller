@@ -12,7 +12,7 @@ namespace Mekras\Speller\Source;
 /**
  * Base class for meta sources.
  *
- * @since x.x
+ * @since 1.6
  */
 abstract class MetaSource implements EncodingAwareSource
 {
@@ -28,7 +28,7 @@ abstract class MetaSource implements EncodingAwareSource
      *
      * @param EncodingAwareSource $source Original source.
      *
-     * @since x.x
+     * @since 1.6
      */
     public function __construct(EncodingAwareSource $source)
     {
@@ -40,7 +40,7 @@ abstract class MetaSource implements EncodingAwareSource
      *
      * @return string
      *
-     * @since x.x
+     * @since 1.6
      */
     public function getEncoding()
     {

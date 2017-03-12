@@ -20,7 +20,7 @@ use Symfony\Component\Process\Exception\RuntimeException;
 /**
  * Hunspell adapter.
  *
- * @since x.x Derived from {@see Ispell}.
+ * @since 1.6 Derived from {@see Ispell}.
  * @since 1.0
  */
 class Hunspell extends Ispell
@@ -153,7 +153,7 @@ class Hunspell extends Ispell
      * @throws LogicException
      * @throws RuntimeException
      *
-     * @since x.x
+     * @since 1.6
      */
     protected function createArguments(Source $source, array $languages)
     {
@@ -183,7 +183,7 @@ class Hunspell extends Ispell
      *
      * @return string[]
      *
-     * @since x.x
+     * @since 1.6
      *
      * @SuppressWarnings(PMD.UnusedFormalParameter)
      */

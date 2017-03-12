@@ -16,7 +16,7 @@ use Mekras\Speller\Source\Filter\StripAllFilter;
 /**
  * XLIFF translations as text source.
  *
- * @since x.x derived from MetaSource.
+ * @since 1.6 derived from MetaSource.
  * @since 1.2
  *
  * @link  http://docs.oasis-open.org/xliff/xliff-core/v2.0/xliff-core-v2.0.html
@@ -40,7 +40,7 @@ class XliffSource extends MetaSource
      *
      * @throws \Mekras\Speller\Exception\SourceException
      *
-     * @since x.x Accepts EncodingAwareSource
+     * @since 1.6 Accepts EncodingAwareSource
      *
      * @todo  deprecate string $source in version 2.0
      */

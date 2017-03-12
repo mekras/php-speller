@@ -12,7 +12,7 @@ namespace Mekras\Speller\Exception;
 /**
  * Runtime exception.
  *
- * @since x.x
+ * @since 1.6
  */
 class RuntimeException extends \RuntimeException implements PhpSpellerException
 {

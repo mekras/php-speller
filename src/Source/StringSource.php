@@ -12,7 +12,7 @@ namespace Mekras\Speller\Source;
 /**
  * String as a text source.
  *
- * @since x.x Implements EncodingAwareSource.
+ * @since 1.6 Implements EncodingAwareSource.
  * @since 1.0
  */
 class StringSource implements EncodingAwareSource
@@ -37,7 +37,7 @@ class StringSource implements EncodingAwareSource
      * @param string $text     Source text.
      * @param string $encoding Text encoding (default to "UTF-8").
      *
-     * @since x.x New argument — $encoding.
+     * @since 1.6 New argument — $encoding.
      * @since 1.0
      */
     public function __construct($text, $encoding = 'UTF-8')
@@ -63,7 +63,7 @@ class StringSource implements EncodingAwareSource
      *
      * @return string
      *
-     * @since x.x
+     * @since 1.6
      */
     public function getEncoding()
     {

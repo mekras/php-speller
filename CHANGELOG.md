@@ -1,19 +1,22 @@
 # Changelog
 
-## Unreleased
+## 1.6 - 2017-03-12
 
 ### Added
 
 - Aspell — aspell backend.
 - Ispell — ispell backend.
 - IconvSource — converts text encoding using iconv.
+- MetaSource — base class for meta sources.
 - EncodingAwareSource — text source with specified encoding.
 - ExternalSpeller — base class for external program adapters.
+- Own exceptions.
 
 ### Changed
 
-- StringSource, FileSource, HtmlSource and XliffSource now implements EncodingAwareSource.
-- HtmlSource and XliffSource now derived from MetaSource.
+- Hunspell class derived from new Ispell class.
+- All sources now implement EncodingAwareSource.
+- HtmlSource and XliffSource derived from MetaSource.
 
 ## 1.5.1 - 2017-03-11
 

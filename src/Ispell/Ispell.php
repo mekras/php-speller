@@ -26,7 +26,7 @@ use Symfony\Component\Process\Process;
  * 1. since ispell allow to use only one dictionary at once, only first item taken from $languages
  *    argument in {@see checkText()}.
  *
- * @since x.x
+ * @since 1.6
  */
 class Ispell extends ExternalSpeller
 {
@@ -57,7 +57,7 @@ class Ispell extends ExternalSpeller
      * @param string      $binaryPath Command to run ispell (default "ispell").
      * @param string|null $dictFolder Folder with bundled ispell dictionaries (null — autodetect).
      *
-     * @since x.x
+     * @since 1.6
      */
     public function __construct($binaryPath = 'ispell', $dictFolder = null)
     {
@@ -74,7 +74,7 @@ class Ispell extends ExternalSpeller
      * @throws LogicException
      * @throws RuntimeException
      *
-     * @since x.x
+     * @since 1.6
      */
     public function getSupportedLanguages()
     {
@@ -97,7 +97,7 @@ class Ispell extends ExternalSpeller
      *
      * @param LanguageMapper $mapper
      *
-     * @since x.x
+     * @since 1.6
      */
     public function setLanguageMapper(LanguageMapper $mapper)
     {
@@ -109,7 +109,7 @@ class Ispell extends ExternalSpeller
      *
      * @return LanguageMapper
      *
-     * @since x.x
+     * @since 1.6
      */
     protected function getLanguageMapper()
     {
@@ -132,7 +132,7 @@ class Ispell extends ExternalSpeller
      * @throws LogicException
      * @throws RuntimeException
      *
-     * @since x.x
+     * @since 1.6
      *
      * @SuppressWarnings(PMD.UnusedFormalParameter)
      */
@@ -161,7 +161,7 @@ class Ispell extends ExternalSpeller
      *
      * @return Issue[]
      *
-     * @since x.x
+     * @since 1.6
      */
     protected function parseOutput($output)
     {

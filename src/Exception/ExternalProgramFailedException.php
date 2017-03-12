@@ -12,7 +12,7 @@ namespace Mekras\Speller\Exception;
 /**
  * External program execution failed.
  *
- * @since x.x
+ * @since 1.6
  */
 class ExternalProgramFailedException extends RuntimeException
 {
@@ -24,7 +24,7 @@ class ExternalProgramFailedException extends RuntimeException
      * @param int             $code     Exit code
      * @param \Exception|null $previous Previous exception if any.
      *
-     * @since x.x
+     * @since 1.6
      */
     public function __construct($command, $message = '', $code = 0, \Exception $previous = null)
     {
