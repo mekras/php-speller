@@ -175,7 +175,7 @@ $source = new StringSource('foo', 'koi8-r');
 
 ## Meta sources 
 
-Additionally there is as set of meta sources, which wraps other sources to perform extra tasks.
+Additionally there is a set of meta sources, which wraps other sources to perform extra tasks.
 
 ### HtmlSource
 
