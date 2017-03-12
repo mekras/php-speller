@@ -13,6 +13,7 @@
 ### Changed
 
 - StringSource, FileSource, HtmlSource and XliffSource now implements EncodingAwareSource.
+- HtmlSource and XliffSource now derived from MetaSource.
 
 ## 1.5.1 - 2017-03-11
 

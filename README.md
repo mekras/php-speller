@@ -48,6 +48,8 @@ You can list languages supported by backend:
 print_r($speller->getSupportedLanguages());
 ```
 
+See [examples](examples/) for more info. 
+
 ### Source encoding
 
 For aspell, hunspell and ispell source text encoding should be equal to dictionary encoding. You can
