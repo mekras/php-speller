@@ -16,10 +16,12 @@ use Mekras\Speller\Source\Filter\StripAllFilter;
 /**
  * XLIFF translations as text source.
  *
- * @link  http://docs.oasis-open.org/xliff/xliff-core/v2.0/xliff-core-v2.0.html
+ * @since x.x derived from MetaSource.
  * @since 1.2
+ *
+ * @link  http://docs.oasis-open.org/xliff/xliff-core/v2.0/xliff-core-v2.0.html
  */
-class XliffSource extends FileSource
+class XliffSource extends MetaSource
 {
     /**
      * Text filters
@@ -32,13 +34,32 @@ class XliffSource extends FileSource
     ];
 
     /**
-     * Add custom pattern to be filtered
+     * Create text source from XLIFF document.
+     *
+     * @param EncodingAwareSource|string $source Source of filename
+     *
+     * @throws \Mekras\Speller\Exception\SourceException
+     *
+     * @since x.x Accepts EncodingAwareSource
+     *
+     * @todo  deprecate string $source in version 2.0
+     */
+    public function __construct($source)
+    {
+        if (!$source instanceof EncodingAwareSource) {
+            $source = new FileSource($source);
+        }
+        parent::__construct($source);
+    }
+
+    /**
+     * Add custom pattern to be filtered.
      *
      * Matched text will be filtered with a given filter or with
      * {@link Mekras\Speller\Source\Filter\StripAllFilter} if $filter is null.
      *
      * @param string $pattern PCRE pattern. It is recommended to use "ums" PCRE modifiers.
-     * @param Filter $filter  filter to be applied
+     * @param Filter $filter  Filter to be applied.
      *
      * @since 1.2
      */
@@ -52,11 +73,13 @@ class XliffSource extends FileSource
      *
      * @return string
      *
+     * @throws \Mekras\Speller\Exception\SourceException
+     *
      * @since 1.2
      */
     public function getAsString()
     {
-        $text = parent::getAsString();
+        $text = $this->source->getAsString();
 
         $stripAll = new StripAllFilter();
         $htmlFilter = new HtmlFilter();
