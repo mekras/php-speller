@@ -182,7 +182,9 @@ Return user visible text from HTML.
 ```php
 use Mekras\Speller\Source\HtmlSource;
 
-$source = new HtmlSource('<a href="#" title="Foo">Bar</a> Baz');
+$source = new HtmlSource(
+    new StringSource('<a href="#" title="Foo">Bar</a> Baz')
+);
 echo $source->getAsString(); // Foo Bar Baz
 ```
 
