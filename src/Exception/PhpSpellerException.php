@@ -16,4 +16,8 @@ namespace Mekras\Speller\Exception;
  */
 interface PhpSpellerException
 {
+    /**
+     * @return string
+     */
+    public function getMessage();
 }
