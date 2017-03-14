@@ -44,6 +44,7 @@ class HtmlSourceTest extends TestCase
      * HtmlSource should throw SourceException on invalid HTML.
      *
      * @expectedException \Mekras\Speller\Exception\SourceException
+     * @expectedExceptionMessage Opening and ending tag mismatch: a and b at 1:11
      */
     public function testInvalidHtml()
     {

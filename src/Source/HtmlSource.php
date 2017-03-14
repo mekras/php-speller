@@ -108,7 +108,7 @@ class HtmlSource extends MetaSource
         foreach ($errors as $error) {
             if (LIBXML_ERR_ERROR === $error->level || LIBXML_ERR_FATAL === $error->level) {
                 throw new SourceException(
-                    sprintf('%s at %d:%d', $error->message, $error->line, $error->column),
+                    sprintf('%s at %d:%d', trim($error->message), $error->line, $error->column),
                     $error->code
                 );
             }
