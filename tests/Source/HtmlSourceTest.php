@@ -10,6 +10,7 @@
 namespace Mekras\Speller\Tests\Source;
 
 use Mekras\Speller\Source\HtmlSource;
+use Mekras\Speller\Source\StringSource;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
@@ -37,5 +38,15 @@ class HtmlSourceTest extends TestCase
             '<html><meta http-equiv="Content-Type" content="text/html; charset=koi8-r"></html>'
         );
         static::assertEquals('koi8-r', $source->getEncoding());
+    }
+
+    /**
+     * HtmlSource should throw SourceException on invalid HTML.
+     *
+     * @expectedException \Mekras\Speller\Exception\SourceException
+     */
+    public function testInvalidHtml()
+    {
+        new HtmlSource(new StringSource('<a><b></a></b>'));
     }
 }

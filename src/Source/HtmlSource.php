@@ -9,6 +9,7 @@
 
 namespace Mekras\Speller\Source;
 
+use Mekras\Speller\Exception\SourceException;
 use Mekras\Speller\Source\Filter\HtmlFilter;
 
 /**
@@ -38,7 +39,7 @@ class HtmlSource extends MetaSource
      *
      * @param EncodingAwareSource|string $source
      *
-     * @throws \Mekras\Speller\Exception\SourceException
+     * @throws SourceException
      *
      * @since 1.6 Accepts EncodingAwareSource
      * @since 1.5
@@ -52,8 +53,7 @@ class HtmlSource extends MetaSource
         }
         parent::__construct($source);
         $html = $this->source->getAsString();
-        $document = new \DOMDocument('1.0');
-        $document->loadHTML($html);
+        $document = $this->createDomDocument($html);
         $this->encoding = $document->encoding;
         $filter = new HtmlFilter();
         $this->text = $filter->filter($html);
@@ -81,5 +81,39 @@ class HtmlSource extends MetaSource
     public function getEncoding()
     {
         return $this->encoding;
+    }
+
+    /**
+     * Create DOMDocument from HTML string.
+     *
+     * @param string $html
+     *
+     * @return \DOMDocument
+     *
+     * @throws SourceException On invalid HTML.
+     *
+     * @since x.x
+     */
+    protected function createDomDocument($html)
+    {
+        $document = new \DOMDocument('1.0');
+        $previousValue = libxml_use_internal_errors(true);
+        libxml_clear_errors();
+        $document->loadHTML($html);
+        /** @var \LibXMLError[] $errors */
+        $errors = libxml_get_errors();
+        libxml_clear_errors();
+        libxml_use_internal_errors($previousValue);
+
+        foreach ($errors as $error) {
+            if (LIBXML_ERR_ERROR === $error->level || LIBXML_ERR_FATAL === $error->level) {
+                throw new SourceException(
+                    sprintf('%s at %d:%d', $error->message, $error->line, $error->column),
+                    $error->code
+                );
+            }
+        }
+
+        return $document;
     }
 }

@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- HtmlSource should throw SourceException on invalid HTML.
+
+
 ## 1.6 - 2017-03-12
 
 ### Added
@@ -17,6 +24,7 @@
 - Hunspell class derived from new Ispell class.
 - All sources now implement EncodingAwareSource.
 - HtmlSource and XliffSource derived from MetaSource.
+
 
 ## 1.5.1 - 2017-03-11
 
