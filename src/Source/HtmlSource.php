@@ -92,7 +92,7 @@ class HtmlSource extends MetaSource
      *
      * @throws SourceException On invalid HTML.
      *
-     * @since x.x
+     * @since 1.7
      */
     protected function createDomDocument($html)
     {

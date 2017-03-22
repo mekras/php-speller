@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+
+## 1.7 - 2017-03-22
+
 ### Fixed
 
 - #6: Failed to execute "hunspell -i UTF-8 -a": Can't open affix or dictionary files for dictionary
