@@ -60,10 +60,11 @@ abstract class ExternalSpeller implements Speller
      *
      * @return Issue[]
      *
+     * @throws \Symfony\Component\Process\Exception\LogicException
      * @throws EnvironmentException
+     * @throws Exception\SourceException
      * @throws ExternalProgramFailedException
      * @throws InvalidArgumentException
-     * @throws \Symfony\Component\Process\Exception\LogicException
      *
      * @see   http://tools.ietf.org/html/bcp47
      * @since 1.6
