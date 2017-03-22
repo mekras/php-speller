@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- FileSource throws SourceException when using "php://stdin".
+
 ### Changed
 
 - HtmlSource should throw SourceException on invalid HTML.

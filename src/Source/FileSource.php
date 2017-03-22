@@ -61,12 +61,14 @@ class FileSource implements EncodingAwareSource
      */
     public function getAsString()
     {
-        if (!file_exists($this->filename)) {
-            throw new SourceException(sprintf('File "%s" not exists', $this->filename));
-        }
+        if ('php://stdin' !== $this->filename) {
+            if (!file_exists($this->filename)) {
+                throw new SourceException(sprintf('File "%s" not exists', $this->filename));
+            }
 
-        if (!is_readable($this->filename)) {
-            throw new SourceException(sprintf('File "%s" is not readable', $this->filename));
+            if (!is_readable($this->filename)) {
+                throw new SourceException(sprintf('File "%s" is not readable', $this->filename));
+            }
         }
 
         return file_get_contents($this->filename);
