@@ -224,6 +224,7 @@ abstract class ExternalSpeller implements Speller
         } catch (RuntimeException $e) {
             throw new ExternalProgramFailedException($command, $e->getMessage(), 0, $e);
         }
+        $process->inheritEnvironmentVariables(true);
         $process->setTimeout($this->timeout);
 
         return $process;

@@ -80,7 +80,7 @@ if (array_key_exists('f', $options)) {
 }
 
 /* Source language. */
-$languages = [locale_get_default()];
+$languages = [];
 if (array_key_exists('l', $options)) {
     $languages = explode(',', $options['l']);
 }

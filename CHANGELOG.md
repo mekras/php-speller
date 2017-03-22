@@ -4,6 +4,8 @@
 
 ### Fixed
 
+- #6: Failed to execute "hunspell -i UTF-8 -a": Can't open affix or dictionary files for dictionary
+  named "default".
 - FileSource throws SourceException when using "php://stdin".
 
 ### Changed

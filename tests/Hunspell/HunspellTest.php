@@ -38,7 +38,7 @@ class HunspellTest extends TestCase
      */
     public function testGetSupportedLanguages()
     {
-        $hunspell = new Hunspell(__DIR__ . '/fixtures/hunspell.sh');
+        $hunspell = new Hunspell($this->getBinary());
         static::assertEquals(
             ['de_BE', 'de_DE', 'de_LU', 'en-GB', 'en_AU', 'en_GB', 'en_US', 'en_ZA', 'ru_RU'],
             $hunspell->getSupportedLanguages()
@@ -52,7 +52,7 @@ class HunspellTest extends TestCase
      */
     public function testCheckText()
     {
-        $hunspell = new Hunspell(__DIR__ . '/fixtures/hunspell.sh');
+        $hunspell = new Hunspell($this->getBinary());
         $source = new StringSource('<will be ignored and loaded from fixtures/check.txt>');
         $issues = $hunspell->checkText($source, ['en']);
         static::assertCount(6, $issues);
@@ -71,5 +71,15 @@ class HunspellTest extends TestCase
 
         static::assertEquals('CCould', $issues[5]->word);
         static::assertEquals(4, $issues[5]->line);
+    }
+
+    /**
+     * Return hunspell binary stub.
+     *
+     * @return string
+     */
+    private function getBinary()
+    {
+        return __DIR__ . '/fixtures/bin/hunspell.php';
     }
 }
