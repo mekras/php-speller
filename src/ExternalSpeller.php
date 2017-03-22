@@ -72,7 +72,15 @@ abstract class ExternalSpeller implements Speller
     public function checkText(Source $source, array $languages)
     {
         $process = $this->createProcess($this->createArguments($source, $languages));
-        $process->setEnv($this->createEnvVars($source, $languages));
+        if (method_exists($process, 'inheritEnvironmentVariables')) {
+            // Symfony 3.2+
+            $process->setEnv($this->createEnvVars($source, $languages));
+        } else {
+            // Symfony < 3.2
+            $process->setEnv(
+                array_merge($process->getEnv(), $this->createEnvVars($source, $languages))
+            );
+        }
 
         /** @noinspection PhpParamsInspection */
         $process->setInput($source->getAsString());
@@ -224,7 +232,13 @@ abstract class ExternalSpeller implements Speller
         } catch (RuntimeException $e) {
             throw new ExternalProgramFailedException($command, $e->getMessage(), 0, $e);
         }
-        $process->inheritEnvironmentVariables(true);
+        if (method_exists($process, 'inheritEnvironmentVariables')) {
+            // Symfony 3.2+
+            $process->inheritEnvironmentVariables(true);
+        } else {
+            // Symfony < 3.2
+            $process->setEnv(['LANG' => getenv('LANG')]);
+        }
         $process->setTimeout($this->timeout);
 
         return $process;
