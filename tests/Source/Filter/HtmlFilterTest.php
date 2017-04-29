@@ -53,8 +53,8 @@ class HtmlFilterTest extends TestCase
     public function testScript()
     {
         $filter = new HtmlFilter();
-        $html = "<p>Foo</p>\n<script>Bar Baz\nBuz</script>";
-        $text = "   Foo    \n               \n            ";
+        $html = "<p>Foo</p>\n<script type=\"text/javascript\">Bar Baz\nBuz</script>";
+        $text = "   Foo    \n                                      \n            ";
         static::assertEquals($text, $filter->filter($html));
     }
 }

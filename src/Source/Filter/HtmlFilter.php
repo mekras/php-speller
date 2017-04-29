@@ -17,6 +17,31 @@ namespace Mekras\Speller\Source\Filter;
 class HtmlFilter implements Filter
 {
     /**
+     * Attribute name context.
+     */
+    const CTX_ATTR_NAME = 'attr_name';
+
+    /**
+     * Attribute value context.
+     */
+    const CTX_ATTR_VALUE = 'attr_value';
+
+    /**
+     * Tag attributes context.
+     */
+    const CTX_TAG_ATTRS = 'tag_attrs';
+
+    /**
+     * Tag content context.
+     */
+    const CTX_TAG_CONTENT = 'tag_content';
+
+    /**
+     * Tag name context.
+     */
+    const CTX_TAG_NAME = 'tag_name';
+
+    /**
      * Ignore content of these tags.
      *
      * @var string[]
@@ -60,24 +85,32 @@ class HtmlFilter implements Filter
         // Current/last attribute name
         $attrName = null;
         // Current context
-        $context = null;
+        $context = self::CTX_TAG_CONTENT;
         // Expected context
         $expecting = null;
+
+        // By default tag content treated as text.
+        $ignoreTagContent = false;
+        // By default attribute values NOT treated as text.
+        $ignoreAttrValue = true;
 
         $length = mb_strlen($string);
         for ($i = 0; $i < $length; $i++) {
             $char = mb_substr($string, $i, 1);
             switch (true) {
                 case '<' === $char:
-                    $context = 'tag_name';
+                    $context = self::CTX_TAG_NAME;
                     $tagName = null;
                     $char = ' ';
                     break;
 
                 case '>' === $char:
-                    $context = 'tag_name' === $context && $this->isIgnoredTag($tagName)
-                        ? 'ignored_tag_content'
-                        : null;
+                    if ($this->isIgnoredTag($tagName)) {
+                        $ignoreTagContent = true;
+                    } elseif ('/' === $tagName[0]) {
+                        $ignoreTagContent = false; // Restore to default state.
+                    }
+                    $context = self::CTX_TAG_CONTENT;
                     $expecting = null;
                     $char = ' ';
                     break;
@@ -86,36 +119,35 @@ class HtmlFilter implements Filter
                 case "\n" === $char:
                 case "\t" === $char:
                     switch ($context) {
-                        case 'tag_name':
-                            $context = 'tag_attrs';
+                        case self::CTX_TAG_NAME:
+                            $context = self::CTX_TAG_ATTRS;
                             break;
 
-                        case 'attr_name':
-                            $context = 'tag_attrs';
+                        case self::CTX_ATTR_NAME:
+                            $context = self::CTX_TAG_ATTRS;
                             break;
                     }
                     break;
 
-                case '=' === $char && ('attr_name' === $context || 'tag_attrs' === $context):
-                    $expecting = 'attr_value';
+                case '=' === $char
+                    && (self::CTX_ATTR_NAME === $context || self::CTX_TAG_ATTRS === $context):
+                    $expecting = self::CTX_ATTR_VALUE;
                     $char = ' ';
                     break;
 
                 case '"' === $char:
                 case "'" === $char:
                     switch (true) {
-                        case 'attr_value' === $expecting:
-                            $context = 'attr_value';
-                            if (in_array(strtolower($attrName), self::$textAttrs, true)) {
-                                $context = 'attr_text';
-                            }
+                        case self::CTX_ATTR_VALUE === $expecting:
+                            $context = self::CTX_ATTR_VALUE;
+                            $ignoreAttrValue
+                                = !in_array(strtolower($attrName), self::$textAttrs, true);
                             $expecting = null;
                             $char = ' ';
                             break;
 
-                        case 'attr_value' === $context:
-                        case 'attr_text' === $context:
-                            $context = 'tag_attrs';
+                        case self::CTX_ATTR_VALUE === $context:
+                            $context = self::CTX_TAG_ATTRS;
                             $char = ' ';
                             break;
                     }
@@ -123,27 +155,31 @@ class HtmlFilter implements Filter
 
                 default:
                     switch ($context) {
-                        case 'tag_name':
+                        case self::CTX_TAG_NAME:
                             $tagName .= $char;
                             $char = ' ';
                             break;
 
                         /** @noinspection PhpMissingBreakStatementInspection */
-                        case 'tag_attrs':
-                            $context = 'attr_name';
+                        case self::CTX_TAG_ATTRS:
+                            $context = self::CTX_ATTR_NAME;
                             $attrName = null;
                         // no break needed
-                        case 'attr_name':
+                        case self::CTX_ATTR_NAME:
                             $attrName .= $char;
                             $char = ' ';
                             break;
 
-                        case 'attr_value':
-                            $char = ' ';
+                        case self::CTX_ATTR_VALUE:
+                            if ($ignoreAttrValue) {
+                                $char = ' ';
+                            }
                             break;
 
-                        case 'ignored_tag_content':
-                            $char = ' ';
+                        case self::CTX_TAG_CONTENT:
+                            if ($ignoreTagContent) {
+                                $char = ' ';
+                            }
                             break;
                     }
             }
