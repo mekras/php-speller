@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- Meta tags with http-equiv should be filtered out.
+
 
 ## 1.7 - 2017-03-22
 

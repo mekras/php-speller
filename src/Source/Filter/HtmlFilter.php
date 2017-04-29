@@ -44,6 +44,7 @@ class HtmlFilter implements Filter
         $result = '';
 
         $string = $this->filterEntities($string);
+        $string = $this->filterHttpEquivMetaTags($string);
 
         // Current/last tag name
         $tagName = null;
@@ -148,6 +149,24 @@ class HtmlFilter implements Filter
     {
         return preg_replace_callback(
             '/&\w+;/',
+            function ($match) {
+                return str_repeat(' ', strlen($match[0]));
+            },
+            $string
+        );
+    }
+
+    /**
+     * Replace meta tags with HTTP header equivalents.
+     *
+     * @param string $string
+     *
+     * @return string
+     */
+    private function filterHttpEquivMetaTags($string)
+    {
+        return preg_replace_callback(
+            '/<meta[^>]+http-equiv=[^>]+>/i',
             function ($match) {
                 return str_repeat(' ', strlen($match[0]));
             },
