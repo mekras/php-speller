@@ -2,9 +2,11 @@
 
 ## Unreleased
 
+## 1.7.1 - 2017-05-01
+
 ### Fixed
 
-- Meta tags with http-equiv should be filtered out.
+- HtmlFilter: meta tags with http-equiv should be filtered out.
 
 
 ## 1.7 - 2017-03-22
