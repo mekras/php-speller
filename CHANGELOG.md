@@ -2,13 +2,15 @@
 
 ## Unreleased
 
+## 1.7.2 - 2017-04-30
+
 ### Fixed
 
 - HtmlFilter: <script> content should be filtered out.
 - HtmlFilter: only for "keywords" and "description" meta tags "content" attr should be treated as
   string.
 
-## 1.7.1 - 2017-05-01
+## 1.7.1 - 2017-04-29
 
 ### Fixed
 
