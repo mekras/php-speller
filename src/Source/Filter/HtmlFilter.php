@@ -65,6 +65,16 @@ class HtmlFilter implements Filter
     ];
 
     /**
+     * Meta tag names with text content.
+     *
+     * @var string[]
+     */
+    static private $textMetaTags = [
+        'description',
+        'keywords'
+    ];
+
+    /**
      * Filter string.
      *
      * @param string $string String to be filtered.
@@ -78,7 +88,7 @@ class HtmlFilter implements Filter
         $result = '';
 
         $string = $this->filterEntities($string);
-        $string = $this->filterHttpEquivMetaTags($string);
+        $string = $this->filterMetaTags($string);
 
         // Current/last tag name
         $tagName = null;
@@ -208,18 +218,24 @@ class HtmlFilter implements Filter
     }
 
     /**
-     * Replace meta tags with HTTP header equivalents.
+     * Replace non-text meta tags.
      *
      * @param string $string
      *
      * @return string
      */
-    private function filterHttpEquivMetaTags($string)
+    private function filterMetaTags($string)
     {
         return preg_replace_callback(
-            '/<meta[^>]+http-equiv=[^>]+>/i',
+            '/<meta[^>]+(http-equiv\s*=|name\s*=\s*["\']?([^>"\']+))[^>]*>/i',
             function ($match) {
-                return str_repeat(' ', strlen($match[0]));
+                if (count($match) < 3
+                    || !in_array(strtolower($match[2]), self::$textMetaTags, true)
+                ) {
+                    return str_repeat(' ', strlen($match[0]));
+                }
+
+                return $match[0];
             },
             $string
         );

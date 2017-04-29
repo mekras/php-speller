@@ -39,10 +39,12 @@ class HtmlFilterTest extends TestCase
         $html =
             '<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html" />' . "\n" .
             '<meta name="Keywords" content="Foo">' . "\n" .
+            '<meta name="foo" content="Foobar">' . "\n" .
             '<meta name="description" content="Bar">';
         $text =
             "                                                      \n" .
             "                               Foo  \n" .
+            "                                  \n" .
             '                                  Bar  ';
         static::assertEquals($text, $filter->filter($html));
     }
