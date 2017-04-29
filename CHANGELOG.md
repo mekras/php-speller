@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- HtmlFilter: <script> content should be filtered out.
+
+
 ## 1.7.1 - 2017-05-01
 
 ### Fixed

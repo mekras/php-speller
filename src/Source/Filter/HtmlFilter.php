@@ -17,6 +17,15 @@ namespace Mekras\Speller\Source\Filter;
 class HtmlFilter implements Filter
 {
     /**
+     * Ignore content of these tags.
+     *
+     * @var string[]
+     */
+    static private $ignoreTags = [
+        'script'
+    ];
+
+    /**
      * Attrs with text contents.
      *
      * @var string[]
@@ -66,7 +75,9 @@ class HtmlFilter implements Filter
                     break;
 
                 case '>' === $char:
-                    $context = null;
+                    $context = 'tag_name' === $context && $this->isIgnoredTag($tagName)
+                        ? 'ignored_tag_content'
+                        : null;
                     $expecting = null;
                     $char = ' ';
                     break;
@@ -130,6 +141,10 @@ class HtmlFilter implements Filter
                         case 'attr_value':
                             $char = ' ';
                             break;
+
+                        case 'ignored_tag_content':
+                            $char = ' ';
+                            break;
                     }
             }
             $result .= $char;
@@ -172,5 +187,23 @@ class HtmlFilter implements Filter
             },
             $string
         );
+    }
+
+    /**
+     * Return true if $name is in the list of ignored tags.
+     *
+     * @param string $name Tag name.
+     *
+     * @return bool
+     */
+    private function isIgnoredTag($name)
+    {
+        foreach (self::$ignoreTags as $tag) {
+            if (strcasecmp($tag, $name) === 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

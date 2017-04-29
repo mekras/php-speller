@@ -46,4 +46,15 @@ class HtmlFilterTest extends TestCase
             '                                  Bar  ';
         static::assertEquals($text, $filter->filter($html));
     }
+
+    /**
+     * <script> content should be filtered out.
+     */
+    public function testScript()
+    {
+        $filter = new HtmlFilter();
+        $html = "<p>Foo</p>\n<script>Bar Baz\nBuz</script>";
+        $text = "   Foo    \n               \n            ";
+        static::assertEquals($text, $filter->filter($html));
+    }
 }
