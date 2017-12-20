@@ -24,6 +24,8 @@ install:
 
 script:
  - mkdir -p build/logs
+ - vendor/bin/phpcs --standard=PSR2 src/
+ - vendor/bin/phpcs --standard=PSR2 tests/
  - vendor/bin/phpunit ${PHPUNIT_FLAGS}
 
 after_script:
