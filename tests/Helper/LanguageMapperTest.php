@@ -9,12 +9,12 @@
 namespace Mekras\Speller\Tests\Helper;
 
 use Mekras\Speller\Helper\LanguageMapper;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for Mekras\Speller\Helper\LanguageMapper
  *
- * @covers Mekras\Speller\Helper\LanguageMapper
+ * @covers \Mekras\Speller\Helper\LanguageMapper
  */
 class LanguageMapperTest extends TestCase
 {

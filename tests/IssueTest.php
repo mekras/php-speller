@@ -9,12 +9,12 @@
 namespace Mekras\Speller\Tests;
 
 use Mekras\Speller\Issue;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for Mekras\Speller\Issue
  *
- * @covers Mekras\Speller\Issue
+ * @covers \Mekras\Speller\Issue
  */
 class IssueTest extends TestCase
 {

@@ -11,7 +11,7 @@ namespace Mekras\Speller\Tests\Hunspell;
 
 use Mekras\Speller\Hunspell\Hunspell;
 use Mekras\Speller\Source\StringSource;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 
 /**

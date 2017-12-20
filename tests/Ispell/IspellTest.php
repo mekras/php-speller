@@ -11,7 +11,7 @@ namespace Mekras\Speller\Tests\Ispell;
 
 use Mekras\Speller\Ispell\Ispell;
 use Mekras\Speller\Source\StringSource;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for Mekras\Speller\Ispell\Ispell.

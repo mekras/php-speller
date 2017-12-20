@@ -12,7 +12,6 @@ namespace Mekras\Speller;
 use Mekras\Speller\Exception\EnvironmentException;
 use Mekras\Speller\Exception\ExternalProgramFailedException;
 use Mekras\Speller\Source\EncodingAwareSource;
-use Mekras\Speller\Source\Source;
 use Symfony\Component\Process\Exception\InvalidArgumentException;
 use Symfony\Component\Process\Exception\RuntimeException;
 use Symfony\Component\Process\Process;
@@ -22,7 +21,7 @@ use Symfony\Component\Process\Process;
  *
  * @since 1.6
  */
-abstract class ExternalSpeller implements Speller
+abstract class ExternalSpeller
 {
     /**
      * Command to run external speller.
@@ -55,21 +54,15 @@ abstract class ExternalSpeller implements Speller
      *
      * Check given text and return an array of spelling issues.
      *
-     * @param Source $source    Text source to check.
-     * @param array  $languages List of languages used in text (IETF language tag).
+     * @param EncodingAwareSource $source    Text source to check.
+     * @param array               $languages List of languages used in text (IETF language tag).
      *
      * @return Issue[]
-     *
-     * @throws \Symfony\Component\Process\Exception\LogicException
-     * @throws EnvironmentException
-     * @throws Exception\SourceException
-     * @throws ExternalProgramFailedException
-     * @throws InvalidArgumentException
      *
      * @see   http://tools.ietf.org/html/bcp47
      * @since 1.6
      */
-    public function checkText(Source $source, array $languages)
+    public function checkText(EncodingAwareSource $source, array $languages)
     {
         $process = $this->createProcess($this->createArguments($source, $languages));
         if (method_exists($process, 'inheritEnvironmentVariables')) {
@@ -169,8 +162,8 @@ abstract class ExternalSpeller implements Speller
     /**
      * Create arguments for external speller.
      *
-     * @param Source $source    Text source to check.
-     * @param array  $languages List of languages used in text (IETF language tag).
+     * @param EncodingAwareSource $source    Text source to check.
+     * @param array               $languages List of languages used in text (IETF language tag).
      *
      * @return string[]
      *
@@ -178,7 +171,7 @@ abstract class ExternalSpeller implements Speller
      *
      * @SuppressWarnings(PMD.UnusedFormalParameter)
      */
-    protected function createArguments(Source $source, array $languages)
+    protected function createArguments(EncodingAwareSource $source, array $languages)
     {
         return [];
     }
@@ -186,8 +179,8 @@ abstract class ExternalSpeller implements Speller
     /**
      * Create environment variables for external speller.
      *
-     * @param Source $source    Text source to check.
-     * @param array  $languages List of languages used in text (IETF language tag).
+     * @param EncodingAwareSource $source    Text source to check.
+     * @param array               $languages List of languages used in text (IETF language tag).
      *
      * @return string[]
      *
@@ -195,7 +188,7 @@ abstract class ExternalSpeller implements Speller
      *
      * @SuppressWarnings(PMD.UnusedFormalParameter)
      */
-    protected function createEnvVars(Source $source, array $languages)
+    protected function createEnvVars(EncodingAwareSource $source, array $languages)
     {
         return [];
     }

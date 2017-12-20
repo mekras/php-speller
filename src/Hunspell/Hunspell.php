@@ -12,7 +12,6 @@ namespace Mekras\Speller\Hunspell;
 use Mekras\Speller\Exception\ExternalProgramFailedException;
 use Mekras\Speller\Ispell\Ispell;
 use Mekras\Speller\Source\EncodingAwareSource;
-use Mekras\Speller\Source\Source;
 use Symfony\Component\Process\Exception\InvalidArgumentException;
 use Symfony\Component\Process\Exception\LogicException;
 use Symfony\Component\Process\Exception\RuntimeException;
@@ -143,19 +142,14 @@ class Hunspell extends Ispell
     /**
      * Create arguments for external speller.
      *
-     * @param Source $source    Text source to check.
-     * @param array  $languages List of languages used in text (IETF language tag).
+     * @param EncodingAwareSource $source    Text source to check.
+     * @param array               $languages List of languages used in text (IETF language tag).
      *
      * @return string[]
      *
-     * @throws ExternalProgramFailedException
-     * @throws InvalidArgumentException
-     * @throws LogicException
-     * @throws RuntimeException
-     *
      * @since 1.6
      */
-    protected function createArguments(Source $source, array $languages)
+    protected function createArguments(EncodingAwareSource $source, array $languages)
     {
         $args = [
             // Input encoding
@@ -178,8 +172,8 @@ class Hunspell extends Ispell
     /**
      * Create environment variables for external speller.
      *
-     * @param Source $source    Text source to check.
-     * @param array  $languages List of languages used in text (IETF language tag).
+     * @param EncodingAwareSource $source    Text source to check.
+     * @param array               $languages List of languages used in text (IETF language tag).
      *
      * @return string[]
      *
@@ -187,7 +181,7 @@ class Hunspell extends Ispell
      *
      * @SuppressWarnings(PMD.UnusedFormalParameter)
      */
-    protected function createEnvVars(Source $source, array $languages)
+    protected function createEnvVars(EncodingAwareSource $source, array $languages)
     {
         $vars = [];
         if ($this->customDictPath) {

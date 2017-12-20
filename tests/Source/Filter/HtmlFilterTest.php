@@ -10,7 +10,7 @@
 namespace Mekras\Speller\Tests\Source\Filter;
 
 use Mekras\Speller\Source\Filter\HtmlFilter;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for Mekras\Speller\Source\Filter\HtmlFilter.
