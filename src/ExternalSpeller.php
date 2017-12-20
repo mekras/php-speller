@@ -21,7 +21,7 @@ use Symfony\Component\Process\Process;
  *
  * @since 1.6
  */
-abstract class ExternalSpeller
+abstract class ExternalSpeller implements Speller
 {
     /**
      * Command to run external speller.
