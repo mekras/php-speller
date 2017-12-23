@@ -6,7 +6,7 @@
  * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
  * @license   http://opensource.org/licenses/MIT MIT
  */
-namespace Mekras\Speller\Tests\Helper;
+namespace Mekras\Speller\Tests\Unit\Helper;
 
 use Mekras\Speller\Helper\LanguageMapper;
 use PHPUnit\Framework\TestCase;

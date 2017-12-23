@@ -7,7 +7,7 @@
  * @license   http://opensource.org/licenses/MIT MIT
  */
 
-namespace Mekras\Speller\Tests\Hunspell;
+namespace Mekras\Speller\Tests\Unit\Hunspell;
 
 use Mekras\Speller\Hunspell\Hunspell;
 use Mekras\Speller\Source\StringSource;

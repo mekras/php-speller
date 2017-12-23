@@ -6,7 +6,7 @@
  * @author Михаил Красильников <m.krasilnikov@yandex.ru>
  * @license http://opensource.org/licenses/MIT MIT
  */
-namespace Mekras\Speller\Tests\Source\Filter;
+namespace Mekras\Speller\Tests\Unit\Source\Filter;
 
 use Mekras\Speller\Source\Filter\StripAllFilter;
 use PHPUnit\Framework\TestCase;

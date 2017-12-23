@@ -7,9 +7,10 @@
  * @license   http://opensource.org/licenses/MIT MIT
  */
 
-namespace Mekras\Speller\Tests\Aspell;
+namespace Mekras\Speller\Tests\Unit\Aspell;
 
 use Mekras\Speller\Aspell\Aspell;
+use Mekras\Speller\Aspell\Dictionary;
 use Mekras\Speller\Source\EncodingAwareSource;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
@@ -43,7 +44,18 @@ class AspellTest extends TestCase
      */
     public function testGetSupportedLanguages()
     {
-        $aspell = new Aspell(__DIR__ . '/fixtures/bin/aspell.sh');
+        $process = $this->prophesize(Process::class);
+
+        $process->setCommandLine('aspell dump dicts')->shouldBeCalled();
+        $process->inheritEnvironmentVariables(true)->shouldBeCalled();
+        $process->setTimeout(600)->shouldBeCalled();
+        $process->run()->shouldBeCalled();
+        $process->isSuccessful()->shouldBeCalled()->willReturn(true);
+        $process->getOutput()->shouldBeCalled()->willReturn(self::$dicts);
+
+        $aspell = new Aspell();
+        $aspell->setProcess($process->reveal());
+
         static::assertEquals(
             [
                 'en',

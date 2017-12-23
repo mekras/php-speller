@@ -7,7 +7,7 @@
  * @license   http://opensource.org/licenses/MIT MIT
  */
 
-namespace Mekras\Speller\Tests\Source;
+namespace Mekras\Speller\Tests\Unit\Source;
 
 use Mekras\Speller\Source\StringSource;
 use PHPUnit\Framework\TestCase;

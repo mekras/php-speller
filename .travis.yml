@@ -11,6 +11,7 @@ matrix:
 
 before_install:
   - travis_retry composer self-update
+  - sudo apt-get install aspell
 
 install:
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction

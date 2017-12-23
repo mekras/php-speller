@@ -6,7 +6,7 @@
  * @author Михаил Красильников <m.krasilnikov@yandex.ru>
  * @license http://opensource.org/licenses/MIT MIT
  */
-namespace Mekras\Speller\Tests;
+namespace Mekras\Speller\Tests\Unit;
 
 use Mekras\Speller\Issue;
 use PHPUnit\Framework\TestCase;
