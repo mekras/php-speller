@@ -125,7 +125,6 @@ abstract class ExternalSpeller implements Speller
         $this->timeout = $seconds;
     }
 
-
     /**
      * Compose shell command line
      *
@@ -138,10 +137,13 @@ abstract class ExternalSpeller implements Speller
     protected function composeCommand($args)
     {
         $command = $this->getBinary();
+
         if (is_array($args)) {
             $args = implode(' ', $args);
         }
-        $command .= ' ' . $args;
+
+        // Only append args if we have some
+        $command .= strlen($args) ? ' ' . $args : '';
 
         return $command;
     }

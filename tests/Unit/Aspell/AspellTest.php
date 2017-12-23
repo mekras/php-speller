@@ -10,7 +10,6 @@
 namespace Mekras\Speller\Tests\Unit\Aspell;
 
 use Mekras\Speller\Aspell\Aspell;
-use Mekras\Speller\Aspell\Dictionary;
 use Mekras\Speller\Source\EncodingAwareSource;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;

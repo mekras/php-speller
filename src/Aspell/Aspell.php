@@ -9,6 +9,7 @@
 
 namespace Mekras\Speller\Aspell;
 
+use Mekras\Speller\Dictionary;
 use Mekras\Speller\Exception\ExternalProgramFailedException;
 use Mekras\Speller\Ispell\Ispell;
 use Mekras\Speller\Source\EncodingAwareSource;
@@ -29,6 +30,11 @@ class Aspell extends Ispell
      * @var string[]|null
      */
     private $supportedLanguages = null;
+
+    /**
+     * @var Dictionary
+     */
+    private $personalDictionary;
 
     /**
      * Create new aspell adapter.
@@ -88,6 +94,14 @@ class Aspell extends Ispell
     }
 
     /**
+     * @param Dictionary $dictionary
+     */
+    public function setPersonalDictionary(Dictionary $dictionary)
+    {
+        $this->personalDictionary = $dictionary;
+    }
+
+    /**
      * Create arguments for external speller.
      *
      * @param EncodingAwareSource $source    Text source to check.
@@ -108,6 +122,10 @@ class Aspell extends Ispell
 
         if (count($languages) > 0) {
             $args[] = '--lang=' . $languages[0];
+        }
+
+        if ($this->personalDictionary !== null) {
+            $args[] = '--personal=' . $this->personalDictionary->getPath();
         }
 
         return $args;
