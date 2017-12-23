@@ -38,6 +38,13 @@ abstract class ExternalSpeller implements Speller
     private $timeout = 600;
 
     /**
+     * Internal process handling
+     *
+     * @var Process
+     */
+    private $process;
+
+    /**
      * Create new adapter.
      *
      * @param string $binaryPath Command to run external speller.
@@ -46,7 +53,7 @@ abstract class ExternalSpeller implements Speller
      */
     public function __construct($binaryPath)
     {
-        $this->binary = (string) $binaryPath;
+        $this->binary = (string)$binaryPath;
     }
 
     /**
@@ -65,18 +72,10 @@ abstract class ExternalSpeller implements Speller
     public function checkText(EncodingAwareSource $source, array $languages)
     {
         $process = $this->createProcess($this->createArguments($source, $languages));
-        if (method_exists($process, 'inheritEnvironmentVariables')) {
-            // Symfony 3.2+
-            $process->setEnv($this->createEnvVars($source, $languages));
-        } else {
-            // Symfony < 3.2
-            $process->setEnv(
-                array_merge($process->getEnv(), $this->createEnvVars($source, $languages))
-            );
-        }
+        $process->setEnv($this->createEnvVars($source, $languages));
 
-        /** @noinspection PhpParamsInspection */
         $process->setInput($source->getAsString());
+
         try {
             $process->run();
         } catch (RuntimeException $e) {
@@ -221,19 +220,45 @@ abstract class ExternalSpeller implements Speller
         $command = $this->composeCommand($args);
 
         try {
-            $process = new Process($command);
+            $process = $this->composeProcess($command);
         } catch (RuntimeException $e) {
             throw new ExternalProgramFailedException($command, $e->getMessage(), 0, $e);
         }
-        if (method_exists($process, 'inheritEnvironmentVariables')) {
-            // Symfony 3.2+
-            $process->inheritEnvironmentVariables(true);
-        } else {
-            // Symfony < 3.2
-            $process->setEnv(['LANG' => getenv('LANG')]);
-        }
-        $process->setTimeout($this->timeout);
 
         return $process;
+    }
+
+    /**
+     * Compose a process with given command. If no process is given in current instance a new one will be created.
+     *
+     * @param string $command
+     *
+     * @return Process
+     *
+     * @since 2.0
+     */
+    private function composeProcess(string $command)
+    {
+        if ($this->process === null) {
+            $this->process = new Process($command);
+        }
+
+        $this->process->inheritEnvironmentVariables(true);
+        $this->process->setTimeout($this->timeout);
+        $this->process->setCommandLine($command);
+
+        return $this->process;
+    }
+
+    /**
+     * @param Process $process
+     *
+     * @return self
+     */
+    public function setProcess(Process $process)
+    {
+        $this->process = $process;
+
+        return $this;
     }
 }

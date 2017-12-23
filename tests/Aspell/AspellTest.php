@@ -10,8 +10,9 @@
 namespace Mekras\Speller\Tests\Aspell;
 
 use Mekras\Speller\Aspell\Aspell;
-use Mekras\Speller\Source\StringSource;
+use Mekras\Speller\Source\EncodingAwareSource;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Process\Process;
 
 /**
  * Tests for Mekras\Speller\Aspell\Aspell.
@@ -21,6 +22,22 @@ use PHPUnit\Framework\TestCase;
  */
 class AspellTest extends TestCase
 {
+    protected static $input;
+    protected static $dicts;
+    protected static $check;
+
+    /**
+     * @inheritdoc
+     */
+    public static function setUpBeforeClass()
+    {
+        parent::setUpBeforeClass();
+
+        self::$input = file_get_contents(__DIR__ . '/fixtures/input.txt');
+        self::$dicts = file_get_contents(__DIR__ . '/fixtures/dicts.txt');
+        self::$check = file_get_contents(__DIR__ . '/fixtures/check.txt');
+    }
+
     /**
      * Test retrieving list of supported languages.
      */
@@ -53,9 +70,27 @@ class AspellTest extends TestCase
      */
     public function testCheckText()
     {
-        $aspell = new Aspell(__DIR__ . '/fixtures/bin/aspell.sh');
-        $source = new StringSource('<will be ignored and loaded from fixtures/check.txt>');
-        $issues = $aspell->checkText($source, ['en']);
+        $process = $this->prophesize(Process::class);
+
+        $process->setCommandLine('aspell --encoding=UTF-8 -a --lang=en')->shouldBeCalled();
+        $process->inheritEnvironmentVariables(true)->shouldBeCalled();
+        $process->setTimeout(600)->shouldBeCalled();
+        $process->setEnv([])->shouldBeCalled();
+        $process->setInput(self::$input)->shouldBeCalled();
+        $process->run()->shouldBeCalled();
+        $process->getExitCode()->shouldBeCalled()->willReturn(0);
+        $process->getOutput()->shouldBeCalled()->willReturn(self::$check);
+
+        $aspell = new Aspell();
+        $aspell->setProcess($process->reveal());
+
+        $source = $this->prophesize(EncodingAwareSource::class);
+        // getAsString will be called, but ignored due to aspell binary stub
+        $source->getEncoding()->shouldBeCalled()->willReturn('UTF-8');
+        $source->getAsString()->shouldBeCalled()->willReturn(self::$input);
+
+        $issues = $aspell->checkText($source->reveal(), ['en']);
+
         static::assertCount(5, $issues);
         static::assertEquals('Tigr', $issues[0]->word);
         static::assertEquals(1, $issues[0]->line);
