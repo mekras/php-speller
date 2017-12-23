@@ -17,7 +17,7 @@ use Mekras\Speller\Tests\Functional\AspellTestCase;
 
 /**
  * Functional test with aspell
- * 
+ *
  * @package Mekras\Speller\Tests\Functional\Aspell
  * @author  icanhazstring <blubb0r05+github@gmail.com>
  */
