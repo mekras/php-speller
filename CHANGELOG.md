@@ -11,12 +11,17 @@
 
 - PHP 7 support.
 
+## 2.0
+
+- Add custom dictionary support for aspell
+- Raise PHP requirement to 7.2
+- Dropped `@deprecated` interfaces
 
 ## 1.7.2 - 2017-04-30
 
 ### Fixed
 
-- HtmlFilter: <script> content should be filtered out.
+- HtmlFilter: `<script>` content should be filtered out.
 - HtmlFilter: only for "keywords" and "description" meta tags "content" attr should be treated as
   string.
 

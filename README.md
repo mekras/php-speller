@@ -73,6 +73,23 @@ use Mekras\Speller\Aspell\Aspell;
 $speller = new Aspell('/usr/local/bin/aspell');
 ```
 
+### Custom Dictionary
+
+You can use a custom dictionary for aspell. The dictionary needs to be in the following format:
+
+```
+personal_ws-1.1 [lang] [words]
+```
+
+Where `[lang]` shout be the shorthand for the language you are using (e.g. `en`) and `[words]` is the count
+of words inside the dictionary. **Beware** that there should no spaces at the end of words. Each word should be listed
+in a new line.
+
+```php
+$aspell = new Aspell();
+$aspell->setPersonalDictionary(new Dictionary('/path/to/custom.pws'));
+```
+
 ### Important
 
 - aspell allow to specify only one language at once, so only first item taken from
