@@ -9,15 +9,16 @@
 
 namespace Mekras\Speller\Source;
 
+use Mekras\Speller\Exception\SourceException;
+
 /**
  * Text source interface.
  *
  * @since 1.6
  *
- * @todo  Merge with Source in version 2.0.
  * @todo  Remove in version 3.0.
  */
-interface EncodingAwareSource extends Source
+interface EncodingAwareSource
 {
     /**
      * Return source text encoding.
@@ -27,4 +28,16 @@ interface EncodingAwareSource extends Source
      * @since 1.6
      */
     public function getEncoding();
+
+    /**
+     * Return text as one string.
+     *
+     * @return string
+     *
+     * @throws SourceException Fail to read from text source.
+     *
+     * @since 1.6 Throws {@see SourceException}.
+     * @since 1.0
+     */
+    public function getAsString();
 }

@@ -7,10 +7,10 @@
  * @license   http://opensource.org/licenses/MIT MIT
  */
 
-namespace Mekras\Speller\Tests\Source;
+namespace Mekras\Speller\Tests\Unit\Source;
 
 use Mekras\Speller\Source\FileSource;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for Mekras\Speller\Source\FileSource.
