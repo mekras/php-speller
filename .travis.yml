@@ -13,18 +13,27 @@ matrix:
   include:
     - php: 5.5
       env:
-        - COMPOSER_FLAGS="--prefer-stable --prefer-lowest"
-        - PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"
+        - DEPENDENCIES='low'
+    - php: 5.6
+      env:
+        - DEPENDENCIES='low'
+    - php: 7.0
+      env:
+        - SYMFONY_VERSION='^4.0'
+    - php: 7.1
+      env:
+        - SYMFONY_VERSION='^4.0'
 
 before_install:
   - travis_retry composer self-update
 
 install:
-  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction
+  - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update "symfony/process:${SYMFONY_VERSION}"; fi;
+  - if [ "$DEPENDENCIES" != "low" ]; then composer update; fi;
+  - if [ "$DEPENDENCIES" = "low" ]; then composer update --prefer-lowest; fi;
 
 script:
- - mkdir -p build/logs
- - vendor/bin/phpunit ${PHPUNIT_FLAGS}
+ - vendor/bin/phpunit
 
 after_script:
  - php vendor/bin/coveralls -v
