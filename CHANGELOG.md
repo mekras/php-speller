@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+### Deleted
+
+- Dropped PHP 5.4 support.
+- Dropped Symfony 2 support.
+
+### Added
+
+- PHP 7 support.
+
+
 ## 1.7.2 - 2017-04-30
 
 ### Fixed
