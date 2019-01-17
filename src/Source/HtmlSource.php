@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller
  *
@@ -66,9 +68,9 @@ class HtmlSource extends MetaSource
      *
      * @since 1.0
      */
-    public function getAsString()
+    public function getAsString(): string
     {
-        return (string) $this->text;
+        return $this->text;
     }
 
     /**
@@ -78,7 +80,7 @@ class HtmlSource extends MetaSource
      *
      * @since 1.6
      */
-    public function getEncoding()
+    public function getEncoding(): string
     {
         return $this->encoding;
     }
@@ -94,7 +96,7 @@ class HtmlSource extends MetaSource
      *
      * @since 1.7
      */
-    protected function createDomDocument($html)
+    protected function createDomDocument($html): \DOMDocument
     {
         $document = new \DOMDocument('1.0');
         $previousValue = libxml_use_internal_errors(true);

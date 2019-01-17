@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -29,7 +31,7 @@ class Aspell extends Ispell
      *
      * @var string[]|null
      */
-    private $supportedLanguages = null;
+    private $supportedLanguages;
 
     /**
      * @var Dictionary
@@ -43,7 +45,7 @@ class Aspell extends Ispell
      *
      * @since 1.6
      */
-    public function __construct($binaryPath = 'aspell')
+    public function __construct(string $binaryPath = 'aspell')
     {
         parent::__construct($binaryPath);
     }
@@ -57,10 +59,9 @@ class Aspell extends Ispell
      * @throws InvalidArgumentException
      * @throws LogicException
      * @throws RuntimeException
-     *
      * @since 1.6
      */
-    public function getSupportedLanguages()
+    public function getSupportedLanguages(): array
     {
         if (null === $this->supportedLanguages) {
             $process = $this->createProcess('dump dicts');
@@ -96,7 +97,7 @@ class Aspell extends Ispell
     /**
      * @param Dictionary $dictionary
      */
-    public function setPersonalDictionary(Dictionary $dictionary)
+    public function setPersonalDictionary(Dictionary $dictionary): void
     {
         $this->personalDictionary = $dictionary;
     }
@@ -111,7 +112,7 @@ class Aspell extends Ispell
      *
      * @since 1.6
      */
-    protected function createArguments(EncodingAwareSource $source, array $languages)
+    protected function createArguments(EncodingAwareSource $source, array $languages): array
     {
         $args = [
             // Input encoding

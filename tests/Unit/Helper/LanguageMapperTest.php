@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller
  *
@@ -21,7 +23,7 @@ class LanguageMapperTest extends TestCase
     /**
      * Test basic mapping
      */
-    public function testBasics()
+    public function testBasics(): void
     {
         $mapper = new LanguageMapper();
         $result = $mapper->map(
@@ -34,7 +36,7 @@ class LanguageMapperTest extends TestCase
     /**
      * Test preferred mapping
      */
-    public function testPreferred()
+    public function testPreferred(): void
     {
         $mapper = new LanguageMapper();
         $mapper->setPreferredMappings(['en' => ['en_US', 'en_GB']]);

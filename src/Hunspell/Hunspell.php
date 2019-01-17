@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -29,7 +31,7 @@ class Hunspell extends Ispell
      *
      * @var string|null
      */
-    private $customDictPath = null;
+    private $customDictPath;
 
     /**
      * Custom dictionaries list.
@@ -43,7 +45,7 @@ class Hunspell extends Ispell
      *
      * @var string[]|null
      */
-    private $supportedLanguages = null;
+    private $supportedLanguages;
 
     /**
      * Create new hunspell adapter.
@@ -52,7 +54,7 @@ class Hunspell extends Ispell
      *
      * @since 1.0
      */
-    public function __construct($binaryPath = 'hunspell')
+    public function __construct(string $binaryPath = 'hunspell')
     {
         parent::__construct($binaryPath);
     }
@@ -66,10 +68,9 @@ class Hunspell extends Ispell
      * @throws InvalidArgumentException
      * @throws LogicException
      * @throws RuntimeException
-     *
      * @since 1.0
      */
-    public function getSupportedLanguages()
+    public function getSupportedLanguages(): array
     {
         if (null === $this->supportedLanguages) {
             $process = $this->createProcess('-D');
@@ -120,9 +121,9 @@ class Hunspell extends Ispell
      * @link  setCustomDictionaries()
      * @since 1.0
      */
-    public function setDictionaryPath($path)
+    public function setDictionaryPath(string $path): void
     {
-        $this->customDictPath = (string) $path;
+        $this->customDictPath = $path;
         $this->supportedLanguages = null; // Clear cache because $path can contain new languages
     }
 
@@ -134,7 +135,7 @@ class Hunspell extends Ispell
      * @link  setDictionaryPath()
      * @since 1.0
      */
-    public function setCustomDictionaries(array $customDictionaries)
+    public function setCustomDictionaries(array $customDictionaries): void
     {
         $this->customDictionaries = $customDictionaries;
     }
@@ -149,7 +150,7 @@ class Hunspell extends Ispell
      *
      * @since 1.6
      */
-    protected function createArguments(EncodingAwareSource $source, array $languages)
+    protected function createArguments(EncodingAwareSource $source, array $languages): array
     {
         $args = [
             // Input encoding
@@ -181,7 +182,7 @@ class Hunspell extends Ispell
      *
      * @SuppressWarnings(PMD.UnusedFormalParameter)
      */
-    protected function createEnvVars(EncodingAwareSource $source, array $languages)
+    protected function createEnvVars(EncodingAwareSource $source, array $languages): array
     {
         $vars = [];
         if ($this->customDictPath) {

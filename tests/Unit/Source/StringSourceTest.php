@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -22,7 +24,7 @@ class StringSourceTest extends TestCase
     /**
      * Test basics.
      */
-    public function testBasics()
+    public function testBasics(): void
     {
         $source = new StringSource('foo bar');
         static::assertEquals('foo bar', $source->getAsString());
@@ -32,7 +34,7 @@ class StringSourceTest extends TestCase
     /**
      * Test encoding.
      */
-    public function testEncoding()
+    public function testEncoding(): void
     {
         $source = new StringSource('foo');
         static::assertEquals('UTF-8', $source->getEncoding());

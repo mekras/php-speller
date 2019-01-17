@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller
  *
@@ -21,7 +23,7 @@ class StripAllFilterTest extends TestCase
     /**
      * Test basic functional
      */
-    public function testBasics()
+    public function testBasics(): void
     {
         $filter = new StripAllFilter();
         static::assertEquals("   \n\t   ", $filter->filter("foo\n\tbar"));

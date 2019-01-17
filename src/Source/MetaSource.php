@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -42,7 +44,7 @@ abstract class MetaSource implements EncodingAwareSource
      *
      * @since 1.6
      */
-    public function getEncoding()
+    public function getEncoding(): string
     {
         return $this->source->getEncoding();
     }

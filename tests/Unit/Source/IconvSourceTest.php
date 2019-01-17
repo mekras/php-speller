@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -23,7 +25,7 @@ class IconvSourceTest extends TestCase
     /**
      * Test basics.
      */
-    public function testBasics()
+    public function testBasics(): void
     {
         $source = new StringSource(iconv('utf-8', 'koi8-r', 'Привет'), 'koi8-r');
         $converter = new IconvSource($source);

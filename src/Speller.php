@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller
  *
@@ -31,7 +33,7 @@ interface Speller
      * @link  http://tools.ietf.org/html/bcp47
      * @since 1.0
      */
-    public function checkText(EncodingAwareSource $source, array $languages);
+    public function checkText(EncodingAwareSource $source, array $languages): array;
 
     /**
      * Return list of supported languages.
@@ -40,5 +42,5 @@ interface Speller
      *
      * @since 1.0
      */
-    public function getSupportedLanguages();
+    public function getSupportedLanguages(): array;
 }

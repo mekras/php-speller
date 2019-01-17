@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -24,7 +26,7 @@ class IspellTest extends TestCase
     /**
      * Test retrieving list of supported languages.
      */
-    public function testGetSupportedLanguages()
+    public function testGetSupportedLanguages(): void
     {
         $ispell = new Ispell(__DIR__ . '/fixtures/bin/ispell.sh');
         static::assertEquals(['english', 'russian'], $ispell->getSupportedLanguages());
@@ -35,7 +37,7 @@ class IspellTest extends TestCase
      *
      * See fixtures/input.txt for the source text.
      */
-    public function testCheckText()
+    public function testCheckText(): void
     {
         $ispell = new Ispell(__DIR__ . '/fixtures/bin/ispell.sh');
         $source = new StringSource('<will be ignored and loaded from fixtures/check.txt>');

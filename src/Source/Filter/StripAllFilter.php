@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller
  *
@@ -26,7 +28,7 @@ class StripAllFilter implements Filter
      *
      * @since 1.2
      */
-    public function filter($string)
+    public function filter(string $string): string
     {
         return preg_replace('/\S/', ' ', $string);
     }

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -41,12 +43,12 @@ class AspellTest extends TestCase
     /**
      * Test retrieving list of supported languages.
      */
-    public function testGetSupportedLanguages()
+    public function testGetSupportedLanguages(): void
     {
         $process = $this->prophesize(Process::class);
 
         $process->setCommandLine('aspell dump dicts')->shouldBeCalled();
-        $process->inheritEnvironmentVariables(true)->shouldBeCalled();
+        $process->inheritEnvironmentVariables()->shouldBeCalled();
         $process->setTimeout(600)->shouldBeCalled();
         $process->run()->shouldBeCalled();
         $process->isSuccessful()->shouldBeCalled()->willReturn(true);
@@ -79,12 +81,12 @@ class AspellTest extends TestCase
      *
      * See fixtures/input.txt for the source text.
      */
-    public function testCheckText()
+    public function testCheckText(): void
     {
         $process = $this->prophesize(Process::class);
 
         $process->setCommandLine('aspell --encoding=UTF-8 -a --lang=en')->shouldBeCalled();
-        $process->inheritEnvironmentVariables(true)->shouldBeCalled();
+        $process->inheritEnvironmentVariables()->shouldBeCalled();
         $process->setTimeout(600)->shouldBeCalled();
         $process->setEnv([])->shouldBeCalled();
         $process->setInput(self::$input)->shouldBeCalled();

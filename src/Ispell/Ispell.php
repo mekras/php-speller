@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -42,14 +44,14 @@ class Ispell extends ExternalSpeller
      *
      * @var string[]|null
      */
-    private $supportedLanguages = null;
+    private $supportedLanguages;
 
     /**
      * Language mapper
      *
      * @var LanguageMapper|null
      */
-    private $languageMapper = null;
+    private $languageMapper;
 
     /**
      * Create new ispell adapter.
@@ -59,7 +61,7 @@ class Ispell extends ExternalSpeller
      *
      * @since 1.6
      */
-    public function __construct($binaryPath = 'ispell', $dictFolder = null)
+    public function __construct(string $binaryPath = 'ispell', string $dictFolder = null)
     {
         parent::__construct($binaryPath);
         $this->bundledDictFolder = $dictFolder;
@@ -73,10 +75,9 @@ class Ispell extends ExternalSpeller
      * @throws EnvironmentException
      * @throws LogicException
      * @throws RuntimeException
-     *
      * @since 1.6
      */
-    public function getSupportedLanguages()
+    public function getSupportedLanguages(): array
     {
         if (null === $this->supportedLanguages) {
             $this->supportedLanguages = [];
@@ -99,7 +100,7 @@ class Ispell extends ExternalSpeller
      *
      * @since 1.6
      */
-    public function setLanguageMapper(LanguageMapper $mapper)
+    public function setLanguageMapper(LanguageMapper $mapper): void
     {
         $this->languageMapper = $mapper;
     }
@@ -111,7 +112,7 @@ class Ispell extends ExternalSpeller
      *
      * @since 1.6
      */
-    protected function getLanguageMapper()
+    protected function getLanguageMapper(): LanguageMapper
     {
         if (null === $this->languageMapper) {
             $this->languageMapper = new LanguageMapper();
@@ -132,7 +133,7 @@ class Ispell extends ExternalSpeller
      *
      * @SuppressWarnings(PMD.UnusedFormalParameter)
      */
-    protected function createArguments(EncodingAwareSource $source, array $languages)
+    protected function createArguments(EncodingAwareSource $source, array $languages): array
     {
         $args = [
             '-a', // Machine readable output
@@ -159,7 +160,7 @@ class Ispell extends ExternalSpeller
      *
      * @since 1.6
      */
-    protected function parseOutput($output)
+    protected function parseOutput(string $output): array
     {
         $lines = explode(PHP_EOL, $output);
         $issues = [];
@@ -206,12 +207,12 @@ class Ispell extends ExternalSpeller
      * @throws LogicException
      * @throws RuntimeException
      */
-    private function getDictionaryFolder()
+    private function getDictionaryFolder(): string
     {
         if (null === $this->bundledDictFolder) {
             $binary = $this->getBinary();
             if (realpath($binary) === false) {
-                $process = new Process('which ' . $this->getBinary());
+                $process = new Process(['which ' . $this->getBinary()]);
                 $process->run();
                 if (!$process->isSuccessful()) {
                     throw new EnvironmentException(
@@ -220,7 +221,7 @@ class Ispell extends ExternalSpeller
                 }
                 $binary = trim($process->getOutput());
             }
-            $this->bundledDictFolder = dirname(dirname($binary)) . '/lib/ispell';
+            $this->bundledDictFolder = dirname($binary, 2) . '/lib/ispell';
         }
 
         return $this->bundledDictFolder;

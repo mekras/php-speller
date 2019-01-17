@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller
  *
@@ -38,7 +40,7 @@ class LanguageMapper
      * @link  http://tools.ietf.org/html/bcp47
      * @since 1.0
      */
-    public function map(array $requested, array $supported)
+    public function map(array $requested, array $supported): array
     {
         $index = [];
         foreach ($supported as $tag) {
@@ -88,7 +90,7 @@ class LanguageMapper
      *
      * @since 1.1
      */
-    public function setPreferredMappings(array $mappings)
+    public function setPreferredMappings(array $mappings): void
     {
         foreach ($mappings as $language => $map) {
             $this->preferred[$language] = (array) $map;

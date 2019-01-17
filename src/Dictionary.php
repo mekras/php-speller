@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -28,7 +30,7 @@ class Dictionary
     /**
      * @return string
      */
-    public function getPath()
+    public function getPath(): string
     {
         return $this->dictionaryPath;
     }

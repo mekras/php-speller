@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -26,7 +28,7 @@ class AspellTest extends AspellTestCase
     /**
      * Functional testing with aspell to check if personal dictionary is working
      */
-    public function testPersonalDictionary()
+    public function testPersonalDictionary(): void
     {
         // Take german word for testing purpose so we won't get any suggestion
         $source = new StringSource('Versicherungspolica');

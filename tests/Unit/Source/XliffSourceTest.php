@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller
  *
@@ -22,7 +24,7 @@ class XliffSourceTest extends TestCase
     /**
      * Test basics.
      */
-    public function testBasics()
+    public function testBasics(): void
     {
         $source = new XliffSource(__DIR__ . '/fixtures/test.xliff');
         static::assertEquals('UTF-8', $source->getEncoding());

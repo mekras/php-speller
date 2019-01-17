@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller
  *
@@ -19,27 +21,27 @@ class HtmlFilter implements Filter
     /**
      * Attribute name context.
      */
-    const CTX_ATTR_NAME = 'attr_name';
+    public const CTX_ATTR_NAME = 'attr_name';
 
     /**
      * Attribute value context.
      */
-    const CTX_ATTR_VALUE = 'attr_value';
+    public const CTX_ATTR_VALUE = 'attr_value';
 
     /**
      * Tag attributes context.
      */
-    const CTX_TAG_ATTRS = 'tag_attrs';
+    public const CTX_TAG_ATTRS = 'tag_attrs';
 
     /**
      * Tag content context.
      */
-    const CTX_TAG_CONTENT = 'tag_content';
+    public const CTX_TAG_CONTENT = 'tag_content';
 
     /**
      * Tag name context.
      */
-    const CTX_TAG_NAME = 'tag_name';
+    public const CTX_TAG_NAME = 'tag_name';
 
     /**
      * Ignore content of these tags.
@@ -83,7 +85,7 @@ class HtmlFilter implements Filter
      *
      * @since 1.3
      */
-    public function filter($string)
+    public function filter(string $string): string
     {
         $result = '';
 
@@ -206,7 +208,7 @@ class HtmlFilter implements Filter
      *
      * @return string
      */
-    private function filterEntities($string)
+    private function filterEntities(string $string): string
     {
         return preg_replace_callback(
             '/&\w+;/',
@@ -224,7 +226,7 @@ class HtmlFilter implements Filter
      *
      * @return string
      */
-    private function filterMetaTags($string)
+    private function filterMetaTags(string $string): string
     {
         return preg_replace_callback(
             '/<meta[^>]+(http-equiv\s*=|name\s*=\s*["\']?([^>"\']+))[^>]*>/i',
@@ -244,11 +246,11 @@ class HtmlFilter implements Filter
     /**
      * Return true if $name is in the list of ignored tags.
      *
-     * @param string $name Tag name.
+     * @param null|string $name Tag name.
      *
      * @return bool
      */
-    private function isIgnoredTag($name)
+    private function isIgnoredTag(?string $name): bool
     {
         foreach (self::$ignoreTags as $tag) {
             if (strcasecmp($tag, $name) === 0) {

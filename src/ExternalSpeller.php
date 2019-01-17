@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -51,9 +53,9 @@ abstract class ExternalSpeller implements Speller
      *
      * @since 1.6
      */
-    public function __construct($binaryPath)
+    public function __construct(string $binaryPath)
     {
-        $this->binary = (string)$binaryPath;
+        $this->binary = $binaryPath;
     }
 
     /**
@@ -69,7 +71,7 @@ abstract class ExternalSpeller implements Speller
      * @see   http://tools.ietf.org/html/bcp47
      * @since 1.6
      */
-    public function checkText(EncodingAwareSource $source, array $languages)
+    public function checkText(EncodingAwareSource $source, array $languages): array
     {
         $process = $this->createProcess($this->createArguments($source, $languages));
         $process->setEnv($this->createEnvVars($source, $languages));
@@ -120,7 +122,7 @@ abstract class ExternalSpeller implements Speller
      * @see   \Symfony\Component\Process\Process::setTimeout()
      * @since 1.6
      */
-    public function setTimeout($seconds)
+    public function setTimeout($seconds): void
     {
         $this->timeout = $seconds;
     }
@@ -134,16 +136,16 @@ abstract class ExternalSpeller implements Speller
      *
      * @since 1.6
      */
-    protected function composeCommand($args)
+    protected function composeCommand($args): string
     {
         $command = $this->getBinary();
 
-        if (is_array($args)) {
+        if (\is_array($args)) {
             $args = implode(' ', $args);
         }
 
         // Only append args if we have some
-        $command .= strlen($args) ? ' ' . $args : '';
+        $command .= $args !== '' ? ' ' . $args : '';
 
         return $command;
     }
@@ -155,7 +157,7 @@ abstract class ExternalSpeller implements Speller
      *
      * @since 1.6
      */
-    protected function getBinary()
+    protected function getBinary(): string
     {
         return $this->binary;
     }
@@ -172,7 +174,7 @@ abstract class ExternalSpeller implements Speller
      *
      * @SuppressWarnings(PMD.UnusedFormalParameter)
      */
-    protected function createArguments(EncodingAwareSource $source, array $languages)
+    protected function createArguments(EncodingAwareSource $source, array $languages): array
     {
         return [];
     }
@@ -189,7 +191,7 @@ abstract class ExternalSpeller implements Speller
      *
      * @SuppressWarnings(PMD.UnusedFormalParameter)
      */
-    protected function createEnvVars(EncodingAwareSource $source, array $languages)
+    protected function createEnvVars(EncodingAwareSource $source, array $languages): array
     {
         return [];
     }
@@ -203,7 +205,7 @@ abstract class ExternalSpeller implements Speller
      *
      * @since 1.6
      */
-    abstract protected function parseOutput($output);
+    abstract protected function parseOutput(string $output): array;
 
     /**
      * Create new instance of external program.
@@ -217,7 +219,7 @@ abstract class ExternalSpeller implements Speller
      *
      * @since 1.6
      */
-    protected function createProcess($args = null)
+    protected function createProcess($args = null): Process
     {
         $command = $this->composeCommand($args);
 
@@ -239,13 +241,13 @@ abstract class ExternalSpeller implements Speller
      *
      * @since 2.0
      */
-    private function composeProcess(string $command)
+    private function composeProcess(string $command): Process
     {
         if ($this->process === null) {
-            $this->process = new Process($command);
+            $this->process = new Process([$command]);
         }
 
-        $this->process->inheritEnvironmentVariables(true);
+        $this->process->inheritEnvironmentVariables();
         $this->process->setTimeout($this->timeout);
         $this->process->setCommandLine($command);
 
@@ -257,7 +259,7 @@ abstract class ExternalSpeller implements Speller
      *
      * @return self
      */
-    public function setProcess(Process $process)
+    public function setProcess(Process $process): self
     {
         $this->process = $process;
 

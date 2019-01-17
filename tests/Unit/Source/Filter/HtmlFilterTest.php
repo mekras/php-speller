@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -22,7 +24,7 @@ class HtmlFilterTest extends TestCase
     /**
      * Test basics.
      */
-    public function testBasics()
+    public function testBasics(): void
     {
         $filter = new HtmlFilter();
         $html = "<br>foo&reg; <a\nhref = '#' title='bar'>\nbaz</a>";
@@ -33,7 +35,7 @@ class HtmlFilterTest extends TestCase
     /**
      * Only for "keywords" and "description" meta tags "content" attr should be treated as string.
      */
-    public function testMetaContent()
+    public function testMetaContent(): void
     {
         $filter = new HtmlFilter();
         $html =
@@ -52,7 +54,7 @@ class HtmlFilterTest extends TestCase
     /**
      * <script> content should be filtered out.
      */
-    public function testScript()
+    public function testScript(): void
     {
         $filter = new HtmlFilter();
         $html = "<p>Foo</p>\n<script type=\"text/javascript\">Bar Baz\nBuz</script>";

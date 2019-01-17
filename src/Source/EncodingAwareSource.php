@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -27,7 +29,7 @@ interface EncodingAwareSource
      *
      * @since 1.6
      */
-    public function getEncoding();
+    public function getEncoding(): string;
 
     /**
      * Return text as one string.
@@ -35,9 +37,8 @@ interface EncodingAwareSource
      * @return string
      *
      * @throws SourceException Fail to read from text source.
-     *
      * @since 1.6 Throws {@see SourceException}.
      * @since 1.0
      */
-    public function getAsString();
+    public function getAsString(): string;
 }

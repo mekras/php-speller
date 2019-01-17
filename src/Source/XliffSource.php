@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -63,9 +65,9 @@ class XliffSource extends MetaSource
      *
      * @since 1.2
      */
-    public function addFilter($pattern, Filter $filter = null)
+    public function addFilter(string $pattern, Filter $filter = null): void
     {
-        $this->filters[(string) $pattern] = $filter;
+        $this->filters[$pattern] = $filter;
     }
 
     /**
@@ -74,10 +76,9 @@ class XliffSource extends MetaSource
      * @return string
      *
      * @throws \Mekras\Speller\Exception\SourceException
-     *
      * @since 1.2
      */
-    public function getAsString()
+    public function getAsString(): string
     {
         $text = $this->source->getAsString();
 

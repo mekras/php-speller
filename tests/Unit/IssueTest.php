@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller
  *
@@ -21,7 +23,7 @@ class IssueTest extends TestCase
     /**
      * Test basic functions
      */
-    public function testBasics()
+    public function testBasics(): void
     {
         $issue = new Issue('foo');
         static::assertEquals('foo', $issue->word);

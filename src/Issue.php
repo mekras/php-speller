@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller
  *
@@ -20,7 +22,7 @@ final class Issue
      *
      * @since 1.0
      */
-    const UNKNOWN_WORD = 'Unknown word';
+    public const UNKNOWN_WORD = 'Unknown word';
 
     /**
      * Problem word
@@ -55,7 +57,7 @@ final class Issue
      * @var int|null line number or null if not known
      * @since 1.0
      */
-    public $line = null;
+    public $line;
 
     /**
      * Problem word offset in the {@link $line}
@@ -63,7 +65,7 @@ final class Issue
      * @var int|null offset in characters or null if not known
      * @since 1.0
      */
-    public $offset = null;
+    public $offset;
 
     /**
      * Create new issue
@@ -73,7 +75,7 @@ final class Issue
      *
      * @since 1.0
      */
-    public function __construct($word, $code = self::UNKNOWN_WORD)
+    public function __construct(string $word, string $code = self::UNKNOWN_WORD)
     {
         $this->word = $word;
         $this->code = $code;

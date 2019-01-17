@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -27,13 +29,13 @@ class ExternalSpellerTest extends TestCase
     /**
      * Should raise an ExternalProgramFailedException
      */
-    public function testProcessRunException()
+    public function testProcessRunException(): void
     {
         $commandLine = 'aspell';
         $process = $this->prophesize(Process::class);
 
         $process->setCommandLine($commandLine)->shouldBeCalled();
-        $process->inheritEnvironmentVariables(true)->shouldBeCalled();
+        $process->inheritEnvironmentVariables()->shouldBeCalled();
         $process->setTimeout(600)->shouldBeCalled();
         $process->setEnv([])->shouldBeCalled();
         $process->setInput('')->shouldBeCalled();
@@ -47,9 +49,9 @@ class ExternalSpellerTest extends TestCase
         $mock = $this->getMockForAbstractClass(ExternalSpeller::class, ['aspell']);
         $mock->setProcess($process->reveal());
 
-        static::expectException(ExternalProgramFailedException::class);
-        static::expectExceptionCode(0);
-        static::expectExceptionMessage('Failed to execute "aspell":');
+        $this->expectException(ExternalProgramFailedException::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage('Failed to execute "aspell":');
 
         $mock->checkText($source->reveal(), ['en']);
     }
@@ -57,13 +59,13 @@ class ExternalSpellerTest extends TestCase
     /**
      * Should raise an EnvironmentException if getExitCode failed on process
      */
-    public function testProcessGetExitCode()
+    public function testProcessGetExitCode(): void
     {
         $commandLine = 'aspell';
         $process = $this->prophesize(Process::class);
 
         $process->setCommandLine($commandLine)->shouldBeCalled();
-        $process->inheritEnvironmentVariables(true)->shouldBeCalled();
+        $process->inheritEnvironmentVariables()->shouldBeCalled();
         $process->setTimeout(600)->shouldBeCalled();
         $process->setEnv([])->shouldBeCalled();
         $process->setInput('')->shouldBeCalled();
@@ -78,9 +80,9 @@ class ExternalSpellerTest extends TestCase
         $mock = $this->getMockForAbstractClass(ExternalSpeller::class, ['aspell']);
         $mock->setProcess($process->reveal());
 
-        static::expectException(EnvironmentException::class);
-        static::expectExceptionCode(111);
-        static::expectExceptionMessage('Test exception');
+        $this->expectException(EnvironmentException::class);
+        $this->expectExceptionCode(111);
+        $this->expectExceptionMessage('Test exception');
 
         $mock->checkText($source->reveal(), ['en']);
     }
@@ -88,13 +90,13 @@ class ExternalSpellerTest extends TestCase
     /**
      * Should raise ExternalProgamFailedException on exitCode other than 0
      */
-    public function testProcessExitCodeDifferFromZero()
+    public function testProcessExitCodeDifferFromZero(): void
     {
         $commandLine = 'aspell';
         $process = $this->prophesize(Process::class);
 
         $process->setCommandLine($commandLine)->shouldBeCalled();
-        $process->inheritEnvironmentVariables(true)->shouldBeCalled();
+        $process->inheritEnvironmentVariables()->shouldBeCalled();
         $process->setTimeout(600)->shouldBeCalled();
         $process->setEnv([])->shouldBeCalled();
         $process->setInput('')->shouldBeCalled();
@@ -109,9 +111,9 @@ class ExternalSpellerTest extends TestCase
         $mock = $this->getMockForAbstractClass(ExternalSpeller::class, ['aspell']);
         $mock->setProcess($process->reveal());
 
-        static::expectException(ExternalProgramFailedException::class);
-        static::expectExceptionCode(1);
-        static::expectExceptionMessage('Failed to execute "aspell": Error');
+        $this->expectException(ExternalProgramFailedException::class);
+        $this->expectExceptionCode(1);
+        $this->expectExceptionMessage('Failed to execute "aspell": Error');
 
         $mock->checkText($source->reveal(), ['en']);
     }

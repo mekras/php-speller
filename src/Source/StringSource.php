@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -40,10 +42,10 @@ class StringSource implements EncodingAwareSource
      * @since 1.6 New argument — $encoding.
      * @since 1.0
      */
-    public function __construct($text, $encoding = 'UTF-8')
+    public function __construct(string $text, string $encoding = 'UTF-8')
     {
         $this->text = $text;
-        $this->encoding = (string) $encoding;
+        $this->encoding = $encoding;
     }
 
     /**
@@ -53,9 +55,9 @@ class StringSource implements EncodingAwareSource
      *
      * @since 1.0
      */
-    public function getAsString()
+    public function getAsString(): string
     {
-        return (string) $this->text;
+        return $this->text;
     }
 
     /**
@@ -65,7 +67,7 @@ class StringSource implements EncodingAwareSource
      *
      * @since 1.6
      */
-    public function getEncoding()
+    public function getEncoding(): string
     {
         return $this->encoding;
     }

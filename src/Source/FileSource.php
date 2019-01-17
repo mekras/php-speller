@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -43,10 +45,10 @@ class FileSource implements EncodingAwareSource
      * @since 1.6 New argument — $encoding.
      * @since 1.2
      */
-    public function __construct($filename, $encoding = 'UTF-8')
+    public function __construct(string $filename, string $encoding = 'UTF-8')
     {
         $this->filename = $filename;
-        $this->encoding = (string) $encoding;
+        $this->encoding = $encoding;
     }
 
     /**
@@ -55,11 +57,10 @@ class FileSource implements EncodingAwareSource
      * @return string
      *
      * @throws SourceException Fail to read from text source.
-     *
      * @since 1.6 Throws {@see SourceException}.
      * @since 1.2
      */
-    public function getAsString()
+    public function getAsString(): string
     {
         if ('php://stdin' !== $this->filename) {
             if (!file_exists($this->filename)) {
@@ -81,7 +82,7 @@ class FileSource implements EncodingAwareSource
      *
      * @since 1.6
      */
-    public function getEncoding()
+    public function getEncoding(): string
     {
         return $this->encoding;
     }
@@ -95,8 +96,8 @@ class FileSource implements EncodingAwareSource
      *
      * @since 1.2
      */
-    public function getFilename()
+    public function getFilename(): string
     {
-        return (string) $this->filename;
+        return $this->filename;
     }
 }

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller
  *
@@ -23,7 +25,7 @@ class HtmlSourceTest extends TestCase
     /**
      * Test basics.
      */
-    public function testBasics()
+    public function testBasics(): void
     {
         $source = new HtmlSource('<a href="#" title="Foo">Bar</a> Baz');
         static::assertEquals('                   Foo  Bar     Baz', $source->getAsString());
@@ -32,7 +34,7 @@ class HtmlSourceTest extends TestCase
     /**
      * Encoding should be detected from meta tags.
      */
-    public function testEncoding()
+    public function testEncoding(): void
     {
         $source = new HtmlSource(
             '<html><meta http-equiv="Content-Type" content="text/html; charset=koi8-r"></html>'
@@ -46,7 +48,7 @@ class HtmlSourceTest extends TestCase
      * @expectedException \Mekras\Speller\Exception\SourceException
      * @expectedExceptionMessage Opening and ending tag mismatch: a and b at 1:11
      */
-    public function testInvalidHtml()
+    public function testInvalidHtml(): void
     {
         new HtmlSource(new StringSource('<a><b></a></b>'));
     }

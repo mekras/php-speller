@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -33,10 +35,10 @@ class IconvSource extends MetaSource
      *
      * @since 1.6
      */
-    public function __construct(EncodingAwareSource $source, $encoding = 'UTF-8')
+    public function __construct(EncodingAwareSource $source, string $encoding = 'UTF-8')
     {
         parent::__construct($source);
-        $this->encoding = (string) $encoding;
+        $this->encoding = $encoding;
     }
 
     /**
@@ -45,10 +47,9 @@ class IconvSource extends MetaSource
      * @return string
      *
      * @throws SourceException
-     *
      * @since 1.6
      */
-    public function getAsString()
+    public function getAsString(): string
     {
         $text = iconv(
             $this->source->getEncoding(),
@@ -69,7 +70,7 @@ class IconvSource extends MetaSource
      *
      * @since 1.6
      */
-    public function getEncoding()
+    public function getEncoding(): string
     {
         return $this->encoding;
     }

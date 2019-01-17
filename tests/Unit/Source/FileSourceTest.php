@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller.
  *
@@ -22,7 +24,7 @@ class FileSourceTest extends TestCase
     /**
      * Test basics.
      */
-    public function testBasics()
+    public function testBasics(): void
     {
         $filename = __DIR__ . '/fixtures/test.txt';
         $source = new FileSource($filename);
@@ -33,7 +35,7 @@ class FileSourceTest extends TestCase
     /**
      * Test encoding.
      */
-    public function testEncoding()
+    public function testEncoding(): void
     {
         $source = new FileSource(__DIR__ . '/fixtures/test.txt');
         static::assertEquals('UTF-8', $source->getEncoding());
@@ -47,7 +49,7 @@ class FileSourceTest extends TestCase
      *
      * @expectedException \Mekras\Speller\Exception\SourceException
      */
-    public function testFileNotExists()
+    public function testFileNotExists(): void
     {
         $source = new FileSource('non-existent.file');
         $source->getAsString();

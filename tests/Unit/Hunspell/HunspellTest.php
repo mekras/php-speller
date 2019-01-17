@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * PHP Speller
  *
@@ -24,8 +26,9 @@ class HunspellTest extends TestCase
 {
     /**
      * Test hunspell argument escaping
+     * @throws \ReflectionException
      */
-    public function testArgumentEscaping()
+    public function testArgumentEscaping(): void
     {
         $hunspell = new Hunspell();
         $method = new ReflectionMethod(get_class($hunspell), 'composeCommand');
@@ -36,7 +39,7 @@ class HunspellTest extends TestCase
     /**
      * Test retrieving list of supported languages
      */
-    public function testGetSupportedLanguages()
+    public function testGetSupportedLanguages(): void
     {
         $hunspell = new Hunspell($this->getBinary());
         static::assertEquals(
@@ -50,7 +53,7 @@ class HunspellTest extends TestCase
      *
      * See fixtures/input.txt for the source text.
      */
-    public function testCheckText()
+    public function testCheckText(): void
     {
         $hunspell = new Hunspell($this->getBinary());
         $source = new StringSource('<will be ignored and loaded from fixtures/check.txt>');
@@ -78,7 +81,7 @@ class HunspellTest extends TestCase
      *
      * @return string
      */
-    private function getBinary()
+    private function getBinary(): string
     {
         return __DIR__ . '/fixtures/bin/hunspell.php';
     }
