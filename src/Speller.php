@@ -9,7 +9,7 @@
 
 namespace Mekras\Speller;
 
-use Mekras\Speller\Source\Source;
+use Mekras\Speller\Source\EncodingAwareSource;
 
 /**
  * Speller interface.
@@ -23,15 +23,15 @@ interface Speller
      *
      * Check given text and return an array of spelling issues.
      *
-     * @param Source $source    Text source to check.
-     * @param array  $languages List of languages used in text (IETF language tag).
+     * @param EncodingAwareSource $source    Text source to check.
+     * @param array               $languages List of languages used in text (IETF language tag).
      *
      * @return Issue[]
      *
      * @link  http://tools.ietf.org/html/bcp47
      * @since 1.0
      */
-    public function checkText(Source $source, array $languages);
+    public function checkText(EncodingAwareSource $source, array $languages);
 
     /**
      * Return list of supported languages.

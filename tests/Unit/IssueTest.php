@@ -6,15 +6,15 @@
  * @author Михаил Красильников <m.krasilnikov@yandex.ru>
  * @license http://opensource.org/licenses/MIT MIT
  */
-namespace Mekras\Speller\Tests;
+namespace Mekras\Speller\Tests\Unit;
 
 use Mekras\Speller\Issue;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for Mekras\Speller\Issue
  *
- * @covers Mekras\Speller\Issue
+ * @covers \Mekras\Speller\Issue
  */
 class IssueTest extends TestCase
 {

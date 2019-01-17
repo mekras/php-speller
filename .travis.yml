@@ -3,27 +3,27 @@ language: php
 sudo: false
 
 php:
-    - 5.6
-    - 7.0
-    - 7.1
     - 7.2
+    - 7.3
 
 matrix:
   fast_finish: true
-  include:
-    - php: 5.6
-      env:
-        - COMPOSER_FLAGS="--prefer-stable --prefer-lowest"
-        - PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"
+#  include:
+#    - php: 5.6
+#      env:
+#        - COMPOSER_FLAGS="--prefer-stable --prefer-lowest"
+#        - PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"
 
 before_install:
   - travis_retry composer self-update
+  - sudo apt-get install aspell
 
 install:
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction
 
 script:
  - mkdir -p build/logs
+ - vendor/bin/phpcs --standard=PSR12 src/ tests/
  - vendor/bin/phpunit ${PHPUNIT_FLAGS}
 
 after_script:

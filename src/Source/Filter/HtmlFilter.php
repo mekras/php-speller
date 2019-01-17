@@ -46,7 +46,7 @@ class HtmlFilter implements Filter
      *
      * @var string[]
      */
-    static private $ignoreTags = [
+    private static $ignoreTags = [
         'script'
     ];
 
@@ -55,7 +55,7 @@ class HtmlFilter implements Filter
      *
      * @var string[]
      */
-    static private $textAttrs = [
+    private static $textAttrs = [
         'abbr',
         'alt',
         'content',
@@ -69,7 +69,7 @@ class HtmlFilter implements Filter
      *
      * @var string[]
      */
-    static private $textMetaTags = [
+    private static $textMetaTags = [
         'description',
         'keywords'
     ];

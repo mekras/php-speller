@@ -7,11 +7,11 @@
  * @license   http://opensource.org/licenses/MIT MIT
  */
 
-namespace Mekras\Speller\Tests\Ispell;
+namespace Mekras\Speller\Tests\Unit\Ispell;
 
 use Mekras\Speller\Ispell\Ispell;
 use Mekras\Speller\Source\StringSource;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for Mekras\Speller\Ispell\Ispell.

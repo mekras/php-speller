@@ -1,4 +1,10 @@
+# Project specifics
 /build
+
+# Composer
 /composer.lock
 /composer.phar
 /vendor/
+
+# Configs.
+/phpunit.xml

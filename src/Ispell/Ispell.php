@@ -13,7 +13,7 @@ use Mekras\Speller\Exception\EnvironmentException;
 use Mekras\Speller\ExternalSpeller;
 use Mekras\Speller\Helper\LanguageMapper;
 use Mekras\Speller\Issue;
-use Mekras\Speller\Source\Source;
+use Mekras\Speller\Source\EncodingAwareSource;
 use Symfony\Component\Process\Exception\LogicException;
 use Symfony\Component\Process\Exception\RuntimeException;
 use Symfony\Component\Process\Process;
@@ -123,20 +123,16 @@ class Ispell extends ExternalSpeller
     /**
      * Create arguments for external speller.
      *
-     * @param Source $source    Text source to check.
-     * @param array  $languages List of languages used in text (IETF language tag).
+     * @param EncodingAwareSource $source    Text source to check.
+     * @param array               $languages List of languages used in text (IETF language tag).
      *
      * @return string[]
-     *
-     * @throws EnvironmentException
-     * @throws LogicException
-     * @throws RuntimeException
      *
      * @since 1.6
      *
      * @SuppressWarnings(PMD.UnusedFormalParameter)
      */
-    protected function createArguments(Source $source, array $languages)
+    protected function createArguments(EncodingAwareSource $source, array $languages)
     {
         $args = [
             '-a', // Machine readable output
