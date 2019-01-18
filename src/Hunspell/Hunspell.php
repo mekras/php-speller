@@ -86,11 +86,12 @@ class Hunspell extends Ispell
             $languages = [];
 
             $output = explode(PHP_EOL, $process->getErrorOutput());
+            $is_win = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
             foreach ($output as $line) {
                 $line = trim($line);
                 if ('' === $line // Skip empty lines
                     || substr($line, -1) === ':' // Skip headers
-                    || strpos($line, ':') !== false // Skip search path
+                    || strpos($line, $is_win ? ';' : ':') !== false // Skip search path
                 ) {
                     continue;
                 }
