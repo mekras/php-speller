@@ -20,8 +20,8 @@
         }
     ],
     "require": {
-        "php": "^7.2",
-        "symfony/process": "^4.0",
+        "php": "~7.1",
+        "symfony/process": "^3.4 || ^4.0",
         "ext-iconv": "*",
         "ext-dom": "*",
         "ext-libxml": "*"
