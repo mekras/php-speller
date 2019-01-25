@@ -13,6 +13,9 @@ matrix:
     - php: 7.1
       env:
         - COMPOSER_FLAGS="--prefer-stable --prefer-lowest"
+    - php: 7.2
+      env:
+        - PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"
 
 before_install:
   - travis_retry composer self-update
@@ -24,7 +27,7 @@ install:
 script:
  - mkdir -p build/logs
  - vendor/bin/phpcs --standard=PSR12 src/ tests/
- - vendor/bin/phpunit
+ - vendor/bin/phpunit ${PHPUNIT_FLAGS}
 
 after_script:
  - php vendor/bin/coveralls -v
