@@ -13,6 +13,7 @@ namespace Mekras\Speller\Tests\Unit\Source;
 
 use Mekras\Speller\Source\HtmlSource;
 use Mekras\Speller\Source\StringSource;
+use Mekras\Speller\Exception\SourceException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -44,12 +45,12 @@ class HtmlSourceTest extends TestCase
 
     /**
      * HtmlSource should throw SourceException on invalid HTML.
-     *
-     * @expectedException \Mekras\Speller\Exception\SourceException
-     * @expectedExceptionMessage Opening and ending tag mismatch: a and b at 1:11
      */
     public function testInvalidHtml(): void
     {
+        $this->expectException(SourceException::class);
+        $this->expectExceptionMessage('Opening and ending tag mismatch: a and b at 1:11');
+
         new HtmlSource(new StringSource('<a><b></a></b>'));
     }
 }

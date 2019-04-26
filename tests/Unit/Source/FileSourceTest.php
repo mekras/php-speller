@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Mekras\Speller\Tests\Unit\Source;
 
 use Mekras\Speller\Source\FileSource;
+use Mekras\Speller\Exception\SourceException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -46,12 +47,16 @@ class FileSourceTest extends TestCase
 
     /**
      * getAsString should throw SourceException if file not exists.
-     *
-     * @expectedException \Mekras\Speller\Exception\SourceException
      */
     public function testFileNotExists(): void
     {
-        $source = new FileSource('non-existent.file');
+        $noExistedFilePath = 'non-existent.file';
+
+        $source = new FileSource($noExistedFilePath);
+
+        $this->expectException(SourceException::class);
+        $this->expectExceptionMessage(sprintf('File "%s" not exists', $noExistedFilePath));
+
         $source->getAsString();
     }
 }
