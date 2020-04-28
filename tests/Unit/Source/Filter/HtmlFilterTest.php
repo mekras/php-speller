@@ -61,4 +61,32 @@ class HtmlFilterTest extends TestCase
         $text = "   Foo    \n                                      \n            ";
         static::assertEquals($text, $filter->filter($html));
     }
+
+    public function testMalformedAttribute(): void
+    {
+        $filter = new HtmlFilter();
+        $html = '<p ""="">test</p>';
+        $text = '         test    ';
+        static::assertEquals($text, $filter->filter($html));
+
+        $html = '<p "">test</p>';
+        $text = '      test    ';
+        static::assertEquals($text, $filter->filter($html));
+
+        $html = '<p ">test</p>';
+        $text = '     test    ';
+        static::assertEquals($text, $filter->filter($html));
+
+        $html = '<p name=">test</p>';
+        $text = '          test    ';
+        static::assertEquals($text, $filter->filter($html));
+
+        $html = '<p name"=">test</p>';
+        $text = '           test    ';
+        static::assertEquals($text, $filter->filter($html));
+
+        $html = '<p "name=">test</p>';
+        $text = '           test    ';
+        static::assertEquals($text, $filter->filter($html));
+    }
 }

@@ -152,14 +152,18 @@ class HtmlFilter implements Filter
                     switch (true) {
                         case self::CTX_ATTR_VALUE === $expecting:
                             $context = self::CTX_ATTR_VALUE;
-                            $ignoreAttrValue
-                                = !in_array(strtolower($attrName), self::$textAttrs, true);
+                            if ($attrName !== null) {
+                                $ignoreAttrValue = !in_array(strtolower($attrName), self::$textAttrs, true);
+                            }
                             $expecting = null;
                             $char = ' ';
                             break;
 
                         case self::CTX_ATTR_VALUE === $context:
                             $context = self::CTX_TAG_ATTRS;
+                            $char = ' ';
+                            break;
+                        default:
                             $char = ' ';
                             break;
                     }
