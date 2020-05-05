@@ -34,8 +34,6 @@ class ExternalSpellerTest extends TestCase
         $commandLine = 'aspell';
         $process = $this->prophesize(Process::class);
 
-        $process->setCommandLine($commandLine)->shouldBeCalled();
-        $process->inheritEnvironmentVariables()->shouldBeCalled();
         $process->setTimeout(600)->shouldBeCalled();
         $process->setEnv([])->shouldBeCalled();
         $process->setInput('')->shouldBeCalled();
@@ -61,11 +59,8 @@ class ExternalSpellerTest extends TestCase
      */
     public function testProcessGetExitCode(): void
     {
-        $commandLine = 'aspell';
         $process = $this->prophesize(Process::class);
 
-        $process->setCommandLine($commandLine)->shouldBeCalled();
-        $process->inheritEnvironmentVariables()->shouldBeCalled();
         $process->setTimeout(600)->shouldBeCalled();
         $process->setEnv([])->shouldBeCalled();
         $process->setInput('')->shouldBeCalled();
@@ -95,8 +90,6 @@ class ExternalSpellerTest extends TestCase
         $commandLine = 'aspell';
         $process = $this->prophesize(Process::class);
 
-        $process->setCommandLine($commandLine)->shouldBeCalled();
-        $process->inheritEnvironmentVariables()->shouldBeCalled();
         $process->setTimeout(600)->shouldBeCalled();
         $process->setEnv([])->shouldBeCalled();
         $process->setInput('')->shouldBeCalled();

@@ -73,7 +73,7 @@ class Hunspell extends Ispell
     public function getSupportedLanguages(): array
     {
         if (null === $this->supportedLanguages) {
-            $process = $this->createProcess('-D');
+            $process = $this->createProcess(['-D']);
             $process->run();
             if (!$process->isSuccessful()) {
                 throw new ExternalProgramFailedException(
@@ -82,6 +82,7 @@ class Hunspell extends Ispell
                     $process->getExitCode()
                 );
             }
+            $this->resetProcess();
 
             $languages = [];
 

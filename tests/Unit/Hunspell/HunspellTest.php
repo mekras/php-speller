@@ -33,7 +33,7 @@ class HunspellTest extends TestCase
         $hunspell = new Hunspell();
         $method = new ReflectionMethod(get_class($hunspell), 'composeCommand');
         $method->setAccessible(true);
-        static::assertEquals('hunspell -d foo,bar', $method->invoke($hunspell, ['-d foo,bar']));
+        static::assertEquals(['hunspell', '-d', 'foo,bar'], $method->invoke($hunspell, ['-d', 'foo,bar']));
     }
 
     /**

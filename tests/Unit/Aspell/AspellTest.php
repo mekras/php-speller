@@ -31,7 +31,7 @@ class AspellTest extends TestCase
     /**
      * @inheritdoc
      */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
 
@@ -47,8 +47,6 @@ class AspellTest extends TestCase
     {
         $process = $this->prophesize(Process::class);
 
-        $process->setCommandLine('aspell dump dicts')->shouldBeCalled();
-        $process->inheritEnvironmentVariables()->shouldBeCalled();
         $process->setTimeout(600)->shouldBeCalled();
         $process->run()->shouldBeCalled();
         $process->isSuccessful()->shouldBeCalled()->willReturn(true);
@@ -85,8 +83,6 @@ class AspellTest extends TestCase
     {
         $process = $this->prophesize(Process::class);
 
-        $process->setCommandLine('aspell --encoding=UTF-8 -a --lang=en')->shouldBeCalled();
-        $process->inheritEnvironmentVariables()->shouldBeCalled();
         $process->setTimeout(600)->shouldBeCalled();
         $process->setEnv([])->shouldBeCalled();
         $process->setInput(self::$input)->shouldBeCalled();

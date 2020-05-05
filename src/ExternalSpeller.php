@@ -130,24 +130,15 @@ abstract class ExternalSpeller implements Speller
     /**
      * Compose shell command line
      *
-     * @param string|string[]|null $args Ispell arguments.
+     * @param array $args Ispell arguments.
      *
-     * @return string
+     * @return array
      *
      * @since 1.6
      */
-    protected function composeCommand($args): string
+    protected function composeCommand(array $args = []): array
     {
-        $command = $this->getBinary();
-
-        if (\is_array($args)) {
-            $args = implode(' ', $args);
-        }
-
-        // Only append args if we have some
-        $command .= $args !== '' ? ' ' . $args : '';
-
-        return $command;
+        return array_merge([$this->getBinary()], $args);
     }
 
     /**
@@ -210,7 +201,7 @@ abstract class ExternalSpeller implements Speller
     /**
      * Create new instance of external program.
      *
-     * @param string|string[]|null $args Command arguments.
+     * @param array $args Command arguments.
      *
      * @return Process
      *
@@ -219,14 +210,14 @@ abstract class ExternalSpeller implements Speller
      *
      * @since 1.6
      */
-    protected function createProcess($args = null): Process
+    protected function createProcess(array $args = null): Process
     {
         $command = $this->composeCommand($args);
 
         try {
             $process = $this->composeProcess($command);
         } catch (RuntimeException $e) {
-            throw new ExternalProgramFailedException($command, $e->getMessage(), 0, $e);
+            throw new ExternalProgramFailedException(join(' ', $command), $e->getMessage(), 0, $e);
         }
 
         return $process;
@@ -235,21 +226,19 @@ abstract class ExternalSpeller implements Speller
     /**
      * Compose a process with given command. If no process is given in current instance a new one will be created.
      *
-     * @param string $command
+     * @param array $command
      *
      * @return Process
      *
      * @since 2.0
      */
-    private function composeProcess(string $command): Process
+    private function composeProcess(array $command): Process
     {
         if ($this->process === null) {
-            $this->process = new Process([$command]);
+            $this->process = new Process($command);
         }
 
-        $this->process->inheritEnvironmentVariables();
         $this->process->setTimeout($this->timeout);
-        $this->process->setCommandLine($command);
 
         return $this->process;
     }
@@ -264,5 +253,13 @@ abstract class ExternalSpeller implements Speller
         $this->process = $process;
 
         return $this;
+    }
+
+    /**
+     * Reset current process to null
+     */
+    protected function resetProcess(): void
+    {
+        $this->process = null;
     }
 }

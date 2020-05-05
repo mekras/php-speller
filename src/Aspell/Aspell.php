@@ -64,7 +64,7 @@ class Aspell extends Ispell
     public function getSupportedLanguages(): array
     {
         if (null === $this->supportedLanguages) {
-            $process = $this->createProcess('dump dicts');
+            $process = $this->createProcess(['dump', 'dicts']);
             $process->run();
             if (!$process->isSuccessful()) {
                 throw new ExternalProgramFailedException(
@@ -100,6 +100,7 @@ class Aspell extends Ispell
     public function setPersonalDictionary(Dictionary $dictionary): void
     {
         $this->personalDictionary = $dictionary;
+        $this->resetProcess();
     }
 
     /**
