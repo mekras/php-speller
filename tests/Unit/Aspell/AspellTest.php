@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * PHP Speller.
@@ -8,6 +7,8 @@ declare(strict_types=1);
  * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
  * @license   http://opensource.org/licenses/MIT MIT
  */
+
+declare(strict_types=1);
 
 namespace Mekras\Speller\Tests\Unit\Aspell;
 

@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * PHP Speller
@@ -8,6 +7,8 @@ declare(strict_types=1);
  * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
  * @license   http://opensource.org/licenses/MIT MIT
  */
+
+declare(strict_types=1);
 
 namespace Mekras\Speller\Source\Filter;
 
@@ -235,7 +236,8 @@ class HtmlFilter implements Filter
         return preg_replace_callback(
             '/<meta[^>]+(http-equiv\s*=|name\s*=\s*["\']?([^>"\']+))[^>]*>/i',
             function ($match) {
-                if (count($match) < 3
+                if (
+                    count($match) < 3
                     || !in_array(strtolower($match[2]), self::$textMetaTags, true)
                 ) {
                     return str_repeat(' ', strlen($match[0]));
