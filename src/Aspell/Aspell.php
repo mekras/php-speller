@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * PHP Speller.
@@ -8,6 +7,8 @@ declare(strict_types=1);
  * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
  * @license   http://opensource.org/licenses/MIT MIT
  */
+
+declare(strict_types=1);
 
 namespace Mekras\Speller\Aspell;
 
@@ -64,7 +65,7 @@ class Aspell extends Ispell
     public function getSupportedLanguages(): array
     {
         if (null === $this->supportedLanguages) {
-            $process = $this->createProcess('dump dicts');
+            $process = $this->createProcess(['dump', 'dicts']);
             $process->run();
             if (!$process->isSuccessful()) {
                 throw new ExternalProgramFailedException(
@@ -100,6 +101,7 @@ class Aspell extends Ispell
     public function setPersonalDictionary(Dictionary $dictionary): void
     {
         $this->personalDictionary = $dictionary;
+        $this->resetProcess();
     }
 
     /**

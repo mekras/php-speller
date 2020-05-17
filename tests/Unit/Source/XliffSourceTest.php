@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * PHP Speller
@@ -8,6 +7,8 @@ declare(strict_types=1);
  * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
  * @license   http://opensource.org/licenses/MIT MIT
  */
+
+declare(strict_types=1);
 
 namespace Mekras\Speller\Tests\Unit\Source;
 
@@ -34,7 +35,7 @@ class XliffSourceTest extends TestCase
         static::assertEquals('Foo', substr($lines[7], 17, 3));
         static::assertEquals('Bar', substr($lines[12], 20, 3));
         static::assertEquals('Bar', substr($lines[13], 20, 3));
-        static::assertNotContains('var', $lines[14]);
+        static::assertStringNotContainsString('var', $lines[14]);
         static::assertEquals('Baz', substr($lines[27], 42, 3));
     }
 }

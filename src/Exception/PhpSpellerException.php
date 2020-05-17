@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * PHP Speller.
@@ -9,14 +8,18 @@ declare(strict_types=1);
  * @license   http://opensource.org/licenses/MIT MIT
  */
 
+declare(strict_types=1);
+
 namespace Mekras\Speller\Exception;
+
+use Throwable;
 
 /**
  * Common interface for all Speller exceptions.
  *
  * @since 1.6
  */
-interface PhpSpellerException
+interface PhpSpellerException extends Throwable
 {
     /**
      * @return string

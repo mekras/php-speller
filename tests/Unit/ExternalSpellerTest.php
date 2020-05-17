@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * PHP Speller.
@@ -8,6 +7,8 @@ declare(strict_types=1);
  * @author    Михаил Красильников <m.krasilnikov@yandex.ru>
  * @license   http://opensource.org/licenses/MIT MIT
  */
+
+declare(strict_types=1);
 
 namespace Mekras\Speller\Tests\Unit;
 
@@ -34,8 +35,6 @@ class ExternalSpellerTest extends TestCase
         $commandLine = 'aspell';
         $process = $this->prophesize(Process::class);
 
-        $process->setCommandLine($commandLine)->shouldBeCalled();
-        $process->inheritEnvironmentVariables()->shouldBeCalled();
         $process->setTimeout(600)->shouldBeCalled();
         $process->setEnv([])->shouldBeCalled();
         $process->setInput('')->shouldBeCalled();
@@ -61,11 +60,8 @@ class ExternalSpellerTest extends TestCase
      */
     public function testProcessGetExitCode(): void
     {
-        $commandLine = 'aspell';
         $process = $this->prophesize(Process::class);
 
-        $process->setCommandLine($commandLine)->shouldBeCalled();
-        $process->inheritEnvironmentVariables()->shouldBeCalled();
         $process->setTimeout(600)->shouldBeCalled();
         $process->setEnv([])->shouldBeCalled();
         $process->setInput('')->shouldBeCalled();
@@ -95,8 +91,6 @@ class ExternalSpellerTest extends TestCase
         $commandLine = 'aspell';
         $process = $this->prophesize(Process::class);
 
-        $process->setCommandLine($commandLine)->shouldBeCalled();
-        $process->inheritEnvironmentVariables()->shouldBeCalled();
         $process->setTimeout(600)->shouldBeCalled();
         $process->setEnv([])->shouldBeCalled();
         $process->setInput('')->shouldBeCalled();
