@@ -183,15 +183,16 @@ class Ispell extends ExternalSpeller
                     $issues [] = $issue;
                     break;
                 case '&':
-                    $parts = explode(':', $line);
-                    $parts[0] = explode(' ', $parts[0]);
-                    $parts[1] = explode(', ', trim($parts[1]));
-                    $word = $parts[0][1];
-                    $issue = new Issue($word);
-                    $issue->line = $lineNo;
-                    $issue->offset = trim($parts[0][3]);
-                    $issue->suggestions = $parts[1];
-                    $issues [] = $issue;
+                    $matches = [];
+                    $pattern = '/^& (?<original>[^\s]+) \d+ (?<offset>\d+): (?<suggestions>.*)$/';
+                    if (1 === preg_match($pattern, $line, $matches)) {
+                        $word = $matches['original'];
+                        $issue = new Issue($word);
+                        $issue->line = $lineNo;
+                        $issue->offset = $matches['offset'];
+                        $issue->suggestions = explode(', ', $matches['suggestions']);
+                        $issues[] = $issue;
+                    }
                     break;
             }
         }
