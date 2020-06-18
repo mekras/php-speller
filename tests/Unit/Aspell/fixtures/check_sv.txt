@@ -1,0 +1,6 @@
+@(#) International Ispell Version 3.1.20 (but really Aspell 0.60.6.1)
+& S:t 23 0: St, Set, Sot, Söt, Stl, Stå
+? Petersburg 0 4: Peters
+*
+*
+*

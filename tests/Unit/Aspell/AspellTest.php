@@ -14,6 +14,7 @@ namespace Mekras\Speller\Tests\Unit\Aspell;
 
 use Mekras\Speller\Aspell\Aspell;
 use Mekras\Speller\Source\EncodingAwareSource;
+use Mekras\Speller\Source\StringSource;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
 
@@ -69,7 +70,7 @@ class AspellTest extends TestCase
                 'ru',
                 'ru-ye',
                 'ru-yeyo',
-                'ru-yo'
+                'ru-yo',
             ],
             $aspell->getSupportedLanguages()
         );
@@ -114,5 +115,55 @@ class AspellTest extends TestCase
 
         static::assertEquals('CCould', $issues[4]->word);
         static::assertEquals(4, $issues[4]->line);
+    }
+
+    /**
+     * Test spell checking when a word contains a colon
+     *
+     * @see https://github.com/mekras/php-speller/issues/24
+     */
+    public function testCheckTextWithColon(): void
+    {
+        $source = new StringSource('S:t Petersburg är i Ryssland', 'UTF-8');
+
+        $process = $this->prophesize(Process::class);
+        $process->setTimeout(600)->shouldBeCalled();
+        $process->setEnv([])->shouldBeCalled();
+        $process->setInput('S:t Petersburg är i Ryssland')->shouldBeCalled();
+        $process->run()->shouldBeCalled();
+        $process->getExitCode()->shouldBeCalled()->willReturn(0);
+        $process->getOutput()->shouldBeCalled()->willReturn(file_get_contents(__DIR__ . '/fixtures/check_sv.txt'));
+
+        $aspell = new Aspell();
+        $aspell->setProcess($process->reveal());
+        $issues = $aspell->checkText($source, ['sv']);
+
+        static::assertCount(1, $issues);
+        static::assertEquals('S:t', $issues[0]->word);
+        static::assertEquals(1, $issues[0]->line);
+        static::assertEquals(0, $issues[0]->offset);
+        static::assertEquals(['St', 'Set', 'Sot', 'Söt', 'Stl', 'Stå'], $issues[0]->suggestions);
+    }
+
+    /**
+     * Test spell checking when aspell binary output is unexpected
+     */
+    public function testUnexpectedOutputParsing(): void
+    {
+        $source = new StringSource('The quick brown fox jumps over the lazy dog', 'UTF-8');
+
+        $process = $this->prophesize(Process::class);
+        $process->setTimeout(600)->shouldBeCalled();
+        $process->setEnv([])->shouldBeCalled();
+        $process->setInput('The quick brown fox jumps over the lazy dog')->shouldBeCalled();
+        $process->run()->shouldBeCalled();
+        $process->getExitCode()->shouldBeCalled()->willReturn(0);
+        $process->getOutput()->shouldBeCalled()->willReturn('& unexpected output: foo, bar, baz');
+
+        $aspell = new Aspell();
+        $aspell->setProcess($process->reveal());
+        $issues = $aspell->checkText($source, ['en']);
+
+        static::assertEmpty($issues);
     }
 }
