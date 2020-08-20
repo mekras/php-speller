@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.2 - 2020-08-20
+### Fixed
+- HtmlFilter raises Error with malformed HTML tags (#27)
+
+## 2.1.1 - 2020-06-18
+### Fixed
+- Fixed an issue where `:` (colon) made the suggestions break for swedish as its a valid text sign (#25)
+
 ## 2.1 - 2020-05-06
 ### Fixed
 - Fixed issue with removed and deprecated methods for `symfony/process:^4.0`
