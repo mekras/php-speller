@@ -120,7 +120,7 @@ class HtmlFilter implements Filter
                 case '>' === $char:
                     if ($this->isIgnoredTag($tagName)) {
                         $ignoreTagContent = true;
-                    } elseif ('/' === $tagName[0]) {
+                    } elseif ($tagName === null || '/' === $tagName[0]) {
                         $ignoreTagContent = false; // Restore to default state.
                     }
                     $context = self::CTX_TAG_CONTENT;
@@ -258,6 +258,10 @@ class HtmlFilter implements Filter
      */
     private function isIgnoredTag(?string $name): bool
     {
+        if ($name === null) {
+            return false;
+        }
+
         foreach (self::$ignoreTags as $tag) {
             if (strcasecmp($tag, $name) === 0) {
                 return true;
