@@ -258,6 +258,10 @@ class HtmlFilter implements Filter
      */
     private function isIgnoredTag(?string $name): bool
     {
+        if ($name === null) {
+            return false;
+        }
+
         foreach (self::$ignoreTags as $tag) {
             if (strcasecmp($tag, $name) === 0) {
                 return true;

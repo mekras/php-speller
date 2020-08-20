@@ -90,4 +90,12 @@ class HtmlFilterTest extends TestCase
         $text = '           test    ';
         static::assertEquals($text, $filter->filter($html));
     }
+
+    public function testMalformedTags(): void
+    {
+        $filter = new HtmlFilter();
+        $html = "foo/>bar<br><br/>";
+        $text = "foo/ bar         ";
+        static::assertEquals($text, $filter->filter($html));
+    }
 }
