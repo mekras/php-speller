@@ -158,7 +158,8 @@ class Hunspell extends Ispell
     {
         $args = [
             // Input encoding
-            '-i ' . ($source instanceof EncodingAwareSource ? $source->getEncoding() : 'UTF-8'),
+            '-i',
+            ($source instanceof EncodingAwareSource ? $source->getEncoding() : 'UTF-8'),
             '-a' // Machine readable output
         ];
 
@@ -167,7 +168,8 @@ class Hunspell extends Ispell
                 ->map($languages, $this->getSupportedLanguages());
             $dictionaries = array_merge($dictionaries, $this->customDictionaries);
             if (count($dictionaries)) {
-                $args[] = '-d ' . implode(',', $dictionaries);
+                $args[] = '-d';
+                $args[] = implode(',', $dictionaries);
             }
         }
 
