@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.3 - 2020-09-23
+### Fixed
+- Fix incorrect escaping of hunspell command (#29)
+
 ## 2.1.2 - 2020-08-20
 ### Fixed
 - HtmlFilter raises Error with malformed HTML tags (#27)
