@@ -6,11 +6,12 @@ php:
   - 7.2
   - 7.3
   - 7.4
+  - 8.0
 
 matrix:
   fast_finish: true
   include:
-    - php: 7.2
+    - php: 7.4
       env:
         - PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"
 
