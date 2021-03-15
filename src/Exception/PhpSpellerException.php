@@ -21,8 +21,4 @@ use Throwable;
  */
 interface PhpSpellerException extends Throwable
 {
-    /**
-     * @return string
-     */
-    public function getMessage();
 }

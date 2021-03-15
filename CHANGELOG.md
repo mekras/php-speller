@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.4 - 2021-03-15
+### Changed
+- Add support for PHP 8
+### Removed
+- Removed `getMessage` from `PhpSpellerException` as it already declared from `Throwable`
+
 ## 2.1.3 - 2020-09-23
 ### Fixed
 - Fix incorrect escaping of hunspell command (#29)
