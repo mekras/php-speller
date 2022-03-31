@@ -35,9 +35,9 @@ class ExternalSpellerTest extends TestCase
         $commandLine = 'aspell';
         $process = $this->prophesize(Process::class);
 
-        $process->setTimeout(600)->shouldBeCalled();
-        $process->setEnv([])->shouldBeCalled();
-        $process->setInput('')->shouldBeCalled();
+        $process->setTimeout(600)->shouldBeCalled()->willReturn($process);
+        $process->setEnv([])->shouldBeCalled()->willReturn($process);
+        $process->setInput('')->shouldBeCalled()->willReturn($process);
         $process->getCommandLine()->shouldBeCalled()->willReturn($commandLine);
 
         $process->run()->willThrow(RuntimeException::class);
@@ -62,9 +62,9 @@ class ExternalSpellerTest extends TestCase
     {
         $process = $this->prophesize(Process::class);
 
-        $process->setTimeout(600)->shouldBeCalled();
-        $process->setEnv([])->shouldBeCalled();
-        $process->setInput('')->shouldBeCalled();
+        $process->setTimeout(600)->shouldBeCalled()->willReturn($process);
+        $process->setEnv([])->shouldBeCalled()->willReturn($process);
+        $process->setInput('')->shouldBeCalled()->willReturn($process);
         $process->run()->shouldBeCalled();
 
         $exception = new EnvironmentException('Test exception', 111);
@@ -91,9 +91,9 @@ class ExternalSpellerTest extends TestCase
         $commandLine = 'aspell';
         $process = $this->prophesize(Process::class);
 
-        $process->setTimeout(600)->shouldBeCalled();
-        $process->setEnv([])->shouldBeCalled();
-        $process->setInput('')->shouldBeCalled();
+        $process->setTimeout(600)->shouldBeCalled()->willReturn($process);
+        $process->setEnv([])->shouldBeCalled()->willReturn($process);
+        $process->setInput('')->shouldBeCalled()->willReturn($process);
         $process->run()->shouldBeCalled();
         $process->getCommandLine()->shouldBeCalled()->willReturn($commandLine);
         $process->getErrorOutput()->shouldBeCalled()->willReturn('Error');

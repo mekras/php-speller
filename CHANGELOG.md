@@ -2,7 +2,7 @@
 
 ## 2.2.0 - 2022-03-31
 ### Removed
-- Dropped support for php 7.1
+- Dropped support for php 7.1 and 7.2
 
 ## 2.1.4 - 2021-03-15
 ### Changed
