@@ -2,7 +2,7 @@ name: Build Pipeline
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
 
 jobs:
@@ -44,7 +44,7 @@ jobs:
 
     steps:
       - name: Install packages
-        run: apt-get install -y aspell aspell-en
+        run: sudo apt-get install -y aspell aspell-en
 
       - name: Checkout
         uses: actions/checkout@v3
