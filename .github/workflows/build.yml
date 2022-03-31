@@ -43,7 +43,7 @@ jobs:
         experimental: [ false ]
 
     steps:
-      - Install packages
+      - name: Install packages
         run: apt-get install -y aspell aspell-en
 
       - name: Checkout
