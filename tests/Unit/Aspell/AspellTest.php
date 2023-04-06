@@ -16,6 +16,7 @@ use Mekras\Speller\Aspell\Aspell;
 use Mekras\Speller\Source\EncodingAwareSource;
 use Mekras\Speller\Source\StringSource;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Process\Process;
 
 /**
@@ -26,6 +27,8 @@ use Symfony\Component\Process\Process;
  */
 class AspellTest extends TestCase
 {
+    use ProphecyTrait;
+
     protected static $input;
     protected static $dicts;
     protected static $check;
