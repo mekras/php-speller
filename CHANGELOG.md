@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+### Added
+- Added build updates for php 8.2
+### Removed
+- Dropped support for php 7.3
+- Dropped support for symfony < 5.4
+
 ## 2.2.0 - 2022-03-31
 ### Removed
 - Dropped support for php 7.1 and 7.2

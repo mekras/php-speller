@@ -17,6 +17,7 @@ use Mekras\Speller\Exception\ExternalProgramFailedException;
 use Mekras\Speller\ExternalSpeller;
 use Mekras\Speller\Source\EncodingAwareSource;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Process\Exception\RuntimeException;
 use Symfony\Component\Process\Process;
 
@@ -27,6 +28,8 @@ use Symfony\Component\Process\Process;
  */
 class ExternalSpellerTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * Should raise an ExternalProgramFailedException
      */
