@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<phpunit convertErrorsToExceptions="true"
-    convertNoticesToExceptions="true"
-    convertWarningsToExceptions="true"
-    processIsolation="false"
-    stopOnFailure="false"
-    bootstrap="vendor/autoload.php"
->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd" convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false"
+         stopOnFailure="false" bootstrap="vendor/autoload.php">
+    <coverage includeUncoveredFiles="true">
+        <include>
+            <directory>src</directory>
+        </include>
+    </coverage>
     <testsuites>
         <testsuite name="PHP Speller Test Suite">
             <directory suffix="Test.php">tests</directory>
         </testsuite>
     </testsuites>
-
-    <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true">
-            <directory>src</directory>
-        </whitelist>
-    </filter>
+    <php>
+        <env name="LANG" value="en_US"/>
+    </php>
 </phpunit>

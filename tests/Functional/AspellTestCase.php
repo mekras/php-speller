@@ -22,16 +22,14 @@ use PHPUnit\Framework\TestCase;
  */
 class AspellTestCase extends TestCase
 {
-    public function __construct(?string $name = null, array $data = [], string $dataName = '')
+    public static function setUpBeforeClass(): void
     {
-        parent::__construct($name, $data, $dataName);
-
         $userBinary = '/usr/bin/aspell';
         $libBinary = '/usr/lib/aspell';
         $sharedBinary = '/usr/share/aspell';
 
         if (!(file_exists($userBinary) || file_exists($libBinary) || file_exists($sharedBinary))) {
-            $this->markTestSkipped('skipping tests - aspell binary not installed');
+            self::markTestSkipped('skipping tests - aspell binary not installed');
         }
     }
 }
