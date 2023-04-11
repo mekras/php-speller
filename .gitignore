@@ -8,3 +8,4 @@
 
 # Configs.
 /phpunit.xml
+.phpunit.result.cache
