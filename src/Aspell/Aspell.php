@@ -74,6 +74,7 @@ class Aspell extends Ispell
                     $process->getExitCode()
                 );
             }
+            $this->resetProcess();
 
             $languages = [];
 
