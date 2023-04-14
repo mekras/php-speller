@@ -113,6 +113,7 @@ abstract class ExternalSpeller implements Speller
             $output = iconv($source->getEncoding(), 'UTF-8', $output);
         }
 
+        $this->resetProcess();
         return $this->parseOutput($output);
     }
 
