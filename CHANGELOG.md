@@ -1,11 +1,17 @@
 # Changelog
 
 ## Unreleased
+
+
+## 2.3.0 - 2023-04-14
 ### Added
 - Added build updates for php 8.2
 ### Removed
 - Dropped support for php 7.3
 - Dropped support for symfony < 5.4
+### Fixed
+- Added `resetProcess` to `Aspell::getSupportedLanguages` to avoid cached process
+- Added `resetProcess` to `ExternalSpeller::checkText` to avoid cached process
 
 ## 2.2.0 - 2022-03-31
 ### Removed
