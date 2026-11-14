@@ -50,7 +50,7 @@ class HtmlSourceTest extends TestCase
     public function testInvalidHtml(): void
     {
         $this->expectException(SourceException::class);
-        $this->expectExceptionMessage('Opening and ending tag mismatch: a and b at 1:11');
+        $this->expectExceptionMessage('Opening and ending tag mismatch: a and b at 1:8');
 
         new HtmlSource(new StringSource('<a><b></a></b>'));
     }
